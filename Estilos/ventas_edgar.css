@@ -1,0 +1,16 @@
+.prov {
+    width: 100%;
+    padding: 5px;
+    height: 15px;
+    border: 1px solid black;
+    float: left;
+    cursor: pointer;
+}
+.prov:hover {
+    background-color: blue;
+    color: white;
+}
+.ResultadoBusquedaProv {
+    clear: both;
+    width: 300px;
+}

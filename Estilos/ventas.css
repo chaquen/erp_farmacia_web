@@ -1,0 +1,655 @@
+* {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+html {
+    width: 100%;
+    height: 100%;
+}
+body {
+    width: 100%;
+    height: 100%;
+    font-family: Calibri;
+}
+.limpiar {
+    clear: both;
+    width: 100%;
+    height: 1px;
+}
+#salir {
+    float: right;
+}
+
+/*Division del logueo-----------------------------*/
+.divInicio {
+    width: 100%;
+    height: 70%;
+    background-image: url('../imagenes/bienvenida.png');
+    background-size: 100% 100%;
+    top: 0;
+    padding-top: 200px;
+}
+#formLogueo {
+    width: 300px;
+    float: right;
+    margin-right: 150px;
+    padding: 50px;
+}
+#formLogin {
+    text-align: center;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+}
+#formLogin input {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    height: 25px;
+}
+#formLogin input[type=button] {
+    height: 30px;
+    padding: 0 10px;
+    background-color: #5858FA;
+    color: #CEE3F6;
+    border: #5858FA;
+}
+#formLogin input[type=button]:hover {
+    margin-top: -5px;
+    box-shadow: 0px 0px 4px gray;
+    background-color: #81BEF7;
+    color: #0404B4;
+}
+#formLogin h4 {
+    font-size: 20px;
+}
+#formLogin select {
+    height: 25px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+.salirForFac {
+    width: 25px;
+    height: 25px;
+    z-index: 9999;
+    background-image: url('../imagenes/salir.png');
+    background-size: 100% 100%;
+    position: relative;
+    float: right;
+    margin-top: -345px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+.ventanas {
+    display: none;
+}
+.menuHorizontal {
+    clear: both;
+    width: 100%;
+    border-bottom: 1px solid gray;
+}
+.menuHorizontal li {
+    float: left;
+    font-family: Calibri;
+    padding: 4px 20px;
+    border-radius: 3px;
+    margin: 1px;
+    cursor: pointer;
+}
+.menuHorizontal li img {
+    float: left;
+    width: 30px;
+    height: 30px;
+    border-radius: 2px;
+}
+.menuHorizontal li h4 {
+    float: left;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+.menuHorizontal li h5 {
+    float: left;
+    margin-left: 5px;
+    margin-top: 7px;
+    font-size: 18px;
+    color: red;
+}
+.menuHorizontal li h3 {
+    float: left;
+    margin-left: 5px;
+    margin-top: 7px;
+    color: red;
+}
+input[type=text] {
+    float: left;
+    width: 100%;
+    margin-top: 4px; 
+    height: 20px;
+}
+input[type=number] {
+    width: 100%;
+    margin-top: 4px; 
+    height: 20px;
+}
+input[type=button] {
+    padding: 5px;
+    cursor: pointer;
+}
+input[type=radio] {
+    margin-left: 10px;
+    margin-top: 8px;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+.formulario {
+    width: 50%;
+    margin: 30px auto;
+    border: 1px solid black;
+    text-align: center;
+}
+.formulario ul {
+    width: 90%;
+    margin: auto;
+}
+.formulario ul li {
+    clear: both;
+    width: 100%;
+    margin: 2px;
+    padding: 3px;
+}
+.formulario li h4 {
+    float: left;
+    text-align: right;
+    width: 43%;
+}
+.formulario li input[type=text] {
+    margin-left: 1%;
+    width: 53%;
+    float: left;
+}
+.formulario li input[type=number] {
+    margin-left: 1%;
+    width: 53%;
+    float: left;
+}
+.formulario li select {
+    margin-left: 1%;
+    width: 53%;
+    height: 25px;
+    float: left;
+}
+.formularioCentral {
+    width: 30%;
+    background-color: white;
+    margin: 50px auto;
+    border: 1px solid black;
+    text-align: center;
+}
+.formularioCentral ul  {
+    width: 90%;
+    margin: 10px auto;
+}
+.formularioCentral ul li{
+    width: 100%;
+    height: 25px;
+    
+    padding-top: 5px;
+    padding-bottom: 5px;    
+}
+.formularioCentral li input[type=text] {
+    height: 25px;
+}
+#btnAgregarProducto {
+    background-color: #5858FA;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    border: 4px solid #5858FA;
+}
+#btnAgregarProducto:hover {
+    background-color: #7FB3D5;
+    border: 4px solid #7FB3D5;
+    box-shadow: 2px 2px 4px gray;
+}
+#btn_1 {
+    background-color:teal;
+    border: blueviolet;
+    padding: 7px;
+    color: white;
+}
+
+
+.tblTituloTabla {
+    clear: both;
+    width: 89%;
+    height: 15px;
+    position: fixed;
+    margin-left: 5%;
+    margin-top: 12px;
+    border: 1px solid red;
+}
+.tblTituloTabla td {
+    border: 1px solid gray;
+    height: 15px;
+    padding: 5px;
+}
+.tblTituloTabla1 {
+    clear: both;
+    width: 89%;
+    height: 15px;
+    position: fixed;
+    margin-left: 5%;
+    margin-top: 50px;
+    border: 1px solid red;
+    text-align: left;
+    padding: 5px 0;
+}
+.tblCuerpoTabla {
+    clear: both;
+    width: 100%;
+    height: 270px;
+    overflow-x: hidden;
+}
+.tblCuerpoTabla1 {
+    clear: both;
+    width: 100%;
+    height: 250px;
+    margin-top: 85px;
+    overflow-x: hidden;
+}
+.tblCuerpoTabla2 {
+    clear: both;
+    width: 100%;
+    height: 400px;
+    margin-top: 85px;
+    overflow-x: hidden;
+}
+.listaTabla {
+    width: 90%;
+    margin: auto;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+.listaTabla tr:nth-child(even) {
+    background-color: #EFF5FB;
+}
+.listaTabla tr:first-child {
+    background-color: #5858FA;
+    color: white;
+    text-align: center;
+}
+.listaTabla td {
+    border: 1px solid gray;
+    height: 15px;
+    font-size: 14px;
+    padding: 2px 5px;
+}
+.listaTabla td:first-child {
+    width: 2.5%;
+}
+.listaTabla td:nth-child(3) {
+    width: 13%;
+}
+.listaTabla td:nth-child(4) {
+    width: 37.5%;
+}
+.listaTabla td:nth-child(5) {
+    width: 8%;
+}
+.listaTabla td:nth-child(6) {
+    width: 8%;
+}
+.listaTabla td:nth-child(7) {
+    width: 10%;
+}
+.listaTabla td:nth-child(8) {
+    width: 10%;
+}
+.listaTabla td:nth-child(9) {
+    width: 1%;
+}
+
+
+.derecha {
+    float: right;
+    margin-right: 50px;
+}
+.derecha li {
+    float: right;
+    padding: 4px 10px;
+    margin: 2px;
+}
+.derecha li h4 {
+    margin-top: -10px;
+}
+#entradaDinero {
+    display: none;
+}
+
+
+.ResultadoBusquedaCat {
+    clear: both;
+    width: 300px;
+}
+.cat {
+    width: 100%;
+    padding: 5px;
+    height: 15px;
+    border: 1px solid black;
+    float: left;
+    cursor: pointer;
+}
+.cat:hover {
+    background-color: blue;
+    color: white;
+}
+#agregarInvSel {
+    margin-top: -350px;
+    z-index: 9999;
+    background-color: white;
+}
+
+/*Menus de navegacion *********************************************************/
+#menuGeneral li {
+    margin-top: 5px;
+    font-size: 14px;
+    border: 1px solid #0040FF;
+    background-color: #CED8F6;
+    color: #0040FF;
+}
+#menuGeneral li:hover {
+    background-color: #0040FF;
+    color: white;
+}
+.sinBorde li {
+    cursor: inherit;
+}
+.sinBorde li h4 {
+    text-align: right;
+    padding-bottom: 3px;
+}
+/*Menus de Factura*/
+.menusFactura li{
+    border: 1px solid #FA5858;
+    color: #FA5858;
+    background-color: #FBEFEF;
+    
+}
+.menusFactura li:hover {
+    background-color: #FA5858;
+    color: white;
+}
+#menuDevo {
+    float: right;
+    margin-right: 50px;
+}
+#menuDevo li {
+    float: left;
+    font-family: Calibri;
+    padding: 4px 20px;
+    border-radius: 3px;
+    margin: 1px;
+    cursor: pointer;
+}
+.menuDevo li img {
+    float: left;
+    width: 25px;
+    height: 25px;
+    border-radius: 2px;
+}
+.menuDevo li h4 {
+    float: left;
+    margin-left: 5px;
+    padding-top: 10px;    
+}
+
+/*Menu de Clientes*/
+.menusCliente li{
+    border: 1px solid #04B404;
+    color: #04B404;
+    background-color: #CEF6CE;
+}
+.menusCliente li:hover {
+    background-color: #04B404;
+    color: white;
+}
+
+/*Menu de Productos*/
+.menusProducto li{
+    border: 1px solid #B18904;
+    color: #B18904;
+    background-color: #F5ECCE;
+}
+.menusProducto li:hover {
+    background-color: #B18904;
+    color: white;
+}
+
+/*Menu de Configuracion*/
+.menusConfi li{
+    border: 1px solid #585858;
+    color: #585858;
+    background-color: #E6E6E6;
+}
+.menusConfi li:hover {
+    background-color: #585858;
+    color: white;
+}
+
+
+/*Facturacion ----------------------------------------------------------------- */
+#ventas h2 {
+    background-color: #EBF5FB;
+    color: #0040FF;
+    font-family: Calibri;
+    padding: 5px 0 5px 50px;
+    text-shadow: 2px 2px 1px white;
+}
+#ventas h3 {
+    float: left;
+    margin-left: 20px;
+    
+}
+#ventas h1 {
+    color: red;
+    font-size: 40px;
+    margin-right: 100px;
+}
+    
+.opcionFactura li {
+    font-size: 14px;
+    border: 1px solid #8E44AD;
+    background-color: #F4ECF7;
+    color: #8E44AD;
+    cursor: pointer;
+}
+.opcionFactura li:hover {
+    background-color: #8E44AD;
+    color: white;
+}
+
+/*Clientes ------------------------------------------------------------------ */
+#clientes h2 {
+    background-color: #E9F7EF;
+    color: #229954;
+    font-family: Calibri;
+    padding: 5px 0 5px 50px;
+    text-shadow: 2px 2px 1px white;
+}
+.opcionCliente li {
+    font-size: 14px;
+    border: 1px solid #1E8449;
+    background-color: #A9DFBF;
+    color: #1E8449;    
+}
+.opcionCliente li:hover {
+    background-color: #229954;
+    color: white;
+}
+.clienteIm {
+    font-size: 14px;
+    border: 1px solid #1E8449;
+    background-color: #A9DFBF;
+    color: #1E8449;  
+}
+.clienteIm:hover {
+    background-color: #229954;
+    color: white;
+}
+#abono {
+    z-index: 9999;
+    margin-top: -270px;
+    background-color: white;
+}
+/*Productos ------------------------------------------------------------------*/
+#productos h2 {
+    background-color: #FEF9E7;
+    color: #D4AC0D;
+    font-family: Calibri;
+    padding: 5px 0 5px 50px;
+    text-shadow: 2px 2px 1px white;
+}
+.opcionProducto li {
+    font-size: 14px;
+    border: 1px solid #D4AC0D;
+    background-color: #FEF9E7;
+    color: #D4AC0D;    
+}
+.opcionProducto li:hover {
+    background-color: #D4AC0D;
+    color: white;
+}
+.productoIm {
+    font-size: 14px;
+    border: 1px solid #D4AC0D;
+    background-color: #FEF9E7;
+    color: #D4AC0D;
+}
+.productoIm:hover {
+    background-color: #D4AC0D;
+    color: white;
+}
+#resultadoBuscarProd {
+    z-index: 99999;
+    background-color: white;
+    margin: auto;
+}
+/*Inventarios --------------------------------------------------------------- */
+#inventarios h2 {
+    background-color: #FDEDEC;
+    color: #EC7063;
+    font-family: Calibri;
+    padding: 5px 0 5px 50px;
+    text-shadow: 2px 2px 1px white;
+}
+.opcionInventario li {
+    font-size: 14px;
+    border: 1px solid #EC7063;
+    background-color: #FDEDEC;
+    color: #EC7063;    
+}
+.opcionInventario li:hover {
+    background-color: #EC7063;
+    color: white;
+}
+.inventarioIm {
+    font-size: 14px;
+    border: 1px solid #EC7063;
+    background-color: #FDEDEC;
+    color: #EC7063;
+    
+}
+.inventarioIm:hover {
+    background-color: #EC7063;
+    color: white;
+    cursor: pointer;
+}
+
+/*Division del Corte -------------------------------------------------------- */
+#cortes h2 {
+    background-color: #E8F8F5;
+    color: #48C9B0;
+    font-family: Calibri;
+    padding: 5px 0 5px 50px;
+    text-shadow: 2px 2px 1px white;
+}
+.opcionCorte li {
+    font-size: 14px;
+    border: 1px solid #48C9B0;
+    background-color: #E8F8F5;
+    color: #48C9B0;    
+}
+.opcionCorte li:hover {
+    background-color: #48C9B0;
+    color: white;
+}
+.containerCorte {
+    width: 90%;
+    margin: auto;
+}
+.containerCorte table {
+    float: left;
+    border-collapse: collapse;
+    margin: 10px;
+    width: 300px;
+}
+.containerCorte td h4 {
+    background-color: #EBF5FB;
+}
+.containerCorte td h3 {
+    color: #7FB3D5;
+    text-align: right;
+}
+#totalesCorte li {
+    width: 400px;
+    text-align: center;
+}
+#totalesCorte li h6 {
+    width: 100%;
+    text-align: left;
+}
+#totalesCorte li h1 {
+    color: red;
+}
+
+/*Division de la Configuracion*/
+.permisos {
+    width: 77.5%;
+    margin: auto;
+    border: 1px solid;
+    display: table;
+    padding: 30px;
+}
+.tblPermisos {
+    width: 250px;
+    float: left;
+    border-collapse: collapse;
+    margin: 5px;
+}
+.tblPermisos td {
+    padding: 3px;
+    text-align: left;
+}
+.tblPermisos tr:first-child td {
+    text-align: center;
+}
+.mascara {
+   width: 100%;
+   height: 100%;
+   margin-top: -600px;
+   position: absolute;
+   z-index: 99999;
+   background-color: rgba(1,1, 1, 0.8);
+   display: none;
+}
+
+#red {
+    background-color: red;
+    color: white;
+}
+#red:hover {
+    background-color: yellow;
+    color: red;
+}

@@ -1,0 +1,3198 @@
+<DOCTYPE html>
+
+<html>
+    <head>
+        <title id="titulo"></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="Estilos/ventas.css" rel="stylesheet" type="text/css"/>
+        <link href="Estilos/ventas_edgar.css" rel="stylesheet" type="text/css"/>
+               
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!--<script type="text/javascript" src="js/jquery-3.0.0.js"></script>-->
+        <script src="script/ventanas.js" type="text/javascript"></script> 
+      
+
+    </head>
+    <body onBeforeUnload="cerrarventana();">
+         <!--Formulario de login-->
+        <div id="formLogueo" class="formulario">
+            <form id="formLogin">
+                <h2>
+                    Bienvenido al Sistema de Ventas
+                </h2>
+                <p>
+                    Llene los campos para Ingresar
+                </p>
+                <ul>
+                    <li>
+                        <h4>Usuario:</h4>
+                        <input type="text" placeholder="Usuario" />
+                    </li>
+                    <li><h4>Sede:</h4>
+                        <select id="selSedes"></select>
+                    </li>   
+                    <li>
+                        <h4>Contraseña</h4>
+                        <input id="passIng" type="password" placeholder="Contraseña">
+                    </li>
+                    <li>
+                        <input type="button" value="Ingresar" id="ingresarSis">
+                        <input type="button" value="Olvide contraseña" id="recuperarU">
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <!--Recuperar contraseña-->
+        <div class="formulario ventanas" id="recuperarUsuario">
+                <form id="formRecuperarClave">
+                    <ul>
+                        <li>
+                            <h4>Correo Electronico</h4>
+                            <input type="email" placeholder="Correo">
+                        </li>
+                        <li>
+                            <h4>Confirme el correo electronico</h4>
+                            <input type="email" placeholder="Confirme Correo" />
+                        </li>
+                        <li>
+                            <input type="button" value="Aceptar" id="btnRecuperarPass" />
+                            <input type="button" value="Cancelar" id="cancelaRec"/>
+                        </li>
+                    </ul>
+                </form>
+                </div>
+        <!--Menu de navegacion-->
+         <ul class="menuHorizontal ventanas" id="menuGeneral">
+            <li id="menuVenta">
+                <img src="imagenes/carro.png">
+                <h4>Ventas</h4>
+            </li>
+            <li id="menuCliente">
+                <img src="imagenes/clientes.png">
+                <h4>Clientes</h4>
+            </li>
+            <li id="menuProducto">
+                <img src="imagenes/productos.png">
+                <h4>Productos</h4>
+            </li>
+            <li id="menuInventario">
+                <img src="imagenes/inventario.png">
+                <h4>Inventario</h4>
+            </li>
+            <li id="menuConfiguracion">
+                <img src="imagenes/configuracion.png">
+                <h4>Configuración</h4>
+            </li>
+            <li id="menuCorte">
+                <img src="imagenes/caja.png">
+                <h4>Corte</h4>
+            </li>
+            <li id="menuSalir">
+                <img src="imagenes/salir.png">
+                <h4>Salir</h4>
+            </li>
+            <li id="menuPerfil">
+                
+                <h4 id="h4NombreUsuario">Bienvenido, Nombre y apellido</h4>
+            </li>
+            <li>
+                <h4 id="hora">2017-7-12 4:30:30</h4>
+            </li>     
+          <!--<li>
+                <a href="https://tawk.to/chat/59679cb71dc79b329518e24d/default/?$_tawk_popout=true" target="_blank"><h4>Abrir chat</h4></a>
+            </li>-->      
+        </ul>
+        <div class="limpiar"></div>
+        
+        <!--Division de Ventas ********************************************* -->
+        <div id="ventas" class="ventanas">
+            <h2>VENTA DE PRODUCTOS</h2>
+             <form id="formVentaProductos">
+                <ul class="menuHorizontal">
+                    <li><h4>Código del producto</h4></li>
+                    <li>
+                        <input id="txtCodigoProducto" type="text" placeholder="Código del producto" list="listaProductos" />
+                        <datalist id="listaProductos">
+                            
+                        </datalist>
+                        <input id="hdNombreproducto" type="hidden" >
+                    </li>
+                    
+                    <li>
+                        <input id="numCantidad" type="number" placeholder="Cantidad" />
+                    </li>
+                    <li>
+                        <input onclick="cambio_tipo_venta('unidad')" type="radio" name="tipo" value="unidad" checked>
+                        <h4>Venta por unidad</h4>
+
+                    </li>
+                    <li id="uni/caja"  style="display:none">
+                        <input onclick="cambio_tipo_venta('caja')"  type="radio" name="tipo" value="caja">
+                        <h4>Venta por caja</h4>
+                    </li>
+                     <li id="caja/blister"  style="display:none">
+                        <input onclick="cambio_tipo_venta('blister')"  type="radio" name="tipo" value="blister">
+                        <h4>Venta por blister</h4>
+                    </li>
+                    <li>
+                        <input id="btnAgregarProducto" type="button" value="Agregar producto a la lista de compra" />
+                    </li>
+                </ul>
+            </form>
+            <div class="limpiar"></div>
+            
+            <!--Menu de la Factura-->
+            <ul class="menuHorizontal menusFactura">
+                <li id="buscarP">
+                    <img src="imagenes/buscar.png"/>
+                    <h4>Buscar</h4>
+                </li>
+                <!--<li id="liMayoreo">
+                    <img />
+                    <h4>Mayoreo</h4>
+                </li>-->
+                <li id="entradaD">
+                    <img src="imagenes/entrada.png" />
+                    <h4>Entradas</h4>
+                </li>
+                <li id="salidaD">
+                    <img src="imagenes/salida.png" />
+                    <h4>Salidas</h4>
+                </li>                
+            </ul>
+             <!--seccion para los nuevos tickets-->
+            <ul id="ulTickets">
+                <li><input id="btn_1" type="button" value="TICKET 1" name="tk" onclick="cambio_mi_ticket('1')"></li>
+                 <!--<li><input id="btn_2" type="button" value="TICKET 2" name="tk" onclick="cambio_mi_ticket('2')"></li>
+                  <li><input id="btn_3" type="button" value="TICKET 3" name="tk" onclick="cambio_mi_ticket('3')"></li>-->
+            </ul>
+            <div class="limpiar"></div>
+            <!--Inicio de Factura-->
+                <!-- <div>
+                    <table class="tblTituloTabla">
+                        <tr>
+                            <td></td>
+                            <td>Codigo de barras</td>
+                            <td>Descripcion del producto</td>
+                            <td>Precio Venta</td>
+                            <td>Cantidad</td>
+                            <td>Importe</td>
+                            <td>Existencias</td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                 -->
+                 <div class="tblCuerpoTabla">
+                    <table class="listaTabla" >
+                      <tbody id="tbCuerpoFactura">
+                        
+
+                      </tbody>
+                    </table>
+                </div>
+                <h3 id="h3CuantosProductos">0</h3>
+                <h3>Productos en la venta actual</h3>
+                <ul class="menuHorizontal menusFactura">
+                    <!--<li>
+                        <img>
+                        <h4>Cambiar</h4>
+                    </li>-->
+                    <li id="liNuevoTicketPendiente"> 
+                        <img src="imagenes/pendiente.png">
+                        <h4 >Pendiente </h4>
+                    </li>
+                    <li id="liEliminarTicketPendiente">
+                        <img src="imagenes/eliminar.png">
+                        <h4 >Eliminar </h4>
+                    </li>
+                </ul>
+                <ul class="derecha">
+                    <li>
+                        <h1 id="h1Total">$0.00</h1>
+                    </li>
+                    <li>
+                        <input id="txtMisCajeros" type="text" placeholder="Ingresa tu codigo de venta" >
+                    </li>
+                    <li id="liCrearFactura">
+                        <img>
+                        <h4 >Codigo vendedor </h4>
+                    </li> 
+                    <li>
+                        <input id="txtMisClientes" type="text" placeholder="Numero de cedula o nombre del cliente " list="list_mis_clientes">
+                        <datalist id="list_mis_clientes"></datalist>
+                    </li>
+                    <li>
+                        <img>
+                        <h4>Numero de cedula del cliente</h4>                        
+                    </li>
+                   
+                    <li id="liCredito">
+                        <h4>CREDITO</h4>
+                        <input name="tipo_venta" type="radio" value="endeuda">
+                    </li>
+                     <li>
+                        <h4>EFECTIVO</h4>
+                        <input id="tv_efe" name="tipo_venta" type="radio" value="paga" checked>
+                    </li>
+                                        
+                </ul>
+                <div class="limpiar"></div>
+                <ul class="menuHorizontal">
+                    <li>
+                        <h4>Total</h4>
+                        <h5 id="h1Total2">$0.00</h5>
+                    </li>
+                    <li>
+                        <h4>Paga con:</h4>
+                        <input id="txtPagaCon" type="text"/>
+                    </li>
+                    <li>
+                        <h4>Cambio</h4>
+                        </br>
+                        <h3 id="h3Cambio">$0.00</h3>
+                    </li>
+                </ul>
+                <ul class="menusFactura" id="menuDevo">
+                    <li>
+                        <img>
+                        <h4>Reimprimir ultimo Ticket</h4>
+                    </li>
+                    <li id="liDevoluciones">
+                        <img>
+                        <h4>Ventas del dia y devoluciones</h4>
+                    </li>
+                </ul>
+             <!--Buscar producto-->
+             <div class="mascara" id="buscarProducto">
+                 <div class="formularioCentral" >
+                    <p>Buscar producto</p>
+                    <h2>INGRESA LOS DATOS DEL PRODUCTO A BUSCAR</h2>
+                    <form id="formBuscarProducto">
+                        <ul>
+                            <li>
+                                <p>Código o nombre del producto</p>
+                            </li>
+                            <li>
+                                <input type="text"  id="txtBuscarProducto" list="list_buscar_producto">
+                                <datalist id="list_buscar_producto"></datalist>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+                 <table id="resultadoBuscarProd">
+                    <tr>
+                        <td>Nombre producto</td>
+                        <td>Precio venta</td>
+                        <td>Cantidad en sede</td>
+                        <td>Precio venta unidad</td>
+                        <td>Cantidad unidade en sede</td>
+                    </tr>
+                    <tbody id="tblBusPro">
+
+                    </tbody>
+                </table>
+                 <input type="button" value="cancelar" class="salir" >
+             </div>
+             
+            
+            <!--Entradas de dinero-->
+            <div class="mascara" id="entradaDinero">
+                <div class="formularioCentral">
+                    <p id="pEntrada">Registro de Entradas de Efectivo</p>
+                    <h2 id="h2TlEntrad">ENTRADAS DE EFECTIVO</h2>
+                    <p id="pMsnEntrada">Escriba la cantidad a ingresar en caja</p>
+                    <form id="formEntrada">
+                        <ul>
+                            <li>
+                                <select id="selEntrada"></select>
+                            </li>
+                            <li>
+                                <input type="text" placeholder="$0.00" />
+                            </li>
+
+                            <li>
+                                <input id="btnRegistroEntradaContable" type="button"  value="Aceptar"/>
+                                <input id="btnCancelarEntradaContable" type="button"  value="Cancelar" class="salir"/>
+                                <input id="btnMostradaEntardaContable" type="button"  value="Registro Entradas "/>
+                            </li>
+                            <li></li>
+                            <li >
+
+                                <table id="tblRegistroEntrada">
+                                    <tr>
+                                        <td>Registro entradas del dia</td>
+                                        <td>$</td>
+                                    </tr>
+                                    <tbody id="tblEntradasDia">
+
+                                    </tbody>
+                                </table>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+            
+            
+            <!--Salidas de dinero-->
+            <div class="mascara" id="salidaDinero">
+                <div class="formularioCentral" >
+                    <p>Registro de Salidas de Efectivo</p>
+                    <h2>SALIDAS DE EFECTIVO</h2>
+                    <p>Escriba la cantidad</p>
+                    <form id="formSalidaContable">
+                        <ul>
+
+                            <li>
+                                <p>Motivo de la Salida de Efectivo</p>
+                            </li>
+                            <li>
+                                <select id="selSalida"></select>
+                            </li>
+                            <li>
+                                <div class="limpiar"></div>
+                            </li>
+                            <li>
+                                <input type="text" placeholder="$0.00" />
+                            </li>
+                            <li>
+                                <input id="btnAceptarSalida" type="button"  value="Aceptar"/>
+                                <input type="button"  value="Cancelar" class="salir"/>
+                                <input type="button"  value="Registro Salidas"/>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+            
+
+           
+        </div><!--Fin Ventas-->
+        
+        <!--Division de clientes ******************************************* -->
+        <div id="clientes" class="ventanas">
+            <h2>CLIENTES</h2>
+            
+            <!--Menu de clientes-->
+            <ul class="menuHorizontal menusCliente">
+                <li id="estadoC">
+                    <img src="imagenes/estadoC.png">
+                    <h4>Estado de cuenta</h4>
+                </li>
+                <li id="nuevoC">
+                    <img src="imagenes/nuevoC.png">
+                    <h4>Nuevo Cliente</h4>
+                </li>
+                <li id="modificarC">
+                    <img src="imagenes/editarC.png">
+                    <h4>Modificar  Clientes</h4>
+                </li>
+                <li id="eliminarC">
+                    <img src="imagenes/eliminar.png">
+                    <h4>Eliminar cuenta</h4>
+                </li>
+                <li id="reporteS">
+                    <img src="imagenes/reporteS.png">
+                    <h4>Reporte de saldos</h4>
+                </li>
+            </ul>
+            
+            <!--Nuevo Cliente-->  
+            <div id="nuevoCliente" class="formulario ventanas">
+                <h2>NUEVO CLIENTE</h2>
+                <p>Llene la siguiente información del cliente</p>
+                <form id="formCrearCliente">
+                    <ul>
+                        <li>
+                            <h4>Nombre completo</h4>
+                            <input type="text" placeholder="Nombre" />
+                        </li>
+                        <li>
+                            <h4>Documento</h4>
+                            <input type="text" placeholder="Documento" />
+                        </li>
+                        <li>
+                            <h4>Dirección</h4>
+                            <input type="text" placeholder="Direccion" />
+                        </li>
+                        <li>
+                            <h4>Correo</h4>
+                            <input type="text" placeholder="Email" />
+                        </li>
+                        <li>
+                            <h4>Telefonos</h4>
+                            <input type="text" placeholder="Telefonos" />
+                        </li>
+                        <li>
+                            <h4>Limite de credito</h4>
+                            <input type="number" placeholder="0" />
+                        </li>
+                        <li>
+                            <input id="btnCrearCliente" type="button" value="Crear" />
+                            <input type="button" value="Cancelar" />
+                        </li>
+                    </ul>
+                </form>
+            </div>
+            <div class="limpiar"></div>
+            <!--Estado de cuenta cliente-->
+            <div id="estadoCliente" class="formularioCentral">
+                <h2>Estado de cuenta</h2>
+                <p>Teclee el número o nombre del cliente</p>
+                <form id="formEstadoCuenta">
+                    <ul>
+                        <li>
+                            <input id="txtNombreClienteEstadoCuenta" type="text" placeholder="nombre o número" list="lista_cliente_estado" />
+                            <datalist id="lista_cliente_estado"></datalist>
+                        </li>
+                        <li>
+                            <h4 id="h4NombreCliente">Nombre del Cliente</h4>
+                        </li>
+                        <li>
+                            <input type="button"  value="Aceptar" id="estadoCu"/>
+                        </li>
+                    </ul>
+
+                </form>
+            </div>
+            
+            <!--Resultado de estado de cuenta del cliente-->
+            <div class="ventanas" id="estadoCuenta">
+                <h2>ESTADO DE CUENTA</h2>
+                <h3 id="h3NombreClienteEstadoCuenta">Nombre completo del cliente</h3>
+                <ul class="menuHorizontal">
+                    <li>
+                        <h4>Saldo Actual</h4>
+                        <h2 id="h2SaldoActualCliente">$0.00</h2>
+                    </li>
+                    <li>
+                        <h4>Limite de Credito</h4>
+                        <h2 id="h2limiteSaldoCliente">$0.00</h2>
+                    </li>
+                </ul>
+                <ul class="menuHorizontal">
+                    <!--<li>
+                        <img>
+                        <h4>Imprimir Estado</h4>
+                    </li>
+                    <li>
+                        <img>
+                        <h4>Imprimir Estado de Cuenta Completo</h4>
+                    </li>-->
+                    <li id="menuAbono">
+                        <img>
+                        <h4>Abonar</h4>
+                    </li>
+                   <li >
+                        <img>
+                        <h4 id="h4Liquidar">Liquidar Adeudo</h4>
+                    </li>
+                    <li>
+                        <img>
+                        <h4 id="h4DetalleAbono">Detalles de Abonos</h4>
+                    </li>
+                </ul>
+                <table class="tblTituloTabla1">
+                    <tr>
+                        <td>Fecha</td>
+                        <td>Descripción del producto</td>
+                        <td>Precio Venta</td>
+                        <td>Cantidad</td>
+                        <td>Importe</td>
+                    </tr>
+                </table>
+                <div class="tblCuerpoTabla1">
+                    <table class="listaTabla" id="tblCreditos">
+                        
+                        
+                    </table>
+                </div>
+                <ul class="menuHorizontal">
+                    <li>
+                        <h4>TOTAL</h4>
+                        <h3>$0.00</h3>
+                    </li>
+                    <li>
+                        <img>
+                        <h4>Eliminar</h4>
+                    </li>
+                    <!--<li>
+                        <img>
+                        <h4>Imprimir</h4>
+                    </li>-->
+                </ul>
+            </div>
+            <!--Abono a Cuenta-->
+            <div class="limpiar"></div>
+            <div id="abono" class="formularioCentral ventanas">
+                <h2>ABONO </h2>
+                <form id="formAbono">
+                    <ul>
+                        <li>
+                            <input type="hidden" id="hdIdClienteAbono" >
+                            <h4>Cantidad</h4>
+                        </li>
+                        <li>
+                            <input type="number" placeholder="$0.00">
+                        </li>
+                        <li>
+                            <div class="limpiar"></div>
+                        </li>
+                        <li>
+                            <input type="button" value="Aceptar" id="btnAbonar">
+                            <input type="button" value="Cancelar" class="salir">
+                        </li>                        
+                    </ul>
+                </form>               
+            </div>
+            
+            <!--Edicion de Cliente-->
+            <div id="edicionCliente" class="formularioCentral ventanas">
+                <h2>Edicion de Clientes</h2>
+                <p>Teclee el número o nombre del cliente</p>
+                <form id="formBuscarCliente">
+                    <ul>
+                        <li>
+                            <input id="txtBuscarCliente" type="text" placeholder="nombre o número" list="dt_mis_clientes" />
+                            <datalist id="dt_mis_clientes"></datalist>
+                        </li>
+                        <li>
+                            <h4>Nombre del Cliente</h4>
+                        </li>
+                        <li>
+                            <input type="button"  value="Modificar" id="btnEdicionCliente"/>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+            
+            <!--Resultado para Editar-->
+            <div id="resultadoEdicionC" class="formulario ventanas">
+                <h2>MODIFICAR CLIENTE</h2>
+                <p>Llene la siguiente información del cliente</p>
+                <form id="formEditarCliente">
+                    <ul>
+                        <li>
+                            <h4>Nombre completo</h4>
+                            <input id="txtNuevoNombre" type="text" placeholder="Nombre" />
+                            <input id="hdIdCliente" type="hidden" >
+                        </li>
+                        <li>
+                            <h4>Documento</h4>
+                            <input id="txtNuevoDocumento" type="text" placeholder="Documento" />
+                        </li>
+                        <li>
+                            <h4>Dirección</h4>
+                            <input id="txtNuevaDireccion" type="text" placeholder="Direccion" />
+                        </li>
+                        <li>
+                            <h4>Correo</h4>
+                            <input id="txtNuevoEmail" type="text" placeholder="Email" />
+                        </li>
+                        <li>
+                            <h4>Telefonos</h4>
+                            <input id="txtNuevoTelefono" type="text" placeholder="Telefonos" />
+                        </li>
+                        <li>
+                            <h4>Limite de credito</h4>
+                            <input id="txtNuevoLimiteCredito" type="number" placeholder="0" />
+                        </li>
+                        <li>
+                            <input type="button" value="Editar" id="btnEditarCliente" />
+                            <input type="button" value="Cancelar" id="btnCancelarEdicionCliente" />
+                        </li>
+                    </ul>
+                </form>
+            </div>
+            
+            <!--Eliminar de Cliente-->
+            <div id="eliminarCliente" class="formularioCentral ventanas">
+                <h2>Eliminar Clientes</h2>
+                <p>Teclee el número o nombre del cliente</p>
+                <form id="formEliminarCliente">
+                    <ul>
+                        <li>
+                            <input id="txtBuscarClienteEliminar" type="text" placeholder="nombre o número"  list="lista_eliminar_cliente" />
+                            <datalist id="lista_eliminar_cliente"></datalist>
+                            <input type="hidden" id="hdIdClienteEliminar">
+                        </li>
+                        <li>
+                            <h4>Nombre del Cliente</h4>
+                        </li>
+                        <li>
+                            <input type="button"  value="Eliminar" id="btnEliminarCliente" />
+                        </li>
+                    </ul>
+                </form>
+            </div>
+            
+            <!--Reporte de Saldos-->
+            <div class="ventanas" id="reporteSaldos">
+                <h2>REPORTES DE SALDOS</h2>
+                <ul class="menuHorizontal">
+                    <li>
+                        <h4>Total de Créditos Pendientes: </h4>
+                        <h3 id="h3TotalCredito">$0.00</h3>
+                    </li>
+                    <!--<li>
+                        <img>
+                        <h4 id="h4Imprimir">Imprimir Reporte</h4>
+                    </li>-->
+                </ul>
+                <table class="tblTituloTabla1">
+                    <tr>
+                        <td>Numero</td>
+                        <td>Nombre / Direccion del cliente</td>
+                        <td>Teléfono</td>
+                        <td>Límite de Crédito</td>
+                        <td>Saldo Actual</td>
+                        <td>Ultimo Pago</td>
+                    </tr>
+                </table>
+                <div class="tblCuerpoTabla2">
+                    <table class="listaTabla" id="tblSaldo">
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+                
+        <!--Division de Productos ****************************************** -->
+        <div id="productos" class="ventanas">
+            <h2>PRODUCTOS</h2>
+        
+            <!--Menu de Navegacion de los productos-->
+            <ul class="menuHorizontal menusProducto">
+                <li id="nuevoP">
+                    <img src="imagenes/producto.png">
+                    <h4>Nuevo</h4>
+                </li>
+                <li id="modificarP">
+                    <img src="imagenes/modificarP.png">
+                    <h4>Modificar</h4>
+                </li>
+                <li id="eliminarP">
+                    <img src="imagenes/eliminar.png">
+                    <h4>Eliminar</h4>
+                </li>
+                <li id="categoriaP">
+                    <img src="imagenes/categorias.png">
+                    <h4>Categorias</h4>
+                </li>
+                <li id="proveedoresP">
+                    <img src="imagenes/proveedor.png">
+                    <h4>Proveedores</h4>
+                </li>
+                <li id="ventaPer">
+                    <img src="imagenes/ventas.png">
+                    <h4>Ventas por periodo</h4>
+                </li>
+                <li id="promocionP">
+                    <img src="imagenes/promo.png">
+                    <h4>Promociones</h4>
+                </li>
+                <li id="descargarP">
+                    <img src="imagenes/export.png">
+                    <h4>Importar</h4>
+                </li>
+                <li id="pedidosP">
+                    <img src="imagenes/inventario.png">
+                    <h4>Pedidos</h4>
+                </li>
+                <li id="pedidosAP">
+                    <img src="imagenes/estadoC.png">
+                    <h4>Administrar Pedidos</h4>
+                </li>
+            </ul>
+            <div class="limpiar"></div>
+            <!--Nuevo Producto-->
+            <div id="nuevoProducto" class="formulario">
+                <h2>NUEVO PRODUCTO</h2>
+                <form id="formCrearProducto">
+                    <ul>
+                        <li>
+                            <h4>Codigo de Barras DISTRIBUIDOR</h4>
+                            <input id="txtCodigoCrearProductoDistribuidor" type="text" placeholder="codigo" required />
+                        </li>
+                        <li>
+                            <h4>Codigo de Barras REGISTRO VENTAS</h4>
+                            <input id="txtCodigoCrearProducto" type="text" placeholder="codigo" required />
+                        </li>
+                        <li>
+                            <h4>Descripción o nombre del producto</h4>
+                            <input type="text" placeholder="Descripción" required/>
+                        </li>
+                        <li>
+                            <h4>Presentacion de producto</h4>
+                            <select>
+                                <option value="CJA">CJA CAJA</option>
+                                <option value="UNI">UNI UNIDAD</option>
+                                <option value="FRO">FRO FRASCO</option>
+                                <option value="KIT">KIT COMBO</option>
+                                <option value="PRO">PRO PROMOCION</option>
+                            </select>
+                        </li>
+                        <li>
+                            <h4>Se vende</h4>
+                            <select id="selTipoVenta">
+                                <option value="0">--Seleccione una opción--</option>
+                                <option value="PorUnidad">Por unidad</option>
+                                <option value="Caja">Menudeo</option>
+                            </select>
+                        </li>
+                         <li id="liUniCaja" style="display: none">
+                            <h4>Unidades por caja</h4>
+                            <input id="numUniCaja"  type="number" placeholder="0"  value="1" required/>
+                        </li>
+                        <li>
+                            <h4>Precio Costo</h4>
+                            <input id="numPreCos" type="number" placeholder="$0.00" required/>
+                        </li>
+                        <li id="liPreCosUni" style="display: none">
+                            <h4>Precio Costo unidad</h4>
+                            <input id="numPreCosUni" type="number" placeholder="$0.00" required/>
+                        </li>
+                        <li>
+                            <h4>Impuesto</h4>
+                            <input id="numImpuesto" type="number" value="0" placeholder="Ingrese el valor del impuesto del producto" required/>
+                        </li>       
+                        <li>
+                            <h4>Precio costo + Impuesto</h4>
+                            <input id="numPreCostoImpu" type="number">
+                        </li>
+                        <li id="liPreCostoUniImp" style="display: none">
+                            <h4>Precio costo unidad + Impuesto</h4>
+                            <input id="numPreCostoUniImpu" type="number">
+                        </li>
+                                        
+                        <li>
+                            <h4>Porcentaje ganacia</h4>
+                            <input id="numPorcGana" type="number" placeholder="0%" value="20" required/>
+                        </li>
+                        <li id="liPorGanUni" style="display: none">
+                            <h4>Porcentaje ganacia unidad</h4>
+                            <input id="numPorcGanaUni" type="number" placeholder="0%" value="20" required/>
+                        </li>
+                        <li>
+                            <h4>Precio Venta</h4>
+                            <input id="numValVen" type="number" placeholder="$0.00" required/>
+                        </li>
+                        <li id="liPreUniCaja" style="display: none">
+                            <h4>Precio Venta Unidad </h4>
+                            <input id="numValVenUni"  type="number" placeholder="$0.00" />
+                        </li>
+                       
+                        
+                        <li>
+                            <h4>Categoria</h4>
+                            <select id="selCategoria" required>
+                                
+                            </select>
+                        </li>
+                         <li>
+                            <h4>Proveedor</h4>
+                            <select id="selProveedorNuevoProd" required>
+                                
+                            </select>
+                        </li>
+                        <li>
+                            <h3>Inventario</h3>
+                        </li>
+                        <!--<li>
+                            <input id="chInventario" type="checkbox" checked/>
+                            <h4>Este producto SI utiliza inventario</h4>
+                        </li>-->
+                        <li id="lisSedes">
+                              <h4>Sede a la que asocia el inventario</h4>
+                              <select id="selSedes1" required></select>  
+                        </li>
+                        <li>
+                            <h4>Cantidad Existente</h4>
+                            <input type="number" placeholder="0" value="0" required/>
+                        </li>
+                        <li>
+                            <h4>Cantidad Minima</h4>
+                            <input type="number" placeholder="0" required/>
+                        </li>
+                        <li>
+                            <input type="button" value="GUARDAR" id="btnCrearProducto" />
+                            <input type="button" value="CANCELAR" id="btnCancelraCrearProducto" />
+                        </li>
+                    </ul>
+                </form>
+            </div>
+            
+            <!--Edicion de productos-->
+            <div class="formularioCentral ventanas" id="editarProducto">
+                <h2>Edicion de Productos</h2>
+                <p>Escriba el codigo o el nombre del producto</p>
+                <form id="formEditarProducto">
+                    <ul>
+                        <li>
+                            <input id="txtBuscarEditarProducto" type="text" placeholder="nombre o número" list="lista_editar_producto" />
+                            <datalist id="lista_editar_producto"></datalist>
+                        </li>
+                        <li>
+                            <h4>Nombre del Producto</h4>
+                        </li>
+                        <li>
+                            <input type="button"  value="Editar" id="btnEditarProducto"/>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+            
+            <!--Resultado para la edicion del Producto-->
+            <div id="resultadoEdicionP" class="formulario ventanas">
+                <h2>MODIFICAR PRODUCTO</h2>
+                <form id="formModificarProducto">
+                    <ul>
+                        <li>
+                            <h4>Codigo de Barras DISTRIBUIDOR</h4>
+                            <input id="txtNuevoProdCodDistribuidor" type="text" placeholder="codigo" required />
+                        </li>
+                        <li>
+                            <h4>Codigo de Barras REGISTRO VENTAS</h4>
+                            <input id="txtNuevoProdCod" type="text" placeholder="codigo" required />
+                            <input type="hidden" id="hdIdProductoEditar">
+                        </li>
+                        <li>
+                            <h4>Descripción o nombre del producto</h4>
+                            <input id="txtNuevoProdDes" type="text" placeholder="Descripción" required/>
+                        </li>
+                        <li>
+                            <h4>Presentacion de producto</h4>
+                            <select id="selNuevoTipoPresentacion">
+                                <option value="CJA">CJA CAJA</option>
+                                <option value="UNI">UNI UNIDAD</option>
+                                <option value="FRO">FRO FRASCO</option>
+                                <option value="KIT">KIT COMBO</option>
+                                <option value="PRO">PRO PROMOCION</option>
+                            </select>
+                        </li>
+                        <li>
+                            <h4>Se vende</h4>
+                            <select id="selNuevoProdTipoVenta">
+                                <option value="0">--Seleccione una opción--</option>
+                                <option value="PorUnidad">Por unidad</option>
+                                <option value="Caja">Menudeo</option>
+                            </select>
+                        </li>
+                         <li id="liUniCajaEdi" style="display: none">
+                            <h4>Unidades por caja</h4>
+                            <input id="numNuevoUniCaja"  type="number" placeholder="0"  value="1" required/>
+                        </li>
+                        <li>
+                            <h4>Precio Costo</h4>
+                            <input id="numNuevoProdPreCosto" type="number" placeholder="$0.00" required/>
+                        </li>
+                        <li id="liPreCosUniEdi" style="display: none">
+                            <h4>Precio Costo unidad</h4>
+                            <input id="numNuevoPreCosUni" type="number" placeholder="$0.00" required/>
+                        </li>
+                        <li>
+                            <h4>Impuesto</h4>
+                            <input id="numNuevoImpuesto" type="number" value="0" placeholder="Ingrese el valor del impuesto del producto" required/>
+                        </li>       
+                        <li>
+                            <h4>Precio costo + Impuesto</h4>
+                            <input id="numNuevoPreCostoImpu" type="number">
+                        </li>
+                        <li id="liPreCostoUniImpEdi" style="display: none">
+                            <h4>Precio costo unidad + Impuesto</h4>
+                            <input id="numNuevoPreCostoUniImpu" type="number">
+                        </li>
+                                        
+                        <li>
+                            <h4>Porcentaje ganacia</h4>
+                            <input id="numPorcGanaEdi" type="number" placeholder="0%" value="20" required/>
+                        </li>
+                        <li id="liPorGanUniEdi" style="display: none">
+                            <h4>Porcentaje ganacia unidad</h4>
+                            <input id="numPorcGanaUniEdi" type="number" placeholder="0%" value="20" required/>
+                        </li>
+                        <li>
+                            <h4>Precio Venta</h4>
+                            <input id="numValVenEdi" type="number" placeholder="$0.00" required/>
+                        </li>
+                        <li id="liPreUniCajaEdi" style="display: none">
+                            <h4>Precio Venta Unidad </h4>
+                            <input id="numValVenUniEdi"  type="number" placeholder="$0.00" />
+                        </li>
+                       
+                        
+                        <li>
+                            <h4>Categoria</h4>
+                            <select id="selNuevaCategoria" required>
+                                
+                            </select>
+                        </li>
+                         <li>
+                            <h4>Proveedor</h4>
+                            <select id="selProveedorEdiProd" required>
+                                
+                            </select>
+                        </li>
+                        <li>
+                            <h3>Inventario</h3>
+                        </li>
+                        <!--<li>
+                            <input id="chInventario" type="checkbox" checked/>
+                            <h4>Este producto SI utiliza inventario</h4>
+                        </li>-->
+                        <li id="lisSedes">
+                              <h4>Sede a la que asocia el inventario</h4>
+                              <select id="selSedes2" required></select>  
+                        </li>
+                        <li id="liCantExistenciasEdi">
+                            <h4>Cantidad Existente</h4>
+                            <input id="numExistencias" type="number" placeholder="0" value="0" required/>
+                        </li>
+                        <li>
+                            <h4>Cantidad Minima</h4>
+                            <input id="numMinimo" type="number" placeholder="0" required/>
+                        </li>
+                        <li>
+                            <input type="button" value="GUARDAR" id="btnGuardarEditarProducto" />
+                            <input type="button" value="CANCELAR" id="btnCancelraEditarProducto" />
+                        </li>
+                    </ul>
+                </form>
+            </div>
+            
+            <!--Eliminar productos-->
+            <div class="formularioCentral ventanas" id="eliminarProducto">
+                <h2>Eliminar Productos</h2>
+                <p>Escriba el codigo o el nombre del producto</p>
+                <form id="formBuscarEliminarProd">
+                    <ul>
+                        <li>
+                            <input id="txtBuscarEliminarProducto" type="text" placeholder="nombre o número" list="lista_eliminar_producto" />
+                            <input type="hidden" id="hdIdProductoEliminar">
+                            <datalist id="lista_eliminar_producto"></datalist>
+                        </li>
+                        <li>
+                            <h4>Nombre del Producto</h4>
+                        </li>
+                        <li>
+                            <input id="btnEliminarProducto" type="button"  value="Eliminar"/>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+            
+            <!--Categorias de Producto-->
+            <div id="categoriaProducto" class="ventanas">
+                <h2>CATEGORIAS</h2>
+                <ul class="menuHorizontal">
+                    <li>
+                        <input id="txtBuscarCategoria" type="text" placeholder="Buscar" list="lista_categorias" />
+                        <datalist id="lista_categorias"></datalist>
+                    </li>
+                    <li>
+                        <input type="button" value="Buscar" id="buscarCat"/>
+                    </li>
+                    <li id="nuevaCat">
+                        <img>
+                        <h4>Nueva Categoria</h4>
+                    </li>
+                </ul>
+                
+                <!--Categorias Existentes-->
+                <ul class="ResultadoBusquedaCat" id="msCategorias">
+                     <li class="cat">Categoria</li>
+                    <li class="cat">Categoria1</li>
+                    <li class="cat">Categoria2</li>                    
+                    <li class="cat">Categoria4</li>
+                    <li class="cat">Categoria3</li>
+                     <li class="cat">Categoria</li>
+                    <li class="cat">Categoria1</li>
+                    <li class="cat">Categoria2</li>                    
+                    <li class="cat">Categoria4</li>
+                     <li class="cat">Categoria</li>
+                    <li class="cat">Categoria1</li>
+                    <li class="cat">Categoria2</li>                    
+                    <li class="cat">Categoria4</li>
+                     <li class="cat">Categoria</li>
+                    <li class="cat">Categoria1</li>
+                    <li class="cat">Categoria2</li>                    
+                    <li class="cat">Categoria4</li>
+                     <li class="cat">Categoria</li>
+                    <li class="cat">Categoria1</li>
+                    <li class="cat">Categoria2</li>                    
+                    <li class="cat">Categoria4</li>
+                     <li class="cat">Categoria</li>
+                    <li class="cat">Categoria1</li>
+                    <li class="cat">Categoria2</li>                    
+                    <li class="cat">Categoria4</li>
+                     <li class="cat">Categoria</li>
+                    <li class="cat">Categoria1</li>
+                    <li class="cat">Categoria2</li>                    
+                    <li class="cat">Categoria4</li>
+                </ul>
+                
+                <!--Resultado Seleccion-->
+                <div class="formularioCentral ventanas" id="resultadoSeleccionCat">
+                    <h2>Categoria Seleccionada</h2>
+                    <p>Escriba para Modificar la Categoria</p>
+                    <form id="formEdicionDepartamento">
+                        <ul>
+                            <li>
+                                <input id="txtCategoriaSeleccionada" type="text" placeholder="Categoria Selecionada" />
+                                <input type="hidden" id="hdIdDepartamentoEliminar">
+                            </li>
+                            <li>
+                                <input type="button"  value="Aceptar" id="btnEditarDepartamento" />
+                                <input type="button" value="Cancelar" id="btnCancelarDepartamento" />
+                                <input type="button" value="Eliminar" id="btnEliminarDepartamento" />
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+                
+                <!--Formulario para crear categorias-->
+                <div class="formularioCentral" id="nuevaCategoria">
+                    <h2>Nueva Categoria</h2>
+                    <p>Escriba el nombre de la nueva Categoria</p>
+                    <form id="formCrearCategoria">
+                        <ul>
+                            <li>
+                                <input type="text" placeholder="Categoria" />
+                            </li>
+                            <li>
+                                <input type="button"  value="Crear" id="btnCrearCategoria" />
+                                <input type="button" value="Cancelar" />
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+            <!--Proveedores de Producto-->
+            <div id="proveedoresProducto" class="ventanas">
+                <h2>Proveedores</h2>
+                <ul class="menuHorizontal">
+                    <li>
+                        <input id="txtBuscarProveedor" type="text" placeholder="Buscar" list="lista_proveedores" />
+                        <datalist id="lista_proveedores"></datalist>
+                    </li>
+                    <li>
+                        <input type="button" value="Buscar" id="buscarProv"/>
+                    </li>
+                    <li id="nuevoProv">
+                        <img>
+                        <h4>Nuevo proveeedor</h4>
+                    </li>
+                </ul>
+                
+                <!--Proveedores Existentes-->
+                <ul class="ResultadoBusquedaProv" id="msProveedores">
+                     
+                </ul>
+                
+                <!--Resultado Seleccion-->
+                <div class="formularioCentral ventanas" id="resultadoSeleccionProv">
+                    <h2>Proveedor Seleccionado</h2>
+                    <p>Escriba para Modificar el proveedor</p>
+                    <form id="formEdicionProveedor">
+                        <ul>
+                            <li>
+                                <input id="txtProveedorSeleccionado" type="text" placeholder="Proveedor Selecionado" />
+                                <input type="hidden" id="hdIdProveedorEliminar">
+                            </li>
+                            <li>
+                                <input id="contacto_prov"  type="text" placeholder="contacto Selecionado" />
+                            </li>
+                            <li>
+                                <input id="telefono_prov"  type="text" placeholder="telefono Selecionado" />
+                            </li>
+                            <li>
+                                <input id="email_prov" type="text" placeholder="email Selecionado" />
+                            </li>
+                            <li>
+                                <input type="button"  value="Aceptar" id="btnEditarProveedor" />
+                                <input type="button" value="Cancelar" id="btnCancelarProveedor" />
+                                <input type="button" value="Eliminar" id="btnEliminarProveedor" />
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+                
+                <!--Formulario para crear proveedores-->
+                <div class="formularioCentral" id="nuevoProveedor">
+                    <h2>Nuevo proveedor</h2>
+                    <p>Escriba el nombre del nuevo proveedor</p>
+                    <form id="formCrearProveedor">
+                        <ul>
+                            <li>
+                                <input type="text" placeholder="nombre proveedor" />
+                            </li>
+                            <li>
+                                <input type="text" placeholder="nombre contacto proveedor" />
+                            </li>
+                            <li>
+                                <input type="text" placeholder="telefono contacto proveedor" />
+                            </li>
+                            <li>
+                                <input type="text" placeholder="email contacto proveedor" />
+                            </li>
+                           
+                            
+                            <li>
+                                <input type="button"  value="Crear" id="btnCrearProveedor" />
+                                <input type="button" value="Cancelar" />
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+            
+            <!--Ventas por periodos-->
+            <div class="ventanas" id="ventasPeriodo">
+                <h2>REPORTE DE PRODUCTOS VENDIDOS</h2>
+                <ul class="menuHorizontal">
+                    <li>
+                        <h4>Sedes</h4>
+                        <select id="selSedesRepoVenta"></select>
+                    </li>
+                    <li>
+                        <h4>Mostrar Ventas de</h4>
+                        <select id="selPeridoReporte">
+                            <option value="hoy">Hoy</option>
+                            <option value="ayer">Ayer</option>
+                            <option value="estemes">Este mes</option>
+                            <option value="periodo">Fecha especifica</option>
+                        </select>
+                    </li>
+                    <li id="liFechas" style="display:none">
+                        
+                        <input type="date" id="inicio">
+                        <input type="date" id="fin">
+                
+                    </li>
+                    <li id="liExportarRepoProdVendido">
+                        <img>
+                        
+                            <h4>Exportar</h4>
+
+                    </li>
+                    <li>
+                        <a id="aDirExportacion"></a>
+                    </li>
+                    <!--<li>
+                        <img>
+                        <h4>Imprimir</h4>
+                    </li>-->
+
+                </ul>
+                <table class="tblTituloTabla1">
+                    <tr>
+                        <td>Fecha</td>    
+                        <td>Código</td>
+                        <td>Descripcion del Producto</td>
+                        <td>Cantidad</td>
+                        <td>Tipo venta</td>
+                        <td>Precio venta</td>
+                        <td>Valor Total Venta</td>
+                        <td>Departamento</td>
+                    </tr>
+                </table>
+                <div class="tblCuerpoTabla2">
+                    <table class="listaTabla" id="tblReporteVentaPeriodo">
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <!--Promociones-->
+            <div id="promo" class="ventanas">
+                <div class="formulario" id="nuevaPromocion">
+                    <h2>NUEVA PROMOCION</h2>
+                    <form id="formPromocion">
+                        <ul>
+                            <li>
+                                <h4>Nombre de la Promoción</h4>
+                                <input  type="text" placeholder="Promocion" />
+                            </li>
+                            <li>
+                                <h4>Nombre sede</h4>
+                                <select id="selPromoSede"></select>
+                            </li>
+                            <li>
+                                <h4>Código del producto</h4>
+                                <input id="txtCodPromo" type="text" placeholder="Codigo" list="lista_prod_promo" />
+                                <input type="hidden" id="hdIdProdPromo">
+                                <datalist id="lista_prod_promo"></datalist>
+                            </li>
+                            <li>
+                                <h4>Cuando la cantidad vaya desde</h4>
+                                <input type="number" placeholder="0" />
+                            </li>
+                            <li>
+                                <h4>Hasta</h4>
+                                <input type="number" placeholder="0" />
+                            </li>
+                            <li>
+                                <h4>Usar Precio unitario</h4>
+                                <input type="number" placeholder="$0.00" />
+                            </li>
+                            <li>
+                                <input id="btnCrearPromo" type="button" value="Crear Nueva promocion" />
+                                <input id="btnCancelarPromo" type="button" value="Cancelar" />
+                            </li>
+                        </ul>
+                        <!--<ul>
+                            <li>
+                                <h4>Nombre de la Promocion</h4>
+                                <input type="text" placeholder="Promocion" />
+                            </li>
+                            <li>
+                                <h4>Codigo del producto</h4>
+                                <input type="text" placeholder="Codigo" />
+                            </li>
+                            <li>
+                                <h4>Cuando la cantidad vaya desde</h4>
+                                <input type="text" placeholder="0" />
+                            </li>
+                            <li>
+                                <h4>Hasta</h4>
+                                <input type="number" placeholder="0" />
+                            </li>
+                            <li>
+                                <h4>Usar Precio unitario</h4>
+                                <input type="number" placeholder="$0.00" />
+                            </li>
+                            <li>
+                                <input id="btnCrearPromo" type="button" value="Crear Nueva promocion" />
+                                <input id="btnCancelarPromo" type="button" value="Cancelar" />
+                            </li>
+                        </ul>-->
+                    </form>
+                </div>
+                <table class="tblTituloTabla1">
+                    <tr>
+                        <td>Nombre de la Promocion</td>
+                        <td>Codigo del Producto</td>
+                        <td>Nombre del Producto</td>
+                        <td>Desde</td>
+                        <td>Hasta</td>
+                        <td>Precio Promocion</td>
+                    </tr>
+                </table>
+                <div class="tblCuerpoTabla1">
+                    <table class="listaTabla" id="tblListaPromo">
+                    <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                            
+                            <td></td>                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                            
+                            <td></td>                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                            
+                            <td></td>                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                            
+                            <td></td>                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                            
+                            <td></td>                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                            
+                            <td></td>                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                            
+                            <td></td>                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                            
+                            <td></td>                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                            
+                            <td></td>                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                            
+                            <td></td>                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                            
+                            <td></td>                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                            
+                            <td></td>                            
+                        </tr>
+                       <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                            
+                            <td></td>                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                            
+                            <td></td>                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                            
+                            <td></td>                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                            
+                            <td></td>                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                            
+                            <td></td>                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                            
+                            <td></td>                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                            
+                            <td></td>                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                            
+                            <td></td>                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                            
+                            <td></td>                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                            
+                            <td></td>                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                            
+                            <td></td>                            
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>                            
+                            <td></td>                            
+                        </tr>
+
+                    </table>
+                </div>
+            </div> 
+            <!--Predidos-->
+            <div id="pedido" class="ventanas">
+                <div class="formulario" id="nuevaPromocion">
+                    <h2>NUEVO PEDIDO</h2>
+                    <form id="formPedidos">
+                        <ul>
+                            <li>
+                                <h4>Nombrel proveedor</h4>
+                                <select id="selPredidoProveedor"></select>
+                            </li>  
+                            <li>
+                                <h4>Nombrel proveedor</h4>
+                                <select id="selPredidoSedes"></select>
+                            </li>                          
+                            <li>
+                                <h4>Código del producto</h4>
+                                <input id="txtCodPredido" type="text" placeholder="Codigo" list="lista_prod_pedido" />
+                                <input type="hidden" id="hdIdProdPedido">
+                                <datalist id="lista_prod_pedido"></datalist>
+                            </li>
+                            <li>
+                                 <h4 id="h4Nombre">Nombre del producto</h4>
+                                <h4 id="h4Existencias">Existencias:0</h4>
+                                <h4 id="h4ExistenciasUnidades"></h4>
+                                <h4 id="h4PrecioCompra">Precio compra:0</h4>
+                            </li>
+                            <li>
+                                <h4>Cantidad</h4>
+                                <input id="numCantPedido" type="number" placeholder="0" />
+                            </li>
+                            <li>
+                                <h4>Email: escriba un correo electronico si desea que le enviemos el pedido</h4>
+                                <input id="email_pedido" type="text" placeholder="email_del_proveedor@ejemplo.com" >
+                            </li>
+                            
+                            <li>
+                                <h4>Selecciona el tipo de archivo</h4>
+                                <select id="selTipoExpor">
+                                    <option value="0">Selecciona un tipo de archivo</option>
+                                    <option value="txt">PLANO (TXT)</option>
+                                    <option value="xls">EXCEL (XLS)</option>
+                                </select>
+
+                            </li>
+                            <li>
+                                 <div id="tipo_separacion" style="display: none">
+                                    <h5>Escriba el simbolo que quiere usar para separar los campos del archivo</h5>
+                                    <input id="txt_tipo" type="text" value="">
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <input id="btnAddProdPedido" type="button" value="Añadir a pedido" />
+                                <input id="btnCrearPedido" type="button" value="Crear pedido" />
+                                <input id="btnCancelarPedido" type="button" value="Cancelar" />
+                            </li>
+                        </ul>
+                        <!--<ul>
+                            <li>
+                                <h4>Nombre de la Promocion</h4>
+                                <input type="text" placeholder="Promocion" />
+                            </li>
+                            <li>
+                                <h4>Codigo del producto</h4>
+                                <input type="text" placeholder="Codigo" />
+                            </li>
+                            <li>
+                                <h4>Cuando la cantidad vaya desde</h4>
+                                <input type="text" placeholder="0" />
+                            </li>
+                            <li>
+                                <h4>Hasta</h4>
+                                <input type="number" placeholder="0" />
+                            </li>
+                            <li>
+                                <h4>Usar Precio unitario</h4>
+                                <input type="number" placeholder="$0.00" />
+                            </li>
+                            <li>
+                                <input id="btnCrearPromo" type="button" value="Crear Nueva promocion" />
+                                <input id="btnCancelarPromo" type="button" value="Cancelar" />
+                            </li>
+                        </ul>-->
+                    </form>
+                </div>
+                <table class="tblTituloTabla1">
+                    <tr>
+                        <td></td>
+                        <td>Codigo del Producto</td>
+                        <td>Nombre del Producto</td>                        
+                        <td>Cantidad</td>
+                        <td>precio compra</td>
+                        <td>precio total</td>
+                     </tr>
+                </table>
+                <div class="tblCuerpoTabla2">
+                    <table class="listaTabla" id="tblListaPedido">
+                    
+
+                    </table>
+                </div>
+            </div>  
+            <!--Administrar pedidos-->
+            <div id="adminpedido" class="ventanas">
+                <div class="formulario" id="nuevoPedido">
+                    <h2>ADMINISTRAR PEDIDOS</h2>
+                    <form id="formPedidosAp">
+                        <ul>
+                            <li>
+                                <h4>Nombrel proveedor</h4>
+                                <select id="selPredidoProveedor_ap"></select>
+                            </li>  
+                            <li>
+                                <h4>Pedido</h4>
+                                <select id="selFechapedido"></select>
+                            </li>                       
+                            <li>
+                                <h4>Email: escriba un correo electronico si desea que le enviemos el pedido</h4>
+                                <input id="email_pedido_ap" type="text" placeholder="email_del_proveedor@ejemplo.com" >
+                            </li>
+                            
+                            <li>
+                                <h4>Selecciona el tipo de archivo</h4>
+                                <select id="selTipoExporAP">
+                                    <option value="0">Selecciona un tipo de archivo</option>
+                                    <option value="txt">PLANO (TXT)</option>
+                                    <option value="xls">EXCEL (XLS)</option>
+                                </select>
+
+                            </li>
+                            <li>
+                                 <div id="tipo_separacion_ap" style="display: none">
+                                    <h5>Escriba el simbolo que quiere usar para separar los campos del archivo</h5>
+                                    <input id="txt_tipo_ap" type="text" value="">
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <input id="btnCancelarPedidoRegistrado" type="button" value="Cancelar pedidos" />
+                                <input id="btnGenerarPedido" type="button" value="Volver a generar pedido" />
+                                <input id="btnCargarPedidoInventario" type="button" value="Cargar pedido al inventario" />
+                            </li>
+                        </ul>
+                        
+                    </form>
+                </div>
+                <table class="tblTituloTabla1">
+                    <tr>
+                        <td></td>
+                        <td>Codigo del Producto</td>
+                        <td>Nombre del Producto</td>                        
+                        <td>Cantidad</td>
+                        <td>precio compra</td>
+                        <td>precio total</td>
+                     </tr>
+                </table>
+                <div class="tblCuerpoTabla2">
+                    <table class="listaTabla" id="tblListaAdminPedido">
+                    
+
+                    </table>
+                </div>
+            </div> 
+                <!--IMPORTAR PRODUCTO-->   
+            <div id="ventanaImporProd" class="ventanas">
+                <div class="formulario" id="importarProductos">
+                    <h2>Importar inventario de producto</h2>
+                  <form id="formImpoArch">
+                        <ul>
+                            
+                            <li><h4>Sedes</h4><select id="selSedesImportar"></select></li>
+
+                            <!--<li><h4>Archivo</h4><input id="flMiImportacion" type="file" ></li>-->
+                            <li ><h4>Tipo importación</h4>
+                                <select id="selTipoImportacion">
+                                    <!--<option value="categoria">Categorias</option>-->
+                                    <option value="productos">Productos</option>
+               
+                                </select>
+                            </li>
+                            <li>
+                                <h4>Archivos</h4>
+                                <select id="mi_arch_ftp"></select>
+                                <input id="btnBuscarFtp" type="button" value="Buscar">
+                            </li>
+                            <li><h4 id="tmSubida"></h4></li>
+                            <li>
+                                <h4></h4>
+                                <a target="_blank" href="archivos/CORE_FTP/coreftplite.rar">1-Descargar core ftp</a>
+                                <a target="_blank" href="archivos/CORE_FTP/paso_a_paso.docx">2-Pasos para usar el programa</a>
+                            </li> 
+                            <li><input type="button" value="Importar" id="btnImportar"></li>
+                            <li><a id="aErroresImportar"></a></li>
+                        </ul>
+                    </form>
+                </div>                     
+            </div>
+            </div>        
+        
+        <!--Division de Inventarios **************************************** -->
+        <div id="inventarios" class="ventanas">
+            <h2>INVENTARIO</h2>
+            
+            <!--Menu de Inventario-->
+            <ul class="menuHorizontal menusFactura">
+                <li id="agregarI">
+                    <img src="imagenes/sumar.png">
+                    <h4>Agregar Inventario</h4>
+                </li>
+                <li id="ajusteI">
+                    <img src="imagenes/edit.png">
+                    <h4>Ajustes</h4>
+                </li>
+                <li id="bajoI">
+                    <img src="imagenes/minimo.png">
+                    <h4>Productos bajos de inventario</h4>
+                </li>
+                <li id="reporteI">
+                    <img src="imagenes/estadoC.png">
+                    <h4>Reporte de inventario</h4>
+                </li>
+                <li id="reporteM">
+                    <img src="imagenes/estadoC.png">
+                    <h4>Reporte de movimientos</h4>
+                </li>
+            </ul>
+            <div class="limpiar"></div>
+            <!--Agregar inventario-->
+            <div class="formulario" id="agregarInventario">
+                <h2>AGREGAR INVENTARIO</h2>
+                <form id="formAddInventario">
+                    <ul>
+                        <li>
+                            <h4>Sedes</h4>
+                            <select id="selSedesAddInv"></select>
+                        </li>
+                        <li>
+                            <h4>Código del producto</h4>
+                            <input id="txtBuscarProductoInventario" type="text" placeholder="codigo" list="lista_buscar_inventario" />
+                            <input type="hidden" id="hdIdProductoInventario">
+                            <input type="hidden" id="hdIdProductoUnidadesEntrada">
+                            <datalist id="lista_buscar_inventario"></datalist>
+                        </li>
+                        
+                        <li>
+                            <h4>Descripción</h4>
+                            <h4 id="h4NombreProducto">Nombre producto</h4>
+                        </li>
+                        <li>
+                            <h4>Cantidad Actual</h4>
+                            <h3 id="h4ExistenciasActuales">0.00</h3>
+                        </li>
+                        <li>
+                            <h4>Tipo ingreso</h4>
+                            
+                        </li>
+                        <li>
+                            <input type="radio" name="tipo_entrada_inv" value="unidad" checked>
+                            <h4>Unidad</h4>
+                        </li>
+                        <li>
+                            <input type="radio" name="tipo_entrada_inv" value="caja">
+                            <h4>Caja</h4>
+                        </li>
+                        <li>
+                            <h4>Cantidad</h4>
+                            <input type="number" placeholder="0" />
+                        </li>
+                        <li>
+                            <input id="btnAgregarCantidad" type="button" value="Agregar Cantidades" />
+                        </li>                    
+                    </ul>
+                </form>
+            </div>
+            
+            <!--Ajuste de Inventario-->
+            <div class="formulario ventanas" id="ajusteInventario">
+                <h2>AJUSTE DE INVENTARIO</h2>
+                <form id="formAjuste">
+                    <ul>
+                        <li>
+                            <h4>Sede</h4>
+                            <select id="selSedeAjuste"></select>
+                        </li>
+                        <li>
+                            <h4>Código del producto</h4>
+                            <input id="txtBuscarProdAjuste" type="text" placeholder="codigo" list="lista_ajuste_producto" />
+                            <input type="hidden" id="hdIdAjusteProd">
+                            <datalist id="lista_ajuste_producto"></datalist>
+                        </li>
+                        <li>
+                            <h4 id="h4AjusteDesc">Descripción</h4>
+                        </li>
+                        <li>
+                            <h4>Cantidad Actual CAJAS</h4>
+                            <h3 id="h3CantidadAjusteCJ">0</h3>
+                        </li>
+                        <li>
+                            <h4>Cantidad Actual BLISTER</h4>
+                            <h3 id="h3CantidadAjusteBL">0</h3>
+                        </li>
+                        <li>
+                            <h4>Cantidad Actual UNIDADES</h4>
+                            <h3 id="h3CantidadAjusteUN">0</h3>
+                        </li>
+                        <li>
+                            <h4>Nueva Cantidad CAJAS</h4>
+                            <input id="numAjustCJ" type="number" placeholder="0" />
+                        </li>
+                        <li>
+                            <h4>Nueva Cantidad BLISTER</h4>
+                            <input id="numAjustbl" type="number" placeholder="0" />
+                        </li>
+                        <li>
+                            <h4>Nueva Cantidad UNIDADES</h4>
+                            <input id="numAjustUN" type="number" placeholder="0" />
+                        </li>
+                        <li>
+                            <h4>Observaciones</h4>
+                            <input type="text" placeholder="Ingresa la justificacion del ajuste" required>
+                        </li>
+                        <li>
+                            <input id="btnAjustarCantidad" type="button" value="Ajustar la cantidad de este producto" />
+                        </li>                    
+                    </ul>
+                </form>
+            </div>            
+            
+            <!--Productos de Bajo Inventario-->
+            <div class="ventanas" id="bajoInventario">
+                <h2>PRODUCTOS DE BAJO INVENTARIO</h2>
+                <P>A continuación se muestran los productos con inventario por debajo de su minimo </P>
+                <div class="limpiar"></div>
+                <ul class="menuHorizontal">
+                    <li></li>
+                    <li>
+                        <h4>Sedes</h4>
+                        <select id="selSedesBajoInve"></select>
+                    </li>
+                    <li id="liExportarRepoBajoInv">
+                        <h4>Exportar xls</h4>
+                        <a id="aExpoBajoInv"></a>
+                    </li>
+                    
+                </ul>
+                
+                <!-- <table class="tblTituloTabla1">
+                    <tr>
+                        <td id="cod_repo_bajo">Codigo</td>
+                        <td id="nom_repo_bajo">Descripcion del Producto</td>
+                        <td id="pre_repo_bajo">Precio Venta</td>
+                        <td id="inv_repo_bajo">Inventario</td>
+                        <td id="inv_uni_repo_bajo">Inventario UN</td>
+                        <td>Inv. Minimmo</td>
+                        <td id="cat_repo_bajo">Categoria</td>
+                    </tr>
+                </table> -->
+                <div class="tblCuerpoTabla2">
+                    <table class="listaTabla" id="tblRepoBajoInventario">
+                      
+                    </table>
+                </div>
+            </div>
+            
+            <!--Reporte de Inventario-->
+            <div class="ventanas" id="reporteInventario">
+                <h2>REPORTE DE INVENTARIO</h2>
+                <ul class="menuHorizontal">
+                    <li>
+                        <h4>Costo de inventario</h4>
+                        <h3 id="h3CostoProdInv">$0.00</h3>
+                    </li>
+                    <li>
+                        <h4>Cantidad de productos en Inventario</h4>
+                        <h3 id="h3TotalProductosInv">0</h3>
+                    </li>
+                </ul>
+                <ul class="menuHorizontal">
+                    <li>
+                        <h4>Sedes</h4>
+                        <select id="selSedesReporteInv">                           
+                        </select>
+                    </li>
+                    <li>
+                        <h4>Categoria</h4>
+                        <select id="selCatReporteInv">
+                        </select>
+                    </li>
+                     <li>
+                        <h4>Proveedor</h4>
+                        <select id="selProvReporteInv">
+                        </select>
+                    </li>
+                    <li id="agregarInv">
+                        <img>
+                        <h4>Agregar Inventario</h4>
+                    </li>
+                    <li id="modificarInvReporte">
+                        <img>
+                        <h4>Modificar Producto</h4>
+                    </li>
+                    <li id="liExportarInventarioRepo">
+                        <img>
+                        <h4>Exportar</h4>
+                    </li>
+                    <li>
+                        <a id="aDirExportacionRepoInv"></a>
+                    </li>
+                    <!--<li>
+                        <img>
+                        <h4>Imprimir</h4>
+                    </li>-->
+                </ul>
+                <ul class="menuHorizontal">
+                    <li>
+                        <h4>Productos</h4>
+                        <input type="text" id="txtBuscarReporteInventario" list="lista_buscar_inventario" placeholder="Codigo o nombre del producto">
+                        
+                    </li>
+
+                    <!-- <li>
+                        <h4>Ordenar por:</h4>
+                        <h4></h4>
+                        <select id="selTabla">
+                            <option value="nombre_producto">Nombre producto</option>
+                            <option value="precio_compra">Precio costo</option>
+                            <option value="precio_venta">Precio venta</option>
+                            <option value="existencias">Existencias</option>
+                        </select>
+                    </li>
+                    <li>
+                        <h4>Ordenar por:</h4>
+                        <select id="selOrden">
+                            <option value="ASC">Ascendente</option>
+                            <option value="DESC">Descendenete</option>
+                        </select>
+                    </li> -->
+                </ul>
+                
+                <ul class="menuHorizontal">         
+                </ul>
+                <!-- <table class="tblTituloTabla1">
+                    <tr>
+                        <td id="cod_repo_inv">Codigo  </td>
+                        <td id="nom_repo_inv">Descripcion del producto 	</td>
+                        <td id="cos_repo_inv">Costo 	</td>
+                        <td id="pre_repo_inv">Precio Venta 	</td>
+                        <td>Unidades por caja</td>
+                        <td id="exi_repo_inv">Existencia 	</td>
+                        <td id="exi_uni_repo_inv">Existencia unidades 	</td>
+                        <td>Unidades sueltas</td>
+                        <td>Inv. Minimo	</td>
+                    </tr>
+                    
+                </table> -->
+                <div class="tblCuerpoTabla2">
+                    <table class="listaTabla" id="tblRepoInve">
+                      
+                    </table>
+                </div>
+                
+                <!--Agregar Inventario A producto Seleccionado del Reporte-->
+                <div class="formularioCentral ventanas" id="agregarInvSel">
+                    <h2>Agregar Inventario a</h2>
+                    <p id="pNomProdSeleInv">Nombre Del Producto Seleccionado</p>
+                    <input type="hidden" id="hdIdSedeRepoInv">
+                     <input type="hidden" id="hdIdProdRepoInv">
+                    <form id="formAddRepoInv">
+                        <ul>
+                            <li>
+                                <input type="number" placeholder="Cantidad">
+                            </li>
+                            <li><h4>Tipo entrada</h4></li>
+                            <li name="tipo_entrada_rep_inv"><h4>Caja</h4></li>
+                            <li><input type="radio" name="tipo_entrada_rep_inv" value="caja"></li>
+                            <li name="tipo_entrada_rep_inv"><h4>Unidad</h4></li>
+                            <li><input type="radio" name="tipo_entrada_rep_inv" value="unidad"></li>
+                            <li>
+                                <input id="btnAgregarCantidadRepoInv" type="button" value="Agregar"/>
+                                <input type="button" value="Cancelar"/>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+            
+            <!--Reporte de movimientos-->
+            <div class="ventanas" id="reporteMovimientos">
+                <h2>HISTORIAL DE MOVIMIENTOS DE INVENTARIO</h2>
+                <ul class="menuHorizontal">
+                    <li>
+                        <h4>del dia</h4>
+                        <input id="dtBuscarFechaMovInv" type="date">
+                    </li>
+                    <li>
+                        <h4>Cajeros</h4>
+                        <select id="selMovInvCajeros">
+                          
+                        </select>
+                    </li>
+                    <li>
+                        <h4>Productos</h4>
+                        <input id="txtBuscarCampInve" type="text" placeholder=" Productos" list="lista_productos_mov_inv" />
+                        <datalist id="lista_productos_mov_inv"></datalist>
+                    </li>
+                    <li>
+                        <h4>Categorias</h4>
+                        <select id="selMovInvCate">
+                            
+                        </select>
+                    </li>
+                     <li>
+                        <h4>Movimientos:</h4>
+                        <select id="selMovInv">
+                            <option value="TODOS">Todas</option>
+                            <option value="ENTRADA">Entradas</option>
+                            <option value="SALIDA">Salidas</option>
+                            <option value="AJUSTE">Ajustes</option>
+                            <option value="DEVOLUCION">Devoluciones</option>
+                        </select>
+                    </li>
+                    <li>
+                        <h4>SEDES</h4>
+                        <select id="selSedesMovInv">
+                            <option>prueba</option>
+                            <option>prueba</option>
+                        </select>
+                    </li>
+                </ul>
+                <!-- <table class="tblTituloTabla1">
+                    <tr>
+                        <td id="hora_repo_mov">Hora</td>
+                        <td id="nom_repo_mov">Descripción del producto</td>
+                        <td>Habia</td>
+                        <td>Movimiento</td>
+                        <td>Tipo</td>
+                        <td>Cantidad</td>
+                        <td>Quedan</td>
+                        <td>Usuario</td>
+                        <td>Categoria</td>
+                        <td>Sede</td>
+                        <td>Observaciones</td>
+                    </tr>
+                </table> -->
+                <div class="tblCuerpoTabla1">
+                    <table class="listaTabla" id="tblMovimientos">
+                          
+                    </table>
+                </div>
+                <ul class="menuHorizontal">
+                    <!--<li>
+                        <img>
+                        <h4>Imprimir Movimiento</h4>
+                    </li>
+                    <li>
+                        <img>
+                        <h4>Imprimir Todos los movimientos en pantalla</h4>
+                    </li>-->
+
+                </ul>
+            </div>
+            
+        </div>
+          <!--Division de Corte-->
+            <div id="cortes" class="ventanas">
+                <h2>CORTE DEL DIA <b id="bFecha">04 DE JULIO DE 2017</b> </h2>
+                <ul class="menuHorizontal opcionCorte">
+                    <li id="liCorteHoy">
+                        <img>
+                        <h4>Hacer corte de hoy</h4>
+                    </li>
+                    <li>
+                        <img>
+                        <h4>Mas opciones</h4>
+                    </li>
+                    <!--<li>
+                        <img>
+                        <h4>Imprimir Corte</h4>
+                    </li>-->
+                </ul>
+                <ul class="menuHorizontal">
+                    <li>
+                        <h4>Dia</h4>
+                        <input id="dtFechaCorte" type="date" />
+                    </li>
+                    <!--<li>
+                        <h4>Cajero</h4>
+                        <select id="selCajerosCorte">
+                            <option>-Todos-</option>
+                            <option>Empleado 1</option>
+                            <option>Administrador</option>
+                        </select>
+                    </li>-->
+                    <li>
+                        <h4>Sedes</h4>
+                        <select id="selSedeCorte"></select>
+                    </li>
+                </ul>
+                <div class="limpiar"></div>
+                <div class="containerCorte">
+                    
+                    <table>
+                        <tr>
+                            <td colspan="2">
+                                <h2>Entradas en Efectivo</h2>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>Entrada de Dinero(Cambio):</h4>
+                            </td>
+                            <td>
+                                <h3 id="h3_entrada_dinero_venta">$0.00</h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>Dinero inicial en caja</h4>
+                            </td>
+                            <td>
+                                <h3 id="h3_dinero_inicial_caja">$0.00</h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td>
+                                <h3 id="h3_total_entrada_de_dinero">$0.00</h3>
+                            </td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <td colspan="2">
+                                <h2>Dinero en Caja</h2>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>Venta en Efectivo</h4>
+                            </td>
+                            <td>
+                                <h3 id="h3_ventas_en_efectivo">$0.00</h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>Entradas</h4>
+                            </td>
+                            <td>
+                                <h3 id="h3_entrada_dinero">$0.00</h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>Pago a proveedores</h4>
+                            </td>
+                            <td>
+                                <h3 id="h3_salidas_de_dinero">$0.00</h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Total
+                            </td>
+                            <td>
+                                <h3 id="h3_total_entradas">$0.00</h3>
+                            </td>
+                        </tr>
+                    </table>                
+                </div>
+                <div class="limpiar"></div>
+                <div class="containerCorte">
+                    <table>
+                        <tr>
+                            <td colspan="2">
+                                <h2>Pagos de Contado</h2>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>Efectivo:</h4>
+                            </td>
+                            <td>
+                                <h3 id="h3_efectivo">$0.00</h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>Abonos clientes:</h4>
+                            </td>
+                            <td>
+                                <h3 id="h3AbonoCliente">$0.00</h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Total
+                            </td>
+                            <td>
+                                <h3 id="h3_total_pagos_de_contado">$0.00</h3>
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="tbl_ventas_por_categoria">
+                        <tr>
+                            <td colspan="2"><h2>Ventas por categoria</h2></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>Categoria 1</h4>
+                            </td>
+                            <td>
+                                <h3>$0.00</h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>Categoria 1</h4>
+                            </td>
+                            <td>
+                                <h3>$0.00</h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>Categoria 1</h4>
+                            </td>
+                            <td>
+                                <h3>$0.00</h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>Categoria 1</h4>
+                            </td>
+                            <td>
+                                <h3>$0.00</h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Total
+                            </td>
+                            <td>
+                                <h3>$0.00</h3>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <ul class="menuHorizontal sinBorde" id="totalesCorte">
+                    <li>
+                        <h4>Ventas Totales</h4>
+                        <h1 id="h1_ventas_totales">$0.00</h1>
+                        <h6>(Pagos de contado + Pagos de clientes)</h6>
+                    </li>
+                    <!-- <li>
+                        <h4>Ganacia del día</h4>
+                        <h1 id="h1_ganancia_dia">$0.00</h1>
+                        <h6>(Precio de venta - Precio de costo - Impuesto)* Cantidad vendida</h6>
+                    </li> -->
+                </ul>
+            </div>
+            <!--Division de Configuración ************************************** -->
+        <div class="ventanas" id="configuracion">
+            <h2>CONFIGURACIÓN</h2>
+            <input type="button" value="Mostrar todas las opciones" id="opcionesConfi"/>
+            <div id="menusConfiguracion" >
+                <ul class="menuHorizontal menusConfi">
+                    <li>
+                        <h3>General</h3>
+                    </li>
+                    <li id="menuSedes">
+                        <img src="imagenes/sede.png">
+                        <h4>Sedes</h4>
+                    </li>
+                    <li id="menuCajeros">
+                        <img src="imagenes/cajero.png">
+                        <h4>Cajeros</h4>
+                    </li>
+                    <li id="menuNotificacion">
+                        <img>
+                        <h4>Notificaciones</h4>
+                    </li>
+                    <li id="menuPermisos">
+                        <img >
+                        <h4>Permisos</h4>
+                    </li>
+                    <!--<li>
+                        <img>
+                        <h4>Opciones habilitadas</h4>
+                    </li>-->
+                    <li id="liFacturacion">
+                        <img>
+                        <h4>Facturación</h4>
+                    </li>
+                    <li id="liModFacturas">
+                        <img>
+                        <h4>Modificar Folios</h4>
+                    </li>
+                </ul>
+                <ul class="menuHorizontal menusConfi">
+                    <li>
+                        <h3>Personalización</h3>
+                    </li>
+                    <li id="liLogo">
+                        <img>
+                        <h4>Logotipo del Programa</h4>
+                    </li>
+                    <!--<li>
+                        <img>
+                        <h4>Ticket</h4>
+                    </li>
+                     <li>
+                        <img>
+                        <h4>Formas de Pago</h4>
+                    </li>
+                    <li>
+                        <img>
+                        <h4>Impuestos</h4>
+                    </li>
+                    <li>
+                        <img>
+                        <h4>Simbolo de Moneda</h4>
+                    </li>
+                    <li>
+                        <img>
+                        <h4>Unidades de medida</h4>
+                    </li> -->
+                </ul>
+                <!-- <ul class="menuHorizontal">
+                    <li>
+                        <h3>Dispositivos</h3>
+                    </li>
+                    <li>
+                        <img>
+                        <h4>Impresora de Tickets</h4>
+                    </li>
+                    <li>
+                        <img>
+                        <h4>Lector de Codigos</h4>
+                    </li>
+                    <li>
+                        <img>
+                        <h4>Cajón de Dinero</h4>
+                    </li>
+                    <li>
+                        <img>
+                        <h4>Báscula</h4>
+                    </li>
+                </ul> -->
+                <!--<ul class="menuHorizontal">
+                    <li>
+                        <h3>Mantenimiento</h3>
+                    </li>
+                     <li>
+                        <img>
+                        <h4>Respaldo Automatico</h4>
+                    </li> 
+                    <li>
+                        <img>
+                        <h4>Licencia</h4>
+                    </li>
+                    <li>
+                        <img>
+                        <h4>Actualizaciones automaticas</h4>
+                    </li>
+                </ul>-->
+            </div>
+            
+            <div id="cajeros" class="ventanas">
+                <h2>CAJEROS</h2>
+                <div class="limpiar"></div>
+                <ul class="menuHorizontal">
+                    <li id="nuevoCJ">
+                        <img>
+                        <h4>Nuevo Cajero</h4>
+                    </li>
+                    <li id="editarCJ">
+                        <img>
+                        <h4>Editar Cajero</h4>
+                    </li>
+                    <li id="eliminarCJ">
+                        <img>
+                        <h4>Eliminar Cajero</h4>
+                    </li>
+                </ul>
+                
+                <div class="limpiar"></div>
+            <!--Formulario para crear Cajeros o usuarios del sistema-->
+                <div class="formulario" id="nuevoCajero">
+                    <h2>Nuevo Usuario</h2>
+                    <p>Ingrese los datos solicitados a continuacion</p>
+                    <form id="formCrearCajero">
+                        <ul>
+                            <li>
+                                <h4>Nombre </h4>
+                                <input type="text" placeholder="Nombres" />
+                            </li>
+                            <li>
+                                <h4>Apellido </h4>
+                                <input type="text" placeholder="Apellidos" />
+                            </li>
+                            <li>
+                                <h4>Documento o nombre del usuario</h4>
+                                <input type="text" placeholder="Cedula" />
+                            </li>
+                            <li>
+                                <h4>Correo</h4>
+                                <input type="email" placeholder="E-mail"/>
+                            </li>
+                            <li>
+                                <h4>Sedes</h4>
+                                <select id="selCajeroSede"></select>
+                            </li>
+                            <li>
+                                <h4>Roles</h4>
+                                <select id="selRoles">
+                                    
+                                </select>
+                            </li>
+                            <li>
+                                <h4>Codigo venta</h4>
+                                <input id="cod_venta" type="text" placeholder="Codigo venta"/>
+                            </li>
+                            <li>
+                                <h4>Contraseña</h4>
+                                <input type="password" placeholder="Contraseña" />
+                            </li>
+                            <li>
+                                <h4>Confirme la Contraseña</h4>
+                                <input type="password" placeholder="Confirme"/>
+                            </li>
+                        </ul>
+                        <div class="limpiar"></div>
+                     
+                        <div class="limpiar"></div>
+                        <input id="btnCrearCajero" type="button" value="Crear Cajero" >
+                        <input type="button" value="Cancelar" >
+                    </form>
+                </div>
+                <!--Formulario para editar cajeros-->
+                <div class="formulario" id="editarCajero">
+                    <h2>Editar Usuario</h2>
+                    <p>Ingrese los datos solicitados a continuacion</p>
+                    <form id="formEditarCajero">
+                        <ul>
+                            <li>
+                                <h4>Cajeros</h4>
+                                <select id="selCajerosEdi"></select>
+                            </li>
+                            <li>
+                                <h4>Nombre </h4>
+                                <input id="txtNombreCajero" type="text" placeholder="Nombres" />
+                            </li>
+                            <li>
+                                <h4>Apellido </h4>
+                                <input id="txtApellidoCajero" type="text" placeholder="Apellidos" />
+                            </li>
+                            <li>
+                                <h4>Documento</h4>
+                                <input id="txtDocumentoCajero" type="text" placeholder="Cedula" />
+                            </li>
+                            <li>
+                                <h4>Correo</h4>
+                                <input id="txtCorreoCajero" type="text" placeholder="E-mail"/>
+                            </li>
+                            <li>
+                                <h4>Sedes</h4>
+                                <div>
+                                    <ul id="listaSedesDeUsuario">
+                                        
+                                    </ul>
+                                </div>    
+                            </li>
+                            <li>
+                                <h4>Agregar usuario a una nueva sede</h4>
+                                <select id="selSedeEdiCajero"></select>
+                                <h4>Rol en la sede</h4>
+                                <select >
+                                    <option value="cajero">perfil del usuario en la sede</option>
+                                    <option value="cajero">cajero</option>
+                                    <option value="administrador">administrador</option>
+                                </select> 
+                            </li>
+                            <li>
+                                <h4>Rol del perfil</h4>
+                                <select id="selRolesEdiCajeo">
+                                    
+                                </select>
+                            </li>
+                            <li>
+                                <h4>Codigo venta</h4>
+                                <input id="txtCodEdiVenta" type="text" placeholder="Codigo venta"/>
+                            </li>
+                            <li>
+                                <h4>Contraseña</h4>
+                                <input type="password" placeholder="Contraseña" />
+                            </li>
+                            <li>
+                                <h4>Confirme la Contraseña</h4>
+                                <input type="password" placeholder="Confirme"/>
+                            </li>
+                        </ul>
+                        <div class="limpiar"></div>
+                        
+                        <div class="limpiar"></div>
+                        <input id="btnEditarCajero" type="button" value="Editar Cajero" >
+                        <input type="button" value="Cancelar" >
+                    </form>
+                </div>
+                <!--Formulario para elimnar cajero-->
+                <div class="formulario" id="eliminarCajero">
+                    <h2>Eliminar Usuario</h2>
+                    <p>Ingrese los datos solicitados a continuacion</p>
+                    <form id="formEliminarCajero">
+                        <ul>
+                            <li>
+                                <h4>Nombre </h4>
+                                <select id="selEliCajero" ></select>
+                            </li>
+                            
+                        
+                        <input id="btnCrearCajero" type="button" value="Crear Cajero" >
+                        <input type="button" value="Cancelar" >
+                    </form>
+                </div>
+
+
+                
+            </div>
+            <!--Seccion de SEDES-->
+            <div class="limpiar"></div>
+            <div id="sedes" class="ventanas">
+                <h2>SEDES</h2>
+                <ul class="menuHorizontal">
+                    <li id="nuevaS">
+                        <img>
+                        <h4>Nueva Sede</h4>
+                    </li>
+                    <li id="editarS">
+                        <img>
+                        <h4>Editar Sede</h4>
+                    </li>
+                    <li id="eliminarS">
+                        <img>
+                        <h4>Eliminar Sede</h4>
+                    </li>
+                </ul>
+                
+                <!--Creacion de SEDES-->
+                <div class="formulario" id="crearSede">
+                    <h2>NUEVA SEDE</h2>
+                    <form id="formSedes">
+                        <ul>
+                            <li>
+                                <h4>Nombre de la Sede</h4>
+                                <input type="text" placeholder="Nombre Sede" >
+                            </li>
+                           <li>
+                                <h4>Administrador sede</h4>
+                                <select id="selAdminSede"></select>
+                            </li>   
+                            <li>
+                                <h4>Direccion</h4>
+                                <input type="text" placeholder="Direccion" >
+                            </li>
+                            <li>
+                                <h4>Barrio</h4>
+                                <input type="text" placeholder="Barrio" >
+                            </li>
+                            <li>
+                                <h4>Telefonos</h4>
+                                <input type="text" placeholder="Telefonos" >
+                            </li>
+                            <li>
+                                <h4>Lunes</h4>
+                                <input type="checkbox" name="dia1" value="lunes" checked>
+                                <h5>Abre</h5>
+                                <input id="horA1" type="time" name="dia1" value="08:00">
+                                <h5>Cierra</h5>
+                                <input id="horC1" type="time" name="dia1" value="22:00">
+                                
+                            </li>
+                            <li>
+                
+                                <h4>Martes</h4>
+                                <input type="checkbox" name="dia2" value="martes" checked>
+                                <h5>Abre</h5>
+                                <input  id="horA2" type="time" name="dia2" value="08:00">
+                                <h5>Cierra</h5>
+                                <input id="horC2" type="time" name="dia2" value="22:00">
+                            </li>
+                            <li>
+                                <h4>Miercoles</h4>
+                                <input type="checkbox" name="dia3" value="miercoles" checked>
+                                <h5>Abre</h5>
+                                <input id="horA3" type="time" name="dia3" value="08:00">
+                                <h5>Cierra</h5>
+                                <input id="horC3" type="time" name="dia3" value="22:00">
+                                
+                            </li>
+                            <li>
+                                <h4>Jueves</h4>
+                                <input  type="checkbox" name="dia4" value="jueves" checked>
+                                <h5>Abre</h5>
+                                <input id="horA4" type="time" name="dia4" value="08:00">
+                                <h5>Cierra</h5>
+                                <input id="horC4" type="time" name="dia4" value="22:00">
+                                
+                            </li>
+                            <li>
+                                <h4>Viernes</h4>
+                                <input type="checkbox" name="dia5" value="viernes" checked>
+                                <h5>Abre</h5>
+                                <input id="horA5" type="time" name="dia5" value="08:00">
+                                <h5>Cierra</h5>
+                                <input id="horC5" type="time" name="dia5" value="22:00">
+                                
+                            </li>
+                            <li>
+                                <h4>Sabado</h4>
+                                <input type="checkbox" name="dia6" value="sabado" checked>
+                                <h5>Abre</h5>
+                                <input id="horA6" type="time" name="dia6" value="08:00">
+                                <h5>Cierra</h5>
+                                <input id="horC6" type="time" name="dia6" value="22:00">
+                                
+                            </li>                                
+                            <li>
+                                <h4>Domingo</h4>
+                                <input type="checkbox" name="dia7" value="domingo" checked>
+                                <h5>Abre</h5>
+                                <input id="horA7" type="time" name="dia7" value="08:00">
+                                <h5>Cierra</h5>
+                                <input id="horC7" type="time" name="dia7" value="22:00">
+                                
+                            </li>
+                            <li>
+                                <h4>Cargar inventario general</h4>
+                                <input type="checkbox" value="SI" >
+
+                            </li>
+                            <li>
+                                <input id="btnRegistroSede"  type="button" value="Crear">
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+                <!--Editar Sedes-->
+                    <div class="formularioCentral ventanas" id="editarSede">
+                        <h2>EDITAR SEDE</h2>
+                        <form id="formEdiSede">
+                            <ul>
+                                <li>
+                                    <h4>Seleccione la Sede</h4>
+                                    <select id="selEditarSede">
+                                       
+                                    </select>
+                                </li>
+                                <li>
+                                    <div class="limpiar"></div>
+                                </li>
+                                <li>
+                                    <input type="button" value="Buscar" id="buscarSede">
+                                    <input type="button" value="Cancelar" class="salir">
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                    <div class="formulario ventanas" id="ResultadoEditarSede">
+                        <h2>SEDE SELECCIONADA</h2>
+                        <form id="formEdiSedeFin">
+                            <ul>
+                                <li>
+                                    <h4>Nombre de la Sede</h4>
+                                    <input id="nom_sede" type="text" placeholder="Nombre" >
+                                </li>
+                                <li>
+                                    <h4>Nombre del Encargado</h4>
+                                    <select id="selAdminSedeEdi"></select>
+                                </li>
+                                <li>
+                                    <h4>Direccion</h4>
+                                    <input id="dir_sede" type="text" placeholder="Direccion" >
+                                </li>
+                                
+                                <li>
+                                    <h4>Telefonos</h4>
+                                    <input id="tel_sede" type="text" placeholder="Telefono" >
+                                </li>
+                                <li>
+                                <h4>Lunes</h4>
+                                <input type="checkbox" name="diaED1" value="lunes" checked>
+                                <h5>Abre</h5>
+                                <input id="horEDA1" type="time" name="diaED1" >
+                                <h5>Cierra</h5>
+                                <input id="horEDC1" type="time" name="diaED1" >
+                                
+                            </li>
+                            <li>
+                
+                                <h4>Martes</h4>
+                                <input type="checkbox" name="diaED2" value="martes" checked>
+                                <h5>Abre</h5>
+                                <input  id="horEDA2" type="time" name="diaED2" >
+                                <h5>Cierra</h5>
+                                <input id="horEDC2" type="time" name="diaED2" >
+                            </li>
+                            <li>
+                                <h4>Miercoles</h4>
+                                <input type="checkbox" name="diaED3" value="miercoles" checked>
+                                <h5>Abre</h5>
+                                <input id="horEDA3" type="time" name="diaED3" >
+                                <h5>Cierra</h5>
+                                <input id="horEDC3" type="time" name="diaED3">
+                                
+                            </li>
+                            <li>
+                                <h4>Jueves</h4>
+                                <input  type="checkbox" name="diaED4" value="jueves" checked>
+                                <h5>Abre</h5>
+                                <input id="horEDA4" type="time" name="diaED4" >
+                                <h5>Cierra</h5>
+                                <input id="horEDC4" type="time" name="dia4" >
+                                
+                            </li>
+                            <li>
+                                <h4>Viernes</h4>
+                                <input type="checkbox" name="diaED5" value="viernes" checked>
+                                <h5>Abre</h5>
+                                <input id="horEDA5" type="time" name="diaED5" >
+                                <h5>Cierra</h5>
+                                <input id="horEDC5" type="time" name="diaED5" >
+                                
+                            </li>
+                            <li>
+                                <h4>Sabado</h4>
+                                <input type="checkbox" name="diaED6" value="sabado" checked>
+                                <h5>Abre</h5>
+                                <input id="horEDA6" type="time" name="diaED6" >
+                                <h5>Cierra</h5>
+                                <input id="horEDC6" type="time" name="diaED6" >
+                                
+                            </li>                                
+                            <li>
+                                <h4>Domingo</h4>
+                                <input type="checkbox" name="diaED7" value="domingo" checked>
+                                <h5>Abre</h5>
+                                <input id="horEDA7" type="time" name="diaED7" >
+                                <h5>Cierra</h5>
+                                <input id="horEDC7" type="time" name="diaED7" >
+                                
+                            </li>
+                                <li>
+                                    <input type="button" value="Editar" id="btnEditarSede">
+                                    <input type="button" value="Cancelar" class="salir" >
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                <!--Eliminar Sede-->
+                <div class="formularioCentral ventanas" id="eliminarSede">
+                        <h2>eliminar SEDE</h2>
+                        <form>
+                            <ul>
+                                <li>
+                                    <h4>Seleccione la Sede</h4>
+                                    <select id="selEliminarSede">
+                                      
+                                    </select>
+                                </li>
+                                <li>
+                                    <div class="limpiar"></div>
+                                </li>
+                                <li>
+                                    <input type="button" value="Eliminar" id="blEliminarSede">
+                                    <input type="button" value="Cancelar" class="salir">
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+            </div>    
+            <!--Seccion Notificaciones-->
+            <div class="limpiar"></div>
+            <div id="notificaciones" class="ventanas">
+                <h2>NOTIFICACIONES</h2>
+                <div class="formulario" >
+                    <form id="formMisNotificaciones">
+                        <ul>
+                            <li>
+                                <select id="selSedeNot"></select>
+                            </li>
+                            <li>
+                                <h4>Notificacion Productos bajo inventario (ingrese los correos separados por ,)</h4>
+                                <input id="notBajoInve" type="text" >
+                            </li>
+                            <li>
+                                <h4>Notificacion Corte Diario (ingrese los correos separados por ,)</h4>
+                                <input id="notCorteDiario" type="text" >
+                            </li>
+                            <li>
+                                <h4>Notificacion Pedido diario (ingrese los correos separados por ,)</h4>
+                                <input id="notPedidoDiario" type="text" >
+                            </li>
+                            <li>
+                                <input type="button" id="btnEdiMisNotificaciones" value="Editar">
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+            <div class="limpiar"></div>
+            <!--Permisos-->
+
+                        <div id="permisos" class="permisos">
+                            <div>
+                                <h3>ROL</h3>
+                                <select id="selRolesPermisos"></select>
+                            
+                            </div>
+                            <div id="divTablasPermisos">
+                               
+                            
+                            </div>
+                        </div>
+        </div>
+        <!--DIVISION PERFIL-->
+        <div class="ventanas" id="perfil">
+            <h2>PERFIL</h2>
+            <form id="formPerfil">
+                <ul class="menuHorizontal">
+                <li>
+                    <h4>Nombres</h4>
+                    <input type="text" id="txtNombre" placeholder="Nombres">
+                </li>
+                <li>
+                    <h4>Apellidos</h4>
+                    <input type="text" id="txtApellido" placeholder="Apellidos">
+                </li>
+                <li>
+                    <h4>Usuario de ingreso</h4>
+                    <input type="text" id="txtUsuario" placeholder="Usuario">
+                </li>
+                <li>
+                    <h4>Email</h4>
+                    <input type="text" id="txtEmail" placeholder="Email">
+                </li>
+                <li>
+                    <h4>Codigo Venta</h4>
+                    <input type="text" id="txtCodigoVenta" placeholder="codigo venta">
+                </li>
+                <li>
+                    <h4>Nueva clave</h4>
+                    <input type="password" id="txtClave1" placeholder="Clave">
+                </li>
+                <li>
+                    <h4>Confirmar Clave</h4>
+                    <input type="password" id="txtClave2" placeholder="Confirme Clave">
+                </li>
+                <li>
+                    <input type="button" value="GUARDAR CAMBIOS" id="btnEditarPerfil">
+                </li>
+            </ul>
+            </form>
+        </div>
+       <!--scripts EDGAR BASICOS-->
+        
+        <script type="text/javascript" src="js/CrudBase.js"></script>
+        <script type="text/javascript" src="js/funciones/storage.js"></script>
+        <script type="text/javascript" src="js/globales.js"></script>
+        <script type="text/javascript" src="js/funciones/formatos.js"></script>
+        <script type="text/javascript" src="js/funciones/formularios.js"></script>
+        <script type="text/javascript" src="js/funciones/peticiones_ajax.js"></script>        
+        <script type="text/javascript" src="js/funciones/utilidades.js"></script>
+        <script type="text/javascript" src="js/prototipos/prototipos.js"></script> 
+       <!--/scripts EDGAR BASICOS-->
+        <!--scripts manejo datos-->
+
+        <script type="text/javascript" src="js/sc_facturas.js"></script>
+        <script type="text/javascript" src="js/sc_clientes.js"></script>
+        <script type="text/javascript" src="js/sc_departamentos.js"></script>
+        <script type="text/javascript" src="js/sc_productos.js"></script>
+        <script type="text/javascript" src="js/sc_proveedores.js"></script>
+        <script type="text/javascript" src="js/sc_detalle_inventarios.js"></script>
+        <script type="text/javascript" src="js/sc_creditos.js"></script>
+        <script type="text/javascript" src="js/sc_pedidos.js"></script>
+        <script type="text/javascript" src="js/sc_config_inicial.js"></script>
+        <script type="text/javascript" src="js/sc_corte.js"></script>
+        <script type="text/javascript" src="js/sc_importar.js"></script>
+        <script type="text/javascript" src="js/sc_sedes.js"></script>
+        <script type="text/javascript" src="js/sc_cajeros.js"></script>
+        <script type="text/javascript" src="js/sc_detalle_entrada_contable.js"></script>
+
+        <script type="text/javascript" src="js/login.js"></script>
+        <script type="text/javascript" src="js/load.js"></script>
+        <!--OFFLINE-->
+        <script type="text/javascript" src="js/sc_mi_bodega.js"></script>
+        <!--/scripts manejo datos-->    
+
+
+        <script src="script/ventana_edgar.js" type="text/javascript"></script>
+       <!--Start of Tawk.to Script-->
+        <!-- <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/59679cb71dc79b329518e24d/default';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+        })();
+        </script> -->
+        <!--End of Tawk.to Script-->
+    </body>
+</html>
