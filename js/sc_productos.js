@@ -190,7 +190,7 @@ function iniciar_producto(valido){
 					};
 					editarDato(_URL+"productos/"+vf.Hidden[0],datos,function(rs){
 						mostrarMensaje(rs);
-						iniciar_bodega_offline(_IdSede)
+						//iniciar_bodega_offline(_IdSede)
 					},"formModificarProducto");
 					document.getElementById("numPorcGanaBlisterEdi").value="20";
 					document.getElementById("numPorcGanaUni").value="20";

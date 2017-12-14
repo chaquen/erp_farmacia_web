@@ -8,8 +8,8 @@
         <link href="Estilos/ventas.css" rel="stylesheet" type="text/css"/>
         <link href="Estilos/ventas_edgar.css" rel="stylesheet" type="text/css"/>
                
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <!--<script type="text/javascript" src="js/jquery-3.0.0.js"></script>-->
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+        <script type="text/javascript" src="js/jquery-3.0.0.js"></script>
         <script src="script/ventanas.js" type="text/javascript"></script> 
       
 
@@ -2507,6 +2507,16 @@
                     <li id="aDirExportacionRepoInv">
                         
                     </li>
+                    <li>
+                        <h4>CARGAR EL INVENTARIO</h4>
+                        <input type="button" id="btnInventario"  value="Cargar Inventario">
+                    </li>
+                    <li>
+                        <select id="selPaginas">
+                            <h4>Paginas</h4>
+                            <option>no hay paginas</option>
+                        </select>
+                    </li>
                     <!--<li>
                         <img>
                         <h4>Imprimir</h4>
@@ -2518,6 +2528,7 @@
                         <input type="text" id="txtBuscarReporteInventario" list="lista_buscar_inventario" placeholder="Codigo o nombre del producto">
                         
                     </li>
+
 
                     <!-- <li>
                         <h4>Ordenar por:</h4>
@@ -2554,7 +2565,7 @@
                               <td>unidades por blister*</td>
                               <td>Precio compra blister</td>
                               <td>Precio compra unidad</td>
-                              <td>Precio Venta*</td>
+                              <td>Precio Venta caja*</td>
                               <td>Precio Venta blister</td>
                               <td>Precio Venta unidad</td>
                               <td>Categoria*</td>
@@ -2599,7 +2610,7 @@
                     </tr>
                     
                 </table> -->
-                
+                 
                 <div class="tblCuerpoTabla2">
                     <table class="listaTabla" id="tblRepoInve">
                       

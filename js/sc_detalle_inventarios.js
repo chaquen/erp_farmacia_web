@@ -1,4 +1,5 @@
 var repo_inve;
+var repo_inve_todo;
 var repo_mov;
 var repo_bajo;
 var orden="ASC";
@@ -368,10 +369,6 @@ function iniciar_inventario(valido){
 										}
 					});	
 				}
-
-				
-
-
 			});
 
 			agregarEvento("agregarInv","click",function(){
@@ -477,9 +474,6 @@ function iniciar_inventario(valido){
 					};
 					mostrarMensaje("Por favor selecciona una sede");
 				}
-
-				
-						
 			});
 
 			agregarEvento("txtBuscarProdAjuste","keypress",function(e){
@@ -510,8 +504,6 @@ function iniciar_inventario(valido){
 				}else{
 					mostrarMensaje("Debes seleccionar una sede");
 				}
-				
-				
 			});
 			agregarEvento("txtBuscarProdAjuste","change",function(e){
 				if(document.getElementById("selSedeAjuste").value!=0){
@@ -533,8 +525,6 @@ function iniciar_inventario(valido){
 				}else{
 					mostrarMensaje("Debes seleccionar una sede");
 				}
-				
-				
 			});
 
 			agregarEvento("btnAjustarCantidad","click",function(){
@@ -620,14 +610,8 @@ function iniciar_inventario(valido){
 
 				datos_exportar_inv=datos;
 				$('#mensaje_exportar_inv').fadeIn("fast");
-				
-
-				
 			});
 			agregarEvento("liExportarRepoBajoInv","click",function(){
-
-
-
 				if(document.getElementById("selSedesBajoInve").value!=0){
 					var datos={
 						tipo:"SEDE",
@@ -724,7 +708,46 @@ function iniciar_inventario(valido){
 			agregarEvento("accion_continuar_exportar_inv","click",exportar_inventario);
 			agregarEvento("accion_esperar_exportar_bajo_inv","click",exportar_bajo_inv);
 			agregarEvento("accion_continuar_exportar_bajo_inv","click",exportar_bajo_inv);
+			agregarEvento("btnInventario","click",function(){
+				if(document.getElementById("selSedesReporteInv").value==0 ){
+					var datos={
+						tipo:"GENERAL",
+						fk_id_categoria:document.getElementById("selCatReporteInv").value,
+						nombre_producto:document.getElementById("txtBuscarReporteInventario").value,
+						fk_id_proveedor:document.getElementById("selProvReporteInv").value,
+						
+					};
+				}else if(document.getElementById("selSedesReporteInv").value!="--" && document.getElementById("selSedesReporteInv").value!="0" ){
+					var datos={
+						tipo:"SEDE",
+						sede:document.getElementById("selSedesReporteInv").value,
+						fk_id_categoria:document.getElementById("selCatReporteInv").value,
+						nombre_producto:document.getElementById("txtBuscarReporteInventario").value,
+						fk_id_proveedor:document.getElementById("selProvReporteInv").value,
+					};
+				}
+				if(datos!=undefined){
+					registrarDato(_URL+"reporte_inventario",datos,function(rs){
+							consola(rs);	
+							mostrarMensaje(rs);
+							if(rs.respuesta==true){
+								//document.getElementById("txtBuscarReporteInventario").value="";
+								
+								arr=chunkArray(rs.datos,200);
+								console.log(arr);
+								repo_inve_todo=arr;
+								crear_sel_paginas(arr.length);
+								dibujar_reporte_inventario(arr[0]);
+								calcular_totales_inventario(arr[0]);
 
+							}else{
+								var tbl=document.getElementById("tblRepoInve");
+								tbl.innerHTML="";
+			
+							}
+					});	
+				}
+			});
 
 			/*agregarEvento("cod_repo_inv","click",ordenar_codigo);
 			agregarEvento("nom_repo_inv","click",ordenar_nombre);
@@ -910,10 +933,11 @@ function dibujar_producto_inventario(d){
 }
 
 function dibujar_reporte_movimiento(dt){
-	var tbl=document.getElementById("tblMovimientos");
-	repo_mov=dt;
-	tbl.innerHTML="";
-	var tr=document.createElement("tr");
+		
+		var tbl=document.getElementById("tblMovimientos");
+		repo_mov=dt;
+		tbl.innerHTML="";
+		var tr=document.createElement("tr");
 
 		var td=document.createElement("td");
 		td.innerHTML="Hora mv ↑↓";
@@ -967,61 +991,62 @@ function dibujar_reporte_movimiento(dt){
 
 		tbl.appendChild(tr);
 
-	for(var f in dt){
-		
-		var tr=document.createElement("tr");
+		for(var f in dt){
+			
+			var tr=document.createElement("tr");
 
-		var td=document.createElement("td");
-		td.innerHTML=dt[f].created_at;
-		tr.appendChild(td);
+			var td=document.createElement("td");
+			td.innerHTML=dt[f].created_at;
+			tr.appendChild(td);
 
-		var td=document.createElement("td");
-		td.innerHTML=dt[f].nombre_producto;
-		tr.appendChild(td);
+			var td=document.createElement("td");
+			td.innerHTML=dt[f].nombre_producto;
+			tr.appendChild(td);
 
-		var td=document.createElement("td");
-		td.innerHTML=dt[f].habia;
-		tr.appendChild(td);
+			var td=document.createElement("td");
+			td.innerHTML=dt[f].habia;
+			tr.appendChild(td);
 
-		var td=document.createElement("td");
-		td.innerHTML=dt[f].tipo;
-		tr.appendChild(td);
-		var td=document.createElement("td");
-		td.innerHTML=dt[f].descripcion;
-		tr.appendChild(td);
+			var td=document.createElement("td");
+			td.innerHTML=dt[f].tipo;
+			tr.appendChild(td);
+			var td=document.createElement("td");
+			td.innerHTML=dt[f].descripcion;
+			tr.appendChild(td);
 
-		var td=document.createElement("td");
-		td.innerHTML=dt[f].cantidad;
-		tr.appendChild(td);
+			var td=document.createElement("td");
+			td.innerHTML=dt[f].cantidad;
+			tr.appendChild(td);
 
-		var td=document.createElement("td");
-		td.innerHTML=dt[f].quedan;
-		tr.appendChild(td);
+			var td=document.createElement("td");
+			td.innerHTML=dt[f].quedan;
+			tr.appendChild(td);
 
-		var td=document.createElement("td");
-		td.innerHTML=dt[f].nombres;
-		tr.appendChild(td);
+			var td=document.createElement("td");
+			td.innerHTML=dt[f].nombres;
+			tr.appendChild(td);
 
-		var td=document.createElement("td");
-		td.innerHTML=dt[f].nombre_departamento;
-		tr.appendChild(td);
+			var td=document.createElement("td");
+			td.innerHTML=dt[f].nombre_departamento;
+			tr.appendChild(td);
 
-		var td=document.createElement("td");
-		td.innerHTML=dt[f].nombre_sede;
-		tr.appendChild(td);
+			var td=document.createElement("td");
+			td.innerHTML=dt[f].nombre_sede;
+			tr.appendChild(td);
 
-		var td=document.createElement("td");
-		td.innerHTML=dt[f].observaciones;
-		tr.appendChild(td);
+			var td=document.createElement("td");
+			td.innerHTML=dt[f].observaciones;
+			tr.appendChild(td);
 
-		tbl.appendChild(tr);
-		console.log(dt[f]);
-	}
+			tbl.appendChild(tr);
+			console.log(dt[f]);
+		}
 }
 
 function dibujar_reporte_inventario(dt){
 
-		repo_inve=dt;
+		
+
 		var tbl=document.getElementById("tblRepoInve");
 		tbl.innerHTML="";
 		var tr=document.createElement("tr");
@@ -1045,7 +1070,7 @@ function dibujar_reporte_inventario(dt){
 		tr.appendChild(td);
 
 		var td=document.createElement("td");
-		td.innerHTML="Precio venta ↑↓";
+		td.innerHTML="Precio venta caja↑↓";
 		td.setAttribute("id","pre_repo_inv");
 		td.setAttribute("onclick","ordenar_precio_venta()");
 		tr.appendChild(td);
@@ -1867,4 +1892,26 @@ function editar_informacion(campo,id_producto,id_producto_inventario){
 		mostrarMensaje("El campo no puede estar vacio");
 	}
 	
+}
+function crear_sel_paginas(dat){
+		  var cta=document.getElementById("selPaginas");
+          cta.innerHTML="";
+          
+          cta.setAttribute("onchange","cargar_hoja()");
+        
+        for(var d=0; d<=dat;d++){
+          var li=document.createElement("option");
+        
+          li.innerHTML="pagina "+(d+1);
+          
+          li.value=d;
+          
+          cta.appendChild(li);
+
+        }
+}
+function cargar_hoja(){
+	dibujar_reporte_inventario(repo_inve_todo[document.getElementById("selPaginas").value]);
+	calcular_totales_inventario(repo_inve_todo[document.getElementById("selPaginas").value]);	
+	repo_inve=repo_inve_todo[document.getElementById("selPaginas").value];
 }
