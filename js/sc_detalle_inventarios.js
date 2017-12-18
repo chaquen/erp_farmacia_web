@@ -1343,13 +1343,13 @@ function seleccionar_fila(id,pos){
 	var ele=document.getElementById("fila_inv_"+pos);
 	
 	console.log(ele.childNodes);
-	registrarDato(_URL+"traer_productos/"+id+"/"+document.getElementById("selSedesReporteInv").value,{},function(rs){
+	/*registrarDato(_URL+"traer_productos/"+id+"/"+document.getElementById("selSedesReporteInv").value,{},function(rs){
 		if(rs.respuesta==true){
 			dibujar_producto_edicion(rs.datos[0]);	
 			fila_seleccionada=rs.datos[0];
 		}
 		
-	});
+	});*/
 
 	var filas=document.getElementsByName("fila_inv");
 	for(var i in filas){
@@ -1884,9 +1884,13 @@ function editar_informacion(campo,id_producto,id_producto_inventario){
 											  valor:document.getElementById(campo+"_"+id_producto+"_"+id_producto_inventario).value,
 											  sede:sel,
 											  id_producto:id_producto,
-											  id_producto_inventario:id_producto_inventario
+											  id_producto_inventario:id_producto_inventario,
+											  usuario:_usuario.id_usuario
 											},function(rs){
 												console.log(rs);
+												if(rs.respuesta==false){
+													mostrarMensaje(rs);
+												}
 											});	
 	}else{
 		mostrarMensaje("El campo no puede estar vacio");

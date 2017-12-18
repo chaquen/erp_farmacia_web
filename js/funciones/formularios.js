@@ -239,7 +239,7 @@ function limpiarFormulario(idForm){
                     form.elements[i].value="0";
                     break;
                 case "checkbox":
-                    form.elements[i].checked=false;
+                    //form.elements[i].checked=false;
                     break;
                 case "radio":
                     form.elements[i].checked=false;

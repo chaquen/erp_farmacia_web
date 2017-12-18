@@ -13,9 +13,13 @@ function iniciar_producto(valido){
 				var correcto=true;
 				if(vf.Select.length==4){
 					correcto=true;
-					if(vf.Select[0]!=0){correcto=true;}else{correcto=false;}
-					if(vf.Select[1]!=0){correcto=true;}else{correcto=false;}
-					if(vf.Select[2]!=0){correcto=true;}else{correcto=false;}
+						
+					if(vf.Select[0]!="0"){correcto=true;}else{correcto=false;mostrarMensaje("Por favor selecciona un tipo de venta");}
+
+					if(vf.Select[1]!="0"){correcto=true;}else{correcto=false;mostrarMensaje("Por favor selecciona una categoria");}
+					
+					if(vf.Select[2]!="0"){correcto=true;}else{correcto=false;mostrarMensaje("Por favor selecciona un proveedor");}
+					
 					if(vf.Select[3]!="--"){correcto=true;}else{correcto=false;mostrarMensaje("por favor selecciona una sede")}
 					
 				}else{
@@ -29,7 +33,7 @@ function iniciar_producto(valido){
 				}
 
 				if(correcto){
-					if(document.getElementById("selSedes1").value!=0){
+					if(document.getElementById("selSedes1").value!="0"){
 						sede=vf.Select[3];
 					}
 					var precio_venta;
@@ -54,6 +58,7 @@ function iniciar_producto(valido){
 					if(document.getElementById("chInventario").checked){
 						inve="1";
 					}
+
 					var datos={
 						codigo_distribuidor:vf.Texto[0],
 						codigo_producto:vf.Texto[1],
@@ -89,6 +94,7 @@ function iniciar_producto(valido){
 						
 					},"formCrearProducto");
 					document.getElementById("numPorcGanaUni").value="20";
+					
 				}else{
 					mostrarMensaje("Por favor ingresa todos los datos");
 				}
@@ -96,7 +102,7 @@ function iniciar_producto(valido){
 			}else{
 				mostrarMensaje("Por favor ingresa valores");
 			}
-
+			
 		});
 
 	agregarEvento(_btnConsultarProducto,"click",function(){
