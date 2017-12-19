@@ -85,7 +85,7 @@ function iniciar_factura() {
             console.log(e.key);
         } else {
             console.log(e.key);
-            if (e.key == "Enter") {
+            if (e.key == "Enter" && this.value!="") {
                 registrarDato(_URL + "traer_productos_para_factura/" + this.value.trim() + "/" + _IdSede, {}, function(rs) {
                     if (rs.respuesta) {
                         var listaProductos = document.getElementById("listaProductos");
@@ -147,25 +147,7 @@ function iniciar_factura() {
             }
         }
     });
-    //AGREGAR PRODUCTO A LA VENTA
-    /*agregarEvento("numCantidad","keypress",function(e){
-        if(e.keyCode==13 && _producto_seleccionado!=false){
-            console.log("precioné enter");
-            if(_producto_seleccionado!=false){
-                agregar_producto_mi_ticket(_producto_seleccionado);
-                //  dibujar_factura(mi_ticket[_numero_ticket]);     
-                //document.getElementById("span").scrollIntoView(); 
-            }else{
-                document.getElementById("numCantidad").value=0;
-                document.getElementById("txtCodigoProducto").value="";
-                document.getElementById("h4NombreProductoInv").innerHTML="Nombre producto";     
-            }
-                
 
-
-
-        }
-    });*/
     agregarEvento("btnAgregarProducto", "click", function() {
         if (document.getElementById("txtCodigoProducto").value != "") {
             registrarDato(_URL + "traer_productos_para_factura/" + document.getElementById("txtCodigoProducto").value.trim() + "/" + _IdSede, {}, function(rs) {
