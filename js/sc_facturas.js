@@ -1011,12 +1011,13 @@ function cambiar_tipo_venta(id, numero_ticket, posicion) {
             break;
     }
     if (mi_ticket[numero_ticket].productos[posicion] != undefined) {
+        /*
         if (document.getElementById("selCambioUnidad_" + id + "_" + numero_ticket + "_" + posicion).value == "unidad") {
             if (mi_ticket[numero_ticket].productos[posicion].tipo_venta_producto == "PorUnidad") {
                 mi_ticket[numero_ticket].productos[posicion].tipo_venta = document.getElementById("selCambioUnidad_" + id + "_" + numero_ticket + "_" + posicion).value;
                 mi_ticket[numero_ticket].productos[posicion].valor_item = mi_ticket[numero_ticket].productos[posicion].precio_venta_sede;
             } else if (mi_ticket[numero_ticket].productos[posicion].tipo_venta_producto == "Caja") {
-                if (mi_ticket[numero_ticket].productos[posicion].cantidad_existencias > mi_ticket[numero_ticket].productos[posicion].cantidad_producto) {
+                if (mi_ticket[numero_ticket].productos[posicion].cantidad_existencias >= mi_ticket[numero_ticket].productos[posicion].cantidad_producto) {
                     mi_ticket[numero_ticket].productos[posicion].tipo_venta = document.getElementById("selCambioUnidad_" + id + "_" + numero_ticket + "_" + posicion).value;
                     mi_ticket[numero_ticket].productos[posicion].valor_item = mi_ticket[numero_ticket].productos[posicion].precio_mayoreo_sede;
                 } else {
@@ -1025,7 +1026,7 @@ function cambiar_tipo_venta(id, numero_ticket, posicion) {
                     return false;
                 }
             } else if (mi_ticket[numero_ticket].productos[posicion].tipo_venta_producto == "CajaBlister") {
-                if (mi_ticket[numero_ticket].productos[posicion].cantidad_existencias_blister > mi_ticket[numero_ticket].productos[posicion].cantidad_producto) {
+                if (mi_ticket[numero_ticket].productos[posicion].cantidad_existencias_blister >= mi_ticket[numero_ticket].productos[posicion].cantidad_producto) {
                     mi_ticket[numero_ticket].productos[posicion].tipo_venta = document.getElementById("selCambioUnidad_" + id + "_" + numero_ticket + "_" + posicion).value;
                     mi_ticket[numero_ticket].productos[posicion].valor_item = mi_ticket[numero_ticket].productos[posicion].precio_mayoreo_sede;
                 } else {
@@ -1035,7 +1036,7 @@ function cambiar_tipo_venta(id, numero_ticket, posicion) {
                 }
             }
         } else if (document.getElementById("selCambioUnidad_" + id + "_" + numero_ticket + "_" + posicion).value == "caja") {
-            if (mi_ticket[numero_ticket].productos[posicion].cantidad_existencias > mi_ticket[numero_ticket].productos[posicion].cantidad_producto) {
+            if (mi_ticket[numero_ticket].productos[posicion].cantidad_existencias >= mi_ticket[numero_ticket].productos[posicion].cantidad_producto) {
                 mi_ticket[numero_ticket].productos[posicion].tipo_venta = document.getElementById("selCambioUnidad_" + id + "_" + numero_ticket + "_" + posicion).value;
                 mi_ticket[numero_ticket].productos[posicion].nombre_producto += " (CAJA)";
                 mi_ticket[numero_ticket].productos[posicion].valor_item = mi_ticket[numero_ticket].productos[posicion].precio_venta_sede;
@@ -1044,7 +1045,7 @@ function cambiar_tipo_venta(id, numero_ticket, posicion) {
                 document.getElementById("selCambioUnidad_" + id + "_" + numero_ticket + "_" + posicion).selectedIndex = antes;
             }
         } else if (document.getElementById("selCambioUnidad_" + id + "_" + numero_ticket + "_" + posicion).value == "blister") {
-            if (mi_ticket[numero_ticket].productos[posicion].cantidad_existencias > mi_ticket[numero_ticket].productos[posicion].cantidad_producto) {
+            if (mi_ticket[numero_ticket].productos[posicion].cantidad_existencias_blister >= mi_ticket[numero_ticket].productos[posicion].cantidad_producto) {
                 mi_ticket[numero_ticket].productos[posicion].tipo_venta = document.getElementById("selCambioUnidad_" + id + "_" + numero_ticket + "_" + posicion).value;
                 mi_ticket[numero_ticket].productos[posicion].nombre_producto += " (BLISTER)";
                 mi_ticket[numero_ticket].productos[posicion].valor_item = mi_ticket[numero_ticket].productos[posicion].precio_venta_blister_sede;
@@ -1053,11 +1054,71 @@ function cambiar_tipo_venta(id, numero_ticket, posicion) {
                 document.getElementById("selCambioUnidad_" + id + "_" + numero_ticket + "_" + posicion).selectedIndex = antes;
             }
         }
-        agregar_local_storage("mis_tickets_" + _usuario.id_usuario + "_" + _IdSede, mi_ticket);
-        //calcular_precio(id,posicion);
+        */
+        
         console.log(mi_ticket[numero_ticket].productos[posicion].id_factura);
-        actualizar_unidades_reservadas(mi_ticket[numero_ticket].productos[posicion], mi_ticket[numero_ticket].id, mi_ticket[numero_ticket].productos[posicion].id_factura);
-        //dibujar_factura(mi_ticket[_numero_ticket],_numero_ticket);
+        //actualizar_unidades_reservadas(mi_ticket[numero_ticket].productos[posicion], mi_ticket[numero_ticket].id, mi_ticket[numero_ticket].productos[posicion].id_factura);
+        
+        //consulto que existan unidades para registrar
+        mi_ticket[numero_ticket].productos[posicion].tipo_venta=document.getElementById("selCambioUnidad_" + id + "_" + numero_ticket + "_" + posicion).value;
+        editarDato(_URL + "detalle_factura/" + mi_ticket[numero_ticket].productos[posicion].id_factura, {
+            producto: mi_ticket[numero_ticket].productos[posicion],
+            id_factura:  mi_ticket[numero_ticket].id
+        }, function(rs) {
+            //en eta funcion el servidor debera insertar el producto en el ticket
+            //Y AGREGAR LOS PRODUCTOS
+            if(rs.respuesta==true){
+                switch(document.getElementById("selCambioUnidad_" + id + "_" + numero_ticket + "_" + posicion).value){
+                    case "unidad":
+                        switch(mi_ticket[numero_ticket].productos[posicion].tipo_venta_producto){
+                            case "PorUnidad":
+                                mi_ticket[numero_ticket].productos[posicion].tipo_venta = document.getElementById("selCambioUnidad_" + id + "_" + numero_ticket + "_" + posicion).value;
+                                mi_ticket[numero_ticket].productos[posicion].valor_item = mi_ticket[numero_ticket].productos[posicion].precio_venta_sede;
+                                break;
+                            case "Caja":
+                                 mi_ticket[numero_ticket].productos[posicion].tipo_venta = document.getElementById("selCambioUnidad_" + id + "_" + numero_ticket + "_" + posicion).value;
+                                 mi_ticket[numero_ticket].productos[posicion].valor_item = mi_ticket[numero_ticket].productos[posicion].precio_mayoreo_sede;
+                                break;
+                            case "CajaBlister":
+                                 mi_ticket[numero_ticket].productos[posicion].tipo_venta = document.getElementById("selCambioUnidad_" + id + "_" + numero_ticket + "_" + posicion).value;
+                                 mi_ticket[numero_ticket].productos[posicion].valor_item = mi_ticket[numero_ticket].productos[posicion].precio_mayoreo_sede;
+                                break;        
+                        }
+                        break;
+                    case "blister":
+                            mi_ticket[numero_ticket].productos[posicion].tipo_venta = document.getElementById("selCambioUnidad_" + id + "_" + numero_ticket + "_" + posicion).value;
+                            mi_ticket[numero_ticket].productos[posicion].nombre_producto ;
+                            mi_ticket[numero_ticket].productos[posicion].valor_item = mi_ticket[numero_ticket].productos[posicion].precio_venta_blister_sede;  
+                         /*switch(mi_ticket[numero_ticket].productos[posicion].tipo_venta_producto){
+                            case "PorUnidad":
+                                
+                                break;
+                            case "Caja":
+                                break;
+                            case "CajaBlister":
+                                break;        
+                        } */   
+                        break;
+                    case "caja":
+                            mi_ticket[numero_ticket].productos[posicion].tipo_venta = document.getElementById("selCambioUnidad_" + id + "_" + numero_ticket + "_" + posicion).value;
+                            mi_ticket[numero_ticket].productos[posicion].nombre_producto ;
+                            mi_ticket[numero_ticket].productos[posicion].valor_item = mi_ticket[numero_ticket].productos[posicion].precio_venta_sede;
+                     
+                        break;    
+                }
+
+                dibujar_factura(mi_ticket[_numero_ticket], _numero_ticket);
+                agregar_local_storage("mis_tickets_" + _usuario.id_usuario + "_" + _IdSede, mi_ticket);
+            }else{
+                mostrarMensaje(rs);
+
+                document.getElementById("selCambioUnidad_" + id + "_" + numero_ticket + "_" + posicion).selectedIndex = antes;
+                mi_ticket[numero_ticket].productos[posicion].tipo_venta=document.getElementById("selCambioUnidad_" + id + "_" + numero_ticket + "_" + posicion).value;
+                agregar_local_storage("mis_tickets_" + _usuario.id_usuario + "_" + _IdSede, mi_ticket);
+                dibujar_factura(mi_ticket[_numero_ticket], _numero_ticket);
+            }   
+            
+        });
     }
 }
 
@@ -1068,7 +1129,13 @@ function actualizar_unidades_reservadas(producto, id_factura, id_ticket) {
     }, function(rs) {
         //en eta funcion el servidor debera insertar el producto en el ticket
         //Y AGREGAR LOS PRODUCTOS
-        dibujar_factura(mi_ticket[_numero_ticket], _numero_ticket);
+        if(rs.respuesta==true){
+            dibujar_factura(mi_ticket[_numero_ticket], _numero_ticket);
+        }else{
+            mostrarMensaje(rs);
+
+        }
+        
     });
 }
 
@@ -1080,9 +1147,250 @@ function quitar_unidades_reservadas(producto, id_producto_ticket) {
             dibujar_factura(mi_ticket[_numero_ticket], _numero_ticket);
         });
 }
+
+function dibujar_factura(fac, tk) {
+    console.log("function dibujar_factura");
+    console.log(fac);
+    var vf = obtener_valores_formulario("formVentaProductos");
+    var tbCuerpoFactura = document.getElementById("tbCuerpoFactura");
+    tbCuerpoFactura.innerHTML = "";
+    var numCantidad = document.getElementById("numCantidad");
+    tbCuerpoFactura.innerHTML = "";
+    
+        var fila_head = document.createElement("tr");
+        var td = document.createElement("td");
+        td.innerHTML = "#";
+        fila_head.appendChild(td);
+        var td = document.createElement("td");
+        td.innerHTML = "";
+        fila_head.appendChild(td);
+        var td = document.createElement("td");
+        td.innerHTML = "Codigo de barras";
+        fila_head.appendChild(td);
+        var td = document.createElement("td");
+        td.innerHTML = "Descripcion del producto";
+        fila_head.appendChild(td);
+        var td = document.createElement("td");
+        td.innerHTML = "Tipo venta";
+        fila_head.appendChild(td);
+        var td = document.createElement("td");
+        td.innerHTML = "Precio Venta";
+        fila_head.appendChild(td);
+        var td = document.createElement("td");
+        td.innerHTML = "Cantidad";
+        fila_head.appendChild(td);
+        var td = document.createElement("td");
+        td.innerHTML = "Costo";
+        fila_head.appendChild(td);
+        var td = document.createElement("td");
+        td.innerHTML = "Existencias";
+        fila_head.appendChild(td);
+        tbCuerpoFactura.appendChild(fila_head);
+        if (fac != undefined) {
+            var indice = 1;
+            var fin = Object.keys(fac.productos).length;
+            for (var i in fac.productos) {
+                if (fac.productos[i].inventario == 1) {
+                   
+                    if (fac.productos[i].tipo_venta == "unidad") {
+                        console.log(fac.productos[i].aprovado);
+                        if ( Number(fac.productos[i].cantidad_existencias_unidades) <= Number(fac.productos[i].cantidad_producto)) {
+                            if(fac.productos[i].aprovado == undefined){
+                                if (!confirm("Esta solicitando una cantidad superior a la existente \n ¿Desea continuar?")) {
+                                    fac.productos[i].aprovado = false;
+                                    break;
+                                } else {
+                                    fac.productos[i].aprovado = true;
+                                }    
+                            }
+                            
+                        }
+
+                    } else if (fac.productos[i].tipo_venta == "caja") {
+                        if ( Number(fac.productos[i].cantidad_existencias) <= Number(fac.productos[i].cantidad_producto)) {
+                                if(fac.productos[i].aprovado == undefined){
+                                    if (!confirm("Esta solicitando una cantidad superior a la existente \n ¿Desea continuar?")) {
+                                        fac.productos[i].aprovado = false;
+                                        break;
+                                    } else {
+                                        fac.productos[i].aprovado = true;
+                                    }    
+                                }   
+                        }
+                    } else if (fac.productos[i].tipo_venta == "blister") {
+                        if (Number(fac.productos[i].cantidad_existencias_blister) <= Number(fac.productos[i].cantidad_producto)) {
+                            if(fac.productos[i].aprovado == undefined){
+                                if (!confirm("Esta solicitando una cantidad superior a la existente \n ¿Desea continuar?")) {
+                                    fac.productos[i].aprovado = false;
+                                    break;
+                                } else {
+                                    fac.productos[i].aprovado = true;
+                                }    
+                            }
+                        }
+                    }
+                }
+                var fila = document.createElement("tr");
+                fila.setAttribute("id", "fila_" + fac.productos[i].id_factura + "_" + _numero_ticket + "_" + i);
+                var td = document.createElement("td");
+                td.innerHTML = indice++;
+                fila.appendChild(td);
+                var td = document.createElement("td");
+                td.innerHTML = "X";
+                td.setAttribute("onclick", "quitar(" + fac.productos[i].id_factura + "," + i + ")");
+                fila.appendChild(td);
+                var td = document.createElement("td");
+                td.innerHTML = fac.productos[i].codigo_producto;
+                fila.appendChild(td);
+                var td = document.createElement("td");
+                var defi_uni = "";
+                console.log(fac.productos[i].tipo_venta);
+                if (fac.productos[i].tipo_venta == "unidad") {
+                    if (fac.productos[i].tipo_venta_producto == "PorUnidad") {
+                        defi_uni = "  X " + "1" + " Uni";
+                    } else if (fac.productos[i].tipo_venta_producto == "Caja") {
+                        defi_uni = "  X " + "1" + " Uni";
+                    } else if (fac.productos[i].tipo_venta_producto == "CajaBlister") {
+                        defi_uni = "  X " + "1" + " Uni";
+                    }
+                } else if (fac.productos[i].tipo_venta == "caja") {
+                    if (fac.productos[i].tipo_venta_producto == "Caja") {
+                        defi_uni = "  X " + fac.productos[i].unidades_por_caja + " Uni";
+                    } else if (fac.productos[i].tipo_venta_producto == "CajaBlister") {
+                        defi_uni = "  X " + fac.productos[i].unidades_por_caja + " Uni";
+                    }
+                } else if (fac.productos[i].tipo_venta == "blister") {
+                    defi_uni = "  X " + fac.productos[i].unidades_por_blister + " Uni";
+                }
+                td.innerHTML = fac.productos[i].nombre_producto + " " + defi_uni;
+                fila.appendChild(td);
+                //SELECT PARA EL IPO DE VENTA
+                var td = document.createElement("td");
+               
+                    var sel = document.createElement("select");
+                    sel.setAttribute("id", "selCambioUnidad_" + fac.productos[i].id + "_" + _numero_ticket + "_" + i);
+                    sel.setAttribute("onchange", "cambiar_tipo_venta(" + fac.productos[i].id + "," + _numero_ticket + "," + i + ")");
+                    switch(fac.productos[i].tipo_venta_producto){
+                        case "PorUnidad":
+                            var op = document.createElement("option");
+                            op.innerHTML = "unidad";
+                            op.value = "unidad";
+                            if (fac.productos[i].tipo_venta == "unidad") {
+                                op.setAttribute("selected", true);
+                            }
+                            sel.appendChild(op);
+                            break;
+                        case "Caja":
+                            var op = document.createElement("option");
+                            op.innerHTML = "unidad";
+                            op.value = "unidad";
+                            if (fac.productos[i].tipo_venta == "unidad") {
+                                op.setAttribute("selected", true);
+                            }
+                            sel.appendChild(op);
+                            var op = document.createElement("option");
+                            op.innerHTML = "caja";
+                            op.value = "caja";
+                            if (fac.productos[i].tipo_venta == "caja") {
+                                op.setAttribute("selected", true);
+                            }
+                            sel.appendChild(op);
+                            break;
+                        case "CajaBlister":
+                            var op = document.createElement("option");
+                            op.innerHTML = "unidad";
+                            op.value = "unidad";
+                            if (fac.productos[i].tipo_venta == "unidad") {
+                                op.setAttribute("selected", true);
+                            }
+                            sel.appendChild(op);
+                            var op = document.createElement("option");
+                            op.innerHTML = "blister";
+                            op.value = "blister";
+                            if (fac.productos[i].tipo_venta == "blister") {
+                                op.setAttribute("selected", true);
+                            }
+                            sel.appendChild(op);
+                            var op = document.createElement("option");
+                            op.innerHTML = "caja";
+                            op.value = "caja";
+                            if (fac.productos[i].tipo_venta == "caja") {
+                                op.setAttribute("selected", true);
+                            }
+                            sel.appendChild(op);
+                            break;       
+                    }
+                    
+                    td.appendChild(sel);
+
+                fila.appendChild(td);
+                //FIN SELECT PARA EL IPO DE VENTA                       
+                var td = document.createElement("td");
+
+                td.setAttribute("id", "valor_venta_" + fac.productos[i].id + "_" + _numero_ticket + "_" + i);
+                td.value = fac.productos[i].valor_item;
+                td.innerHTML = "$ " + formato_numero(fac.productos[i].valor_item, "0", ",", ".");
+                if(fac.productos[i].valor_item <= 1){
+                    td.setAttribute("bgcolor","#FF0000");
+                }
+                fila.appendChild(td);
+
+                var td = document.createElement("td");
+                var ipn = document.createElement("input");
+                ipn.setAttribute("type", "number");
+                ipn.setAttribute("id", "numCant_" + fac.productos[i].id + "_" + _numero_ticket + "_" + i);
+                console.log("cantidad_producto");
+                console.log(fac.productos[i].cantidad_producto);
+                ipn.setAttribute("value", (Number(fac.productos[i].cantidad_producto)));
+                //ipn.setAttribute("onkeypress","calcular_precio("+fac.productos[i].id+","+i+")");
+                ipn.setAttribute("onchange", "calcular_precio(" + fac.productos[i].id + "," + i + ")");
+                //ipn.setAttribute("onclick","calcular_precio("+fac.productos[i].id+","+i+")");
+                td.appendChild(ipn);
+                fila.appendChild(td);
+                var precio = fac.productos[i].valor_item;
+                if ((fac.productos[i].promocion == "1" && fac.productos[i].tipo_venta_promo == "unidad") && (Number(fac.productos[i].cantidad_producto) >= fac.productos[i].promo_desde) && (Number(fac.productos[i].cantidad_producto) <= fac.productos[i].promo_hasta)) {
+                    //aplico promocion
+                    precio = fac.productos[i].precio_promo_venta;
+                }
+                var td = document.createElement("td");
+                td.value = Number(precio) * Number(fac.productos[i].cantidad_producto);
+                td.setAttribute("id", "precio_" + fac.productos[i].id + "_" + _numero_ticket + "_" + i);
+                td.innerHTML = "$ " + formato_numero(Number(precio) * Number(fac.productos[i].cantidad_producto), "0", ",", ".");
+                fila.appendChild(td);
+                var td = document.createElement("td");
+                if (fac.productos[i].tipo_venta == "unidad") {
+                    td.innerHTML = fac.productos[i].cantidad_existencias_unidades;
+                } else if (fac.productos[i].tipo_venta == "blister") {
+                    td.innerHTML = fac.productos[i].cantidad_existencias_blister;
+                } else {
+                    td.innerHTML = fac.productos[i].cantidad_existencias;
+                }
+                fila.appendChild(td);
+                tbCuerpoFactura.appendChild(fila);
+                fac.productos[i].valor_item_total = Number(fac.productos[i].valor_item) * Number(fac.productos[i].cantidad_producto);
+                if (fin == i) {
+                    fila.setAttribute("style", "background:blue");
+                }
+            }
+            calcular_total(mi_ticket[_numero_ticket]);
+            document.getElementById("numCantidad").value = 0;
+            document.getElementById("h4NombreProductoInv").innerHTML = "Nombre producto";
+            document.getElementById("txtCodigoProducto").value = "";
+            document.getElementById("h3CuantosProductos").innerHTML = mi_ticket[_numero_ticket].productos.length;
+        }
+        _producto_seleccionado = false;
+     
+    document.getElementById("divFactura").scrollTop = '9999';
+    /*var span=document.createElement("span");
+    span.innerHTML=" ";
+    span.setAttribute("id","span");
+    document.getElementById("divFactura").appendChild(span);    */
+    //agregar_local_storage("mis_tickets_" + _usuario.id_usuario + "_" + _IdSede, mi_ticket);
+    console.log("FIN function dibujar_factura");
+}
 //fac=>datos de los productos
 //tk=>numero de ticket
-function dibujar_factura(fac, tk) {
+function dibujar_factura_old(fac, tk) {
     console.log("function dibujar_factura");
     console.log(fac);
     var vf = obtener_valores_formulario("formVentaProductos");
