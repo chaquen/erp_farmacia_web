@@ -39,8 +39,8 @@ function iniciar_corte(valido){
 					fecha:fecha,
 					filtro:[
 							
-							["detalle_entrada_contables.fecha_entrada",'>=',horaCliente().split(" ")[0]+" 00:00:00"],
-							["detalle_entrada_contables.fecha_entrada",'<=',horaCliente()]
+							["detalle_entrada_contables.fecha_entrada",'>=',fecha+" 00:00:00"],
+							["detalle_entrada_contables.fecha_entrada",'<=',fecha+" 23:59:59"]
 						   ],
 				};
 
@@ -68,10 +68,10 @@ function iniciar_corte(valido){
 				if(this.value==0){
 					var datos={
 					tipo:"GENERAL",
-					fecha:horaCliente().split(" ")[0],
+					fecha:fecha,
 					filtro:[
-							["detalle_entrada_contables.fecha_entrada",'>=',horaCliente().split(" ")[0]+" 00:00:00"],
-							["detalle_entrada_contables.fecha_entrada",'<=',horaCliente()]
+							["detalle_entrada_contables.fecha_entrada",'>=',fecha+" 00:00:00"],
+							["detalle_entrada_contables.fecha_entrada",'<=',fecha+" 23:59:59"]
 						   ],
 					}	
 				}else{
@@ -81,8 +81,8 @@ function iniciar_corte(valido){
 						fecha:fecha,
 						filtro:[
 								
-								["detalle_entrada_contables.fecha_entrada",'>=',horaCliente().split(" ")[0]+" 00:00:00"],
-								["detalle_entrada_contables.fecha_entrada",'<=',horaCliente()]
+								["detalle_entrada_contables.fecha_entrada",'>=',fecha+" 00:00:00"],
+								["detalle_entrada_contables.fecha_entrada",'<=',fecha+" 23:59:59"]
 							   ],
 					};
 				}

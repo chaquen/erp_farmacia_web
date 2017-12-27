@@ -95,6 +95,8 @@ $(document).ready(function(){
        $('#menusConfiguracion, #ResultadoEditarSede, #editarSede, #eliminarSede').fadeOut('fast');
        $('#facturacion').fadeIn('slow'); 
     });
-    
+    /*$(".mascara").click(function(){
+         $('.mascara').fadeOut('fast');
+    });*/ 
 });
 

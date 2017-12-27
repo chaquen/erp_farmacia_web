@@ -906,8 +906,10 @@ function iniciar_producto(valido){
 				document.getElementById("liFechas").style.display='';
 					var tbl=document.getElementById("tblReporteVentaPeriodo");
 					tbl.innerHTML="";
+					fli[0]=["facturas.registro_factura",">=",document.getElementById("inicio").value+" 00:00:00"];
+					fli[1]=["facturas.registro_factura","<=",document.getElementById("fin").value+" 23:59:59"];
 					
-				return false;
+				
 				break;		
 		}
 		if(document.getElementById("selSedesRepoVenta").value!=0){
@@ -1426,6 +1428,9 @@ function exportar_ventas(){
 				document.getElementById("aDirExportacion").href=_URL+"/"+rs.direccion;
 				document.getElementById("aDirExportacion").href=_URL+"archivos/exportacion/excel/"+rs.direccion;
 				document.getElementById("aDirExportacion").target="_blank";
+			}else{
+				$('#mensaje_exportar_ventas').fadeOut('fast');
+				mostrarMensaje(rs);
 			}
 		});    
 }

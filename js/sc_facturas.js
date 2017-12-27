@@ -144,6 +144,8 @@ function iniciar_factura() {
                     }
                 }, "");
                 e.preventDefault();
+                this.value="";
+                return false;
             }
         }
     });
@@ -472,7 +474,7 @@ function dibujar_facturas_del_dia_consultado(datos) {
 function quitar_de_factura(id, k) {
     var ms = "";
     if (Number(k) == 1) {
-        ms = "Recuerde que de eliminar este producto se eliminara esta factura";
+        ms = " Recuerde que de eliminar este producto se eliminara esta factura";
     }
     if (confirm("¿Desea quitar este producto de la factura?" + ms)) {
         eliminarDato(_URL + "detalle_factura/" + id, {}, function(rs) {
@@ -576,7 +578,7 @@ function agregar_producto_mi_ticket(ps) {
     }
     if (ps.tipo_venta == "unidad") {
         if (ps.tipo_venta_producto == "PorUnidad") {
-            ps.valor_item = ps.precio_venta_sede;
+            ps.valor_item = ps.precio_mayoreo_sede;
         } else if (ps.tipo_venta_producto == "Caja") {
             ps.valor_item = ps.precio_mayoreo_sede;
         } else if (ps.tipo_venta_producto == "CajaBlister") {
