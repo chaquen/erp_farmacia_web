@@ -258,6 +258,8 @@ function consulta_inicial(){
 			crear_select_roles("selMovInvCajeros",rs.cajeros);
 			crear_select_roles("selCajerosCorte",rs.cajeros);
 			crear_select_roles("selCajerosEdi",rs.cajeros);
+			crear_select_roles("selEliCajero",rs.cajeros);
+			crear_select_roles("selVenCajero",rs.cajeros);
 			//ADMINISTRADORES
 			crear_select_roles("selAdminSede",rs.administradores);
 			crear_select_roles("selAdminSedeEdi",rs.administradores);

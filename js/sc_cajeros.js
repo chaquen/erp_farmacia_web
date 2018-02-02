@@ -51,14 +51,23 @@ function iniciar_cajeros(valido){
 
 	agregarEvento("btnEditarCajero","click",function(){
 		var vf=obtener_valores_formulario("formEditarCajero");
+		console.log(vf);
 		if(vf!=false){
 			console.log(vf);
 			var clave=false;
 			var aso_sede=false;
-			if(vf.Clave!=""){
-				clave=vf.Clave;
+			if(document.getElementById("passClave1").value != "" && document.getElementById("passClave2").value != ""  ){
+				if(document.getElementById("passClave1").value == document.getElementById("passClave2").value){
+					clave=document.getElementById("passClave1").value;	
+				}else{
+					mostrarMensaje("Las contraseñas no coinciden");
+					return false;
+				}
+				
 			}
 			if(vf.Select[1] !=0 && vf.Select[2] ){
+				aso_sede=[vf.Select[1],vf.Select[2]]
+			}else if(vf.Select[1] ==0){
 				aso_sede=[vf.Select[1],vf.Select[2]]
 			}
 

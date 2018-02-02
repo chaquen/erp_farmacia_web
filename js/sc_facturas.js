@@ -216,6 +216,7 @@ function iniciar_factura() {
             for (var i in cajeros) {
                 if (cajeros[i].codigo_venta == this.value) {
                     esta = true;
+                    mi_ticket[_numero_ticket].fk_id_vendedor=cajeros[i].id;
                     break;
                 }
             }

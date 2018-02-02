@@ -574,7 +574,7 @@ function iniciar_producto(valido){
 		}
 			
 	});
-	agregarEvento("ventaPer","click",function(){
+	/*agregarEvento("ventaPer","click",function(){
 		
 		 var fli=[];
 
@@ -606,6 +606,11 @@ function iniciar_producto(valido){
 					return false;
 					break;		
 			}
+
+			if(document.getElementById("selVenCajero").value!="0"){
+				fli[2]=["users.id","=",document.getElementById("selVenCajero").value];				
+			}
+
 			if(document.getElementById("selSedesRepoVenta").value!=0){
 				fli.push(["sedes.id","=",document.getElementById("selSedesRepoVenta").value]);
 				var datos={
@@ -632,7 +637,7 @@ function iniciar_producto(valido){
 					}
 				});
 
-	});
+	});*/
 
 	agregarEvento("selPeridoReporte","change",function(){
 		
@@ -665,6 +670,9 @@ function iniciar_producto(valido){
 						
 					return false;
 					break;		
+			}
+			if(document.getElementById("selVenCajero").value!="0"){
+				fli[2]=["users.id","=",document.getElementById("selVenCajero").value];				
 			}
 			if(document.getElementById("selSedesRepoVenta").value!=0){
 				fli.push(["sedes.id","=",document.getElementById("selSedesRepoVenta").value]);
@@ -781,7 +789,82 @@ function iniciar_producto(valido){
 				break;		
 		}
 
+		if(document.getElementById("selVenCajero").value!="0"){
+				fli[2]=["users.id","=",document.getElementById("selVenCajero").value];				
+		}
+
 		if(document.getElementById("selSedesRepoVenta").value!=0){
+			fli.push(["sedes.id","=",document.getElementById("selSedesRepoVenta").value]);
+			var datos={
+				tipo:"SEDE",
+				filtro:fli,
+				
+			};
+		}else{
+			var datos={
+				tipo:"GENERAL",
+				filtro:fli
+			};
+		}
+			registrarDato(_URL+"reporte_ventas_por_periodo",datos,function(rs){
+				consola(rs);
+				if(rs.respuesta==true){
+					dibujar_reporte_venta_por_periodo(rs.datos);	
+				}else{
+					var tbl=document.getElementById("tblReporteVentaPeriodo");
+					tbl.innerHTML="";
+					mostrarMensaje(rs);
+				}
+				
+			});	
+	});	
+	agregarEvento("selVenCajero","change",function(){
+		var fli=[];
+		switch(document.getElementById("selPeridoReporte").value){
+			case "hoy":
+					document.getElementById("liFechas").style.display='none';
+					fli[0]=["facturas.registro_factura",">=",horaCliente().split(" ")[0]+" 00:00:00"];
+					fli[1]=["facturas.registro_factura","<=",horaCliente().split(" ")[0]+" 23:59:59"];
+				
+				break;
+			case "ayer":
+					document.getElementById("liFechas").style.display='none';
+				
+					fli[0]=["facturas.registro_factura",">=",ayer()+" 00:00:00"];
+					fli[1]=["facturas.registro_factura","<=",ayer()+" 23:59:59"];
+				break;
+			case "estemes":
+				document.getElementById("liFechas").style.display='none';
+					este_mes();
+					fli[0]=["facturas.registro_factura",">=",este_mes()[0]+" 00:00:00"];
+					fli[1]=["facturas.registro_factura","<=",este_mes()[1]+" 23:59:59"];
+
+				break;
+			case "periodo":
+				document.getElementById("liFechas").style.display='';
+				var fini=document.getElementById("inicio");	
+				var ffin=document.getElementById("fin");	
+				if(fini.value!=""){
+				 	if(ffin.value!=""){
+						fli[0]=["facturas.registro_factura",">=",fini.value+" 00:00:00"];
+				 		fli[1]=["facturas.registro_factura","<=",ffin.value+" 23:59:59"];
+				 	}else{
+				 		fli[0]=["facturas.registro_factura",">=",fini.value+" 00:00:00"];
+				 		fli[1]=["facturas.registro_factura","<=",horaCliente().split(" ")[0]+" 23:59:59"];;
+				 	}
+
+				 	
+				}else{
+					mostrarMensaje("Por favor selecciona la fecha para la primer casilla");
+				} 	
+				break;		
+		}
+
+		if(document.getElementById("selVenCajero").value!="0"){
+				fli[2]=["users.id","=",document.getElementById("selVenCajero").value];				
+		}
+
+		if(document.getElementById("selSedesRepoVenta").value!="--"){
 			fli.push(["sedes.id","=",document.getElementById("selSedesRepoVenta").value]);
 			var datos={
 				tipo:"SEDE",
@@ -912,7 +995,11 @@ function iniciar_producto(valido){
 				
 				break;		
 		}
-		if(document.getElementById("selSedesRepoVenta").value!=0){
+
+		if(document.getElementById("selVenCajero").value!="0"){
+			fli[2]=["users.id","=",document.getElementById("selVenCajero").value];				
+		}
+		if(document.getElementById("selSedesRepoVenta").value!="--"){
 			fli.push(["sedes.id","=",document.getElementById("selSedesRepoVenta").value]);
 			var datos={
 				tipo:"SEDE",
@@ -1029,6 +1116,10 @@ function dibujar_reporte_venta_por_periodo(dt){
 	var td=document.createElement("td");
 	td.innerHTML="DEPARTAMENTO";
 	tr.appendChild(td);
+
+	var td=document.createElement("td");
+	td.innerHTML="VENDEDOR";
+	tr.appendChild(td);
 	
 	tbl.appendChild(tr);
 
@@ -1038,7 +1129,7 @@ function dibujar_reporte_venta_por_periodo(dt){
 		
 
 		var td=document.createElement("td");
-		td.innerHTML=dt[f].registro_factura;
+		td.innerHTML=dt[f].updated_at;
 		tr.appendChild(td);
 			
 		var td=document.createElement("td");
@@ -1114,6 +1205,11 @@ function dibujar_reporte_venta_por_periodo(dt){
 
 		var td=document.createElement("td");
 		td.innerHTML=dt[f].nombre_departamento;
+		tr.appendChild(td);
+		tbl.appendChild(tr);
+
+		var td=document.createElement("td");
+		td.innerHTML=dt[f].nombre_usuario;
 		tr.appendChild(td);
 		tbl.appendChild(tr);
 	}

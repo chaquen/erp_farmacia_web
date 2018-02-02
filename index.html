@@ -1517,6 +1517,10 @@
                             <option value="periodo">Fecha especifica</option>
                         </select>
                     </li>
+                    <li>
+                        <h4>Cajero</h4>
+                        <select id="selVenCajero"></select>
+                    </li>
                     <li id="liFechas" style="display:none">
                         
                         <input type="date" id="inicio">
@@ -1532,194 +1536,11 @@
                     <li>
                         <a id="aDirExportacion"></a>
                     </li>
-                    <!--<li>
-                        <img>
-                        <h4>Imprimir</h4>
-                    </li>-->
-
                 </ul>
-                <!-- <table class="tblTituloTabla1">
-                    <tr>
-                        <td>Fecha</td>    
-                        <td>Código</td>
-                        <td>Descripcion del Producto</td>
-                        <td>Cantidad</td>
-                        <td>Tipo venta</td>
-                        <td>Precio venta</td>
-                        <td>Valor Total Venta</td>
-                        <td>Departamento</td>
-                    </tr>
-                </table> -->
+               
                 <div class="tblCuerpoTabla2">
                     <table class="listaTabla" id="tblReporteVentaPeriodo">
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                        </tr>
+                       
                     </table>
                 </div>
             </div>
@@ -3150,15 +2971,18 @@
                             <li>
                                 <h4>Codigo venta</h4>
                                 <input id="txtCodEdiVenta" type="text" placeholder="Codigo venta"/>
+                            </li>  
+                            <li>
+                                <h4>Solo ingresa la clave si deseas cambiarla</h4>
                             </li>
                             <li>
-                                <h4>Contraseña</h4>
-                                <input type="password" placeholder="Contraseña" />
-                            </li>
+                                <h4>Clave</h4>
+                                <input type="password" id="passClave1">
+                            </li>                         
                             <li>
-                                <h4>Confirme la Contraseña</h4>
-                                <input type="password" placeholder="Confirme"/>
-                            </li>
+                                <h4>Repetir Clave</h4>
+                                <input type="password" id="passClave2">
+                            </li>                         
                         </ul>
                         <div class="limpiar"></div>
                         
