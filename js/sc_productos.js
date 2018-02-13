@@ -123,16 +123,16 @@ function iniciar_producto(valido){
 
 		var vf=obtener_valores_formulario("formModificarProducto");
 		console.log(vf);
-		if(vf!=false){
+		if(vf!==false){
 				console.log(vf);
 				var sede=false;
 				var correcto=true;
-				if(vf.Select.length==4){
+				if(vf.Select.length===4){
 					correcto=true;
-					if(vf.Select[0]!=0){correcto=true;}else{correcto=false;}
-					if(vf.Select[1]!=0){correcto=true;}else{correcto=false;}
-					if(vf.Select[2]!=0){correcto=true;}else{correcto=false;}
-					if(vf.Select[3]!="--"){correcto=true;}else{correcto=false;}
+					if(vf.Select[0]!==0){correcto=true;}else{correcto=false;}
+					if(vf.Select[1]!==0){correcto=true;}else{correcto=false;}
+					if(vf.Select[2]!==0){correcto=true;}else{correcto=false;}
+					if(vf.Select[3]!=="--"){correcto=true;}else{correcto=false;}
 					
 				}else{
 					correcto=false;
@@ -252,17 +252,8 @@ function iniciar_producto(valido){
 	agregarEvento("numPorcGanaUni","change",function(){
 		calcular_valores_nuevo_producto();
 	});
-	//calcular precio al cambiar precio venta
-	/*agregarEvento("numValVen","change",function(){
-		var por=(Number(document.getElementById("numPreCos").value)*Number(document.getElementById("numPorcGana").value))/100;
-		console.log(Number(document.getElementById("numPreCos").value));
-		console.log(Number(document.getElementById("numPorcGana").value));
-		console.log(por);
+	
 
-		console.log(por+Number(document.getElementById("numPreCos").value));
-		document.getElementById("numValVen").value=por+Number(document.getElementById("numPreCos").value);
-	});*/
-//cambio precio EDICION
 	//calcular precio al cambiar precio costo
 	agregarEvento("numNuevoProdPreCosto","change",function(){
 		calcular_valores_editar_producto();
@@ -290,7 +281,7 @@ function iniciar_producto(valido){
 	//calcular precio al cambiar precio venta
 
 	agregarEvento("selTipoVenta","change",function(){
-		if(this.value=="Caja"){
+		if(this.value==="Caja"){
 			document.getElementById("liUniCaja").style.display="";
 			document.getElementById("liUniCajaBlister").style.display="none";
 			document.getElementById("liPreUniCaja").style.display="";
@@ -307,7 +298,7 @@ function iniciar_producto(valido){
 			document.getElementById("numPorcGanaBliUni").value="0";
 			
 			
-		}else if(this.value=="PorUnidad"){
+		}else if(this.value==="PorUnidad"){
 			document.getElementById("liUniCaja").style.display="none";
 			document.getElementById("liUniCajaBlister").style.display="none";
 			document.getElementById("liPreUniCaja").style.display="none";
@@ -346,14 +337,14 @@ function iniciar_producto(valido){
 		calcular_valores_editar_producto();
 	});
 	agregarEvento("selNuevoProdTipoVenta","change",function(){
-		if(this.value=="Caja"){
+		if(this.value==="Caja"){
 			document.getElementById("liUniCajaEdi").style.display="";
 			document.getElementById("liPreUniCajaEdi").style.display="";
 			document.getElementById("liPorGanUniEdi").style.display="";
 			document.getElementById("liPreUniCajBlisterEdi").style.display="none";;
 			
 			document.getElementById("liPorGanBliUni").style.display="none";
-		}else if (this.value=="PorUnidad"){
+		}else if (this.value==="PorUnidad"){
 			document.getElementById("liUniCajaEdi").style.display="none";
 			document.getElementById("liPreUniCajaEdi").style.display="none";
 			document.getElementById("liPorGanUniEdi").style.display="none";
@@ -394,17 +385,17 @@ function iniciar_producto(valido){
 	})
 	agregarEvento("txtBuscarEditarProducto","keypress",function(e){
 		
-		if(e.keyCode!=13){
+		if(e.keyCode!==13){
 			var vf=obtener_valores_formulario("formEditarProducto");
-			if(vf!=false){
+			if(vf!==false){
 
 			
 				var datos={};
-				if(vf.Texto[0]!=""){
+				if(vf.Texto[0]!==""){
 					var valor_consulta=vf.Texto[0];
 					consultarDatos(_URL+"productos/"+valor_consulta,datos,function(rs){
 						consola(rs);
-						if(rs.respuesta==true){
+						if(rs.respuesta===true){
 							
 									crear_data_list_producto("lista_editar_producto",rs.datos);			
 									
@@ -427,20 +418,20 @@ function iniciar_producto(valido){
 	});
 	agregarEvento("txtBuscarEliminarProducto","change",function(e){
 
-		if(e.keyCode!=13){
+		if(e.keyCode!==13){
 			var vf=obtener_valores_formulario("formBuscarEliminarProd");
 			console
-			if(vf!=false){
+			if(vf!==false){
 
 			
 				var datos={};
-				if(vf.Texto[0]!=""){
+				if(vf.Texto[0]!==""){
 					var valor_consulta=vf.Texto[0];
 					consultarDatos(_URL+"productos/"+valor_consulta,datos,function(rs){
 						consola(rs);
-						if(rs.respuesta==true){
+						if(rs.respuesta===true){
 							for(var f in rs.datos){
-								if(rs.datos[f].codigo_producto == document.getElementById("txtBuscarEliminarProducto").value){
+								if(rs.datos[f].codigo_producto === document.getElementById("txtBuscarEliminarProducto").value){
 										dibujar_producto_eliminar(rs.datos[0]);
 								}
 							}
@@ -463,18 +454,18 @@ function iniciar_producto(valido){
 	});
 	agregarEvento("txtBuscarEliminarProducto","keypress",function(e){
 
-		if(e.keyCode!=13){
+		if(e.keyCode!==13){
 			var vf=obtener_valores_formulario("formBuscarEliminarProd");
 			console
-			if(vf!=false){
+			if(vf!==false){
 
 			
 				var datos={};
-				if(vf.Texto[0]!=""){
+				if(vf.Texto[0]!==""){
 					var valor_consulta=vf.Texto[0];
 					consultarDatos(_URL+"productos/"+valor_consulta,datos,function(rs){
 						consola(rs);
-						if(rs.respuesta==true){
+						if(rs.respuesta===true){
 							crear_data_list_producto("lista_eliminar_producto",rs.datos);		
 						}else{
 
@@ -497,17 +488,17 @@ function iniciar_producto(valido){
 	});
 	agregarEvento("txtBuscarEditarProducto","change",function(){
 		var vf=obtener_valores_formulario("formEditarProducto");
-		if(vf!=false){
+		if(vf!==false){
 		
 			var datos={};
-			if(vf.Texto[0]!=""){
+			if(vf.Texto[0]!==""){
 				var valor_consulta=vf.Texto[0];
 				consultarDatos(_URL+"productos/"+valor_consulta,datos,function(rs){
 					document.getElementById("selSedes2").value="0";
 					consola(rs);
-					if(rs.respuesta==true){
+					if(rs.respuesta===true){
 						for(var f in rs.datos){
-								if(rs.datos[f].codigo_producto == document.getElementById("txtBuscarEditarProducto").value){
+								if(rs.datos[f].codigo_producto === document.getElementById("txtBuscarEditarProducto").value){
 										dibujar_producto_edicion(rs.datos[f]);
 										 $('#nuevoProducto, #eliminarProducto, #editarProducto, #categoriaProducto, #ventasPeriodo, #promo').fadeOut('fast');
         								 $('#resultadoEdicionP').fadeIn('slow');
@@ -526,15 +517,15 @@ function iniciar_producto(valido){
 	});
 	agregarEvento("selSedes2","change",function(){
 		//BUSCAR INFORMACION DEL PRODUCTO POR SEDE
-		if(this.value!=0){
+		if(this.value!==0){
 			registrarDato(_URL+"traer_productos/"+document.getElementById("txtNuevoProdCod").value+"/"+this.value,{},function(rs){
 				console.log(rs);
-				if(rs.respuesta==true){
+				if(rs.respuesta===true){
 					//mostrar informacion
 					//cargar informacion en formulario edicion
 					var no_sel=false;
 					for(var f in rs.datos){
-						if(document.getElementById("txtNuevoProdCod").value==rs.datos[f].codigo_producto){
+						if(document.getElementById("txtNuevoProdCod").value===rs.datos[f].codigo_producto){
 
 							dibujar_producto_edicion(rs.datos[f]);	
 							no_sel=true;
@@ -554,14 +545,14 @@ function iniciar_producto(valido){
 			});	
 		}else{
 			var vf=obtener_valores_formulario("formEditarProducto");
-			if(vf!=false){
+			if(vf!==false){
 			
 				var datos={};
-				if(vf.Texto[0]!=""){
+				if(vf.Texto[0]!==""){
 					var valor_consulta=vf.Texto[0];
 					consultarDatos(_URL+"productos/"+valor_consulta,datos,function(rs){
 						consola(rs);
-						if(rs.respuesta==true){
+						if(rs.respuesta===true){
 								dibujar_producto_edicion(rs.datos[0]);
 						}
 						
@@ -574,70 +565,7 @@ function iniciar_producto(valido){
 		}
 			
 	});
-	/*agregarEvento("ventaPer","click",function(){
-		
-		 var fli=[];
-
-			switch(this.value){
-				case "hoy":
-						document.getElementById("liFechas").style.display='none';
-						fli[0]=["facturas.registro_factura",">=",horaCliente().split(" ")[0]+" 00:00:00"];
-						fli[1]=["facturas.registro_factura","<=",horaCliente().split(" ")[0]+" 23:59:59"];
-					
-					break;
-				case "ayer":
-						document.getElementById("liFechas").style.display='none';
-					
-						fli[0]=["facturas.registro_factura",">=",ayer()+" 00:00:00"];
-						fli[1]=["facturas.registro_factura","<=",ayer()+" 23:59:59"];
-					break;
-				case "estemes":
-					document.getElementById("liFechas").style.display='none';
-						este_mes();
-						fli[0]=["facturas.registro_factura",">=",este_mes()[0]+" 00:00:00"];
-						fli[1]=["facturas.registro_factura","<=",este_mes()[1]+" 23:59:59"];
-
-					break;
-				case "periodo":
-					document.getElementById("liFechas").style.display='';
-						var tbl=document.getElementById("tblReporteVentaPeriodo");
-						tbl.innerHTML="";
-						
-					return false;
-					break;		
-			}
-
-			if(document.getElementById("selVenCajero").value!="0"){
-				fli[2]=["users.id","=",document.getElementById("selVenCajero").value];				
-			}
-
-			if(document.getElementById("selSedesRepoVenta").value!=0){
-				fli.push(["sedes.id","=",document.getElementById("selSedesRepoVenta").value]);
-				var datos={
-					tipo:"SEDE",
-					filtro:fli,
-					
-				};
-			}else{
-				var datos={
-					tipo:"GENERAL",
-					filtro:fli
-				};
-			}
-				registrarDato(_URL+"reporte_ventas_por_periodo",datos,function(rs){
-					consola(rs);
-					if(rs.respuesta==true){
-						var tbl=document.getElementById("tblReporteVentaPeriodo");
-						tbl.innerHTML="";
-						dibujar_reporte_venta_por_periodo(rs.datos);	
-					}else{
-						var tbl=document.getElementById("tblReporteVentaPeriodo");
-						tbl.innerHTML="";
-						mostrarMensaje(rs);
-					}
-				});
-
-	});*/
+	
 
 	agregarEvento("selPeridoReporte","change",function(){
 		
@@ -671,14 +599,14 @@ function iniciar_producto(valido){
 					return false;
 					break;		
 			}
-			if(document.getElementById("selVenCajero").value!="0"){
+			if(document.getElementById("selVenCajero").value!=="0"){
 				fli[2]=["users.id","=",document.getElementById("selVenCajero").value];				
 			}
-			if(document.getElementById("selSedesRepoVenta").value!=0){
+			if(document.getElementById("selSedesRepoVenta").value!==0){
 				fli.push(["sedes.id","=",document.getElementById("selSedesRepoVenta").value]);
 				var datos={
 					tipo:"SEDE",
-					filtro:fli,
+					filtro:fli
 					
 				};
 			}else{
@@ -689,7 +617,7 @@ function iniciar_producto(valido){
 			}
 				registrarDato(_URL+"reporte_ventas_por_periodo",datos,function(rs){
 					consola(rs);
-					if(rs.respuesta==true){
+					if(rs.respuesta===true){
 						var tbl=document.getElementById("tblReporteVentaPeriodo");
 						tbl.innerHTML="";
 						dibujar_reporte_venta_por_periodo(rs.datos);	
@@ -697,45 +625,47 @@ function iniciar_producto(valido){
 						var tbl=document.getElementById("tblReporteVentaPeriodo");
 						tbl.innerHTML="";
 						mostrarMensaje(rs);
+                                                document.getElementById("h2VentaTotal").innerHTML="VALOR VENTAS";
 					}
 				});
 
 	});
 
 	agregarEvento("fin","change",function(){
-			var fil=[];
-			if(document.getElementById("selSedesRepoVenta").value!=0){
+			var fli=[];
+			if(document.getElementById("selSedesRepoVenta").value!==0){
 				fli.push(["sedes.id","=",document.getElementById("selSedesRepoVenta").value]);
 				var datos={
 					tipo:"SEDE",
-					filtro:fil,
+					filtro:fli
 					
 				};
 			}else{
 				var datos={
 					tipo:"GENERAL",
-					filtro:fil
+					filtro:fli
 				};
 			}
 
 			var fini=document.getElementById("inicio");	
 			var ffin=document.getElementById("fin");	
-			if(fini.value!=""){
-			 	if(ffin.value!=""){
+			if(fini.value!==""){
+			 	if(ffin.value!==""){
 					fli[0]=["facturas.registro_factura",">=",fini.value+" 00:00:00"];
 			 		fli[1]=["facturas.registro_factura","<=",ffin.value+" 23:59:59"];
 			 	}else{
-			 		fil[0]=["facturas.registro_factura",">=",fini.value+" 00:00:00"];
-			 		fil[1]=["facturas.registro_factura","<=",horaCliente().split(" ")[0]+" 23:59:59"];;
+			 		fli[0]=["facturas.registro_factura",">=",fini.value+" 00:00:00"];
+			 		fli[1]=["facturas.registro_factura","<=",horaCliente().split(" ")[0]+" 23:59:59"];;
 			 	}
 
 			 	registrarDato(_URL+"reporte_ventas_por_periodo",datos,function(rs){
-					if(rs.respuesta==true){
+					if(rs.respuesta===true){
 						dibujar_reporte_venta_por_periodo(rs.datos);	
 					}else{
 						var tbl=document.getElementById("tblReporteVentaPeriodo");
 						tbl.innerHTML="";
 						mostrarMensaje(rs);
+                                                document.getElementById("h2VentaTotal").innerHTML="VALOR VENTAS";
 					}
 				});
 
@@ -773,8 +703,8 @@ function iniciar_producto(valido){
 				document.getElementById("liFechas").style.display='';
 				var fini=document.getElementById("inicio");	
 				var ffin=document.getElementById("fin");	
-				if(fini.value!=""){
-				 	if(ffin.value!=""){
+				if(fini.value!==""){
+				 	if(ffin.value!==""){
 						fli[0]=["facturas.registro_factura",">=",fini.value+" 00:00:00"];
 				 		fli[1]=["facturas.registro_factura","<=",ffin.value+" 23:59:59"];
 				 	}else{
@@ -789,11 +719,11 @@ function iniciar_producto(valido){
 				break;		
 		}
 
-		if(document.getElementById("selVenCajero").value!="0"){
+		if(document.getElementById("selVenCajero").value!=="0"){
 				fli[2]=["users.id","=",document.getElementById("selVenCajero").value];				
 		}
 
-		if(document.getElementById("selSedesRepoVenta").value!=0){
+		if(document.getElementById("selSedesRepoVenta").value!==0){
 			fli.push(["sedes.id","=",document.getElementById("selSedesRepoVenta").value]);
 			var datos={
 				tipo:"SEDE",
@@ -808,12 +738,13 @@ function iniciar_producto(valido){
 		}
 			registrarDato(_URL+"reporte_ventas_por_periodo",datos,function(rs){
 				consola(rs);
-				if(rs.respuesta==true){
+				if(rs.respuesta===true){
 					dibujar_reporte_venta_por_periodo(rs.datos);	
 				}else{
 					var tbl=document.getElementById("tblReporteVentaPeriodo");
 					tbl.innerHTML="";
 					mostrarMensaje(rs);
+                                        document.getElementById("h2VentaTotal").innerHTML="VALOR VENTAS";
 				}
 				
 			});	
@@ -844,8 +775,8 @@ function iniciar_producto(valido){
 				document.getElementById("liFechas").style.display='';
 				var fini=document.getElementById("inicio");	
 				var ffin=document.getElementById("fin");	
-				if(fini.value!=""){
-				 	if(ffin.value!=""){
+				if(fini.value!==""){
+				 	if(ffin.value!==""){
 						fli[0]=["facturas.registro_factura",">=",fini.value+" 00:00:00"];
 				 		fli[1]=["facturas.registro_factura","<=",ffin.value+" 23:59:59"];
 				 	}else{
@@ -860,15 +791,15 @@ function iniciar_producto(valido){
 				break;		
 		}
 
-		if(document.getElementById("selVenCajero").value!="0"){
+		if(document.getElementById("selVenCajero").value!=="0"){
 				fli[2]=["users.id","=",document.getElementById("selVenCajero").value];				
 		}
 
-		if(document.getElementById("selSedesRepoVenta").value!="--"){
+		if(document.getElementById("selSedesRepoVenta").value!=="--"){
 			fli.push(["sedes.id","=",document.getElementById("selSedesRepoVenta").value]);
 			var datos={
 				tipo:"SEDE",
-				filtro:fli,
+				filtro:fli
 				
 			};
 		}else{
@@ -879,23 +810,24 @@ function iniciar_producto(valido){
 		}
 			registrarDato(_URL+"reporte_ventas_por_periodo",datos,function(rs){
 				consola(rs);
-				if(rs.respuesta==true){
+				if(rs.respuesta===true){
 					dibujar_reporte_venta_por_periodo(rs.datos);	
 				}else{
 					var tbl=document.getElementById("tblReporteVentaPeriodo");
 					tbl.innerHTML="";
 					mostrarMensaje(rs);
+                                        document.getElementById("h2VentaTotal").innerHTML="VALOR VENTAS";
 				}
 				
 			});	
 	});	
 	agregarEvento("txtCodPromo","keypress",function(){
-		if(document.getElementById("selPromoSede").value==0){
-			if(document.getElementById("txtCodPromo").value!=""){
+		if(document.getElementById("selPromoSede").value===0){
+			if(document.getElementById("txtCodPromo").value!==""){
 
 			consultarDatos(_URL+"productos/"+document.getElementById("txtCodPromo").value,{},function(rs){
 				console.log(rs);
-				if(rs.respuesta==true){
+				if(rs.respuesta===true){
 					crear_data_list_producto("lista_prod_promo",rs.datos);
 				}
 			});
@@ -903,7 +835,7 @@ function iniciar_producto(valido){
 		}else{
 			registrarDato(_URL+"traer_productos/"+document.getElementById("txtCodPromo").value+"/"+document.getElementById("selPromoSede").value,{},function(rs){
 				console.log(rs);
-				if(rs.respuesta==true){
+				if(rs.respuesta===true){
 					crear_data_list_producto("lista_prod_promo",rs.datos);
 				}
 			});
@@ -912,12 +844,12 @@ function iniciar_producto(valido){
 			
 	});
 	agregarEvento("txtCodPromo","change",function(){
-		if(document.getElementById("selPromoSede").value==0){
-			if(document.getElementById("txtCodPromo").value!=""){
+		if(document.getElementById("selPromoSede").value===0){
+			if(document.getElementById("txtCodPromo").value!==""){
 
 			consultarDatos(_URL+"productos/"+document.getElementById("txtCodPromo").value,{},function(rs){
 				console.log(rs);
-				if(rs.respuesta==true){
+				if(rs.respuesta===true){
 					document.getElementById("hdIdProdPromo").value=rs.datos[0].id;
 				}
 			});
@@ -1066,6 +998,8 @@ function dibujar_promociones(dt){
 	}
 }
 function dibujar_reporte_venta_por_periodo(dt){
+        var h2VentaTotal=document.getElementById("h2VentaTotal");
+        var total=0;
 	var tbl=document.getElementById("tblReporteVentaPeriodo");
 	tbl.innerHTML="";
 	
@@ -1198,6 +1132,7 @@ function dibujar_reporte_venta_por_periodo(dt){
 		var td=document.createElement("td");
 		td.innerHTML="$ "+formato_numero(tt,"2",",",".");
 		tr.appendChild(td);
+                total+=tt;
 
 		var td=document.createElement("td");
 		td.innerHTML="$ "+formato_numero((Number(tt)-Number(ttcompra)-imp),"2",",",".");
@@ -1213,6 +1148,7 @@ function dibujar_reporte_venta_por_periodo(dt){
 		tr.appendChild(td);
 		tbl.appendChild(tr);
 	}
+        h2VentaTotal.innerHTML="VALOR VENTAS $ "+formato_numero(total,"2",",",".");
 }
 /*
 	d=>datos enviados desde el servidor
@@ -1221,7 +1157,7 @@ function dibujar_producto_edicion(d){
 
 	console.log(d);
 
-	if(document.getElementById("selSedes2").value=="0" || document.getElementById("selSedes2").value=="--" ){
+	if(document.getElementById("selSedes2").value==="0" || document.getElementById("selSedes2").value==="--" ){
 		document.getElementById("liCantExistenciasEdi").style.display='none';
 		document.getElementById("txtNuevoProdCod").value=d.codigo_producto;
 		document.getElementById("txtNuevoProdCodDistribuidor").value=d.codigo_distribuidor;
