@@ -344,6 +344,10 @@
                             <li>
                                 <input id="btnRegistroEntradaCon" type="button"  value="Registrar entrada "/>
                                 <input id="btnCancelarEntradaContable" type="button"  value="Cancelar entrada" class="salir"/>
+                                
+                            </li>
+                            <li>
+                                <input id="dtFechaBusquedaEntrada" type="date">
                                 <input id="btnMostradaEntardaContable" type="button"  value="Buscar Registro Entradas "/>
                             </li>
                             <li></li>
@@ -378,18 +382,37 @@
                                 <p>Motivo de la Salida de Efectivo</p>
                             </li>
                             <li>
-                                <select id="selSalida"></select>
+                                <select id="selSalida" ></select>
                             </li>
                             <li>
                                 <div class="limpiar"></div>
                             </li>
                             <li>
-                                <input type="text" placeholder="$0.00" />
+                                <input type="text" placeholder="$0.00"  />
+                            </li>
+                            <li>
+                                <input id="txtObservaciones" type="text" placeholder="Observaciones/Motivo" >
                             </li>
                             <li>
                                 <input id="btnAceptarSalida" type="button"  value="Aceptar"/>
                                 <input type="button"  value="Cancelar" class="salir"/>
-                                <input type="button"  value="Registro Salidas"/>
+                                
+                            </li>
+                            <li>
+                                <input id="dtFechaBusquedaSalida" type="date">
+                                <input id="btnBuscarSalidas" type="button"  value="Buscar Registro Salidas"/>
+                            </li>
+                            <li >
+
+                                <table id="tblRegistroSalida">
+                                    <tr>
+                                        <td>Registro salidas del dia</td>
+                                        <td>$</td>
+                                    </tr>
+                                    <tbody id="tblSalidasDia">
+
+                                    </tbody>
+                                </table>
                             </li>
                         </ul>
                     </form>
@@ -2672,12 +2695,36 @@
                                 <h3 id="h3_entrada_dinero">$0.00</h3>
                             </td>
                         </tr>
+                         <tr>
+                            <td>
+                                <h4>Prestamos</h4>
+                            </td>
+                            <td>
+                                <h3 id="h3_prestamos_dinero">$0.00</h3>
+                            </td>
+                        </tr>
                         <tr>
                             <td>
                                 <h4>Pago a proveedores</h4>
                             </td>
                             <td>
                                 <h3 id="h3_salidas_de_dinero">$0.00</h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>Pago de facturas</h4>
+                            </td>
+                            <td>
+                                <h3 id="h3_salidas_facturaso">$0.00</h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>Pago otros</h4>
+                            </td>
+                            <td>
+                                <h3 id="h3_salidas_otros">$0.00</h3>
                             </td>
                         </tr>
                         <tr>

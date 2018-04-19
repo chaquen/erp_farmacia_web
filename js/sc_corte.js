@@ -137,29 +137,57 @@ function dibujar_dinero_en_caja(datos){
 	var h3_entrada_dinero=document.getElementById("h3_entrada_dinero");
 	var h3_salidas_de_dinero=document.getElementById("h3_salidas_de_dinero");
 	var h3_total_entradas=document.getElementById("h3_total_entradas");
+	var h3_prestamos_dinero=document.getElementById("h3_prestamos_dinero");
+	var h3_salidas_facturaso=document.getElementById("h3_salidas_facturaso");
+	var h3_salidas_otros=document.getElementById("h3_salidas_otros");
+
 
 	console.log(datos.pagos_de_contado[0]);
 	if(datos.pagos_de_contado[0].total_factura!=undefined){
-		h3_ventas_en_efectivo.innerHTML="$ "+formato_numero(datos.pagos_de_contado[0].total_factura,"2",",",".");
+		h3_ventas_en_efectivo.innerHTML="$ "+formato_numero(datos.pagos_de_contado[0].total_factura,"2",",",".")+" + ";
 		h3_ventas_en_efectivo.value=datos.pagos_de_contado[0].total_factura;
 	}else{
 		h3_ventas_en_efectivo.innerHTML="$ 0.00";
 		h3_ventas_en_efectivo.value=0;
 	}
 	console.log(document.getElementById("h3_total_entrada_de_dinero").innerHTML);
-	h3_entrada_dinero.innerHTML=document.getElementById("h3_total_entrada_de_dinero").innerHTML;
+	h3_entrada_dinero.innerHTML=document.getElementById("h3_total_entrada_de_dinero").innerHTML+" + ";
 	h3_entrada_dinero.value=document.getElementById("h3_total_entrada_de_dinero").value;
 
 	console.log(datos.salidas_dinero_caja[0].total_salida);
 	if(datos.salidas_dinero_caja[0].total_salida!=null){
-		h3_salidas_de_dinero.innerHTML="$ "+formato_numero(datos.salidas_dinero_caja[0].total_salida,"2",",",".");
+		h3_salidas_de_dinero.innerHTML="$ "+formato_numero(datos.salidas_dinero_caja[0].total_salida,"2",",",".")+" - ";
 		h3_salidas_de_dinero.value=Number(datos.salidas_dinero_caja[0].total_salida);
 	}else{
 		h3_salidas_de_dinero.innerHTML="$ 0.00";
 		h3_salidas_de_dinero.value=0;
 	}
+
+	if(datos.prestamos[0].total_salida_prestamo!=null){
+		h3_prestamos_dinero.innerHTML="$ "+formato_numero(datos.prestamos[0].total_salida_prestamo,"2",",",".")+" - ";
+		h3_prestamos_dinero.value=datos.prestamos[0].total_salida_prestamo;
+	}else{
+		h3_prestamos_dinero.innerHTML="$ 0.00";
+		h3_prestamos_dinero.value="0";
+	}
+
+	if(datos.salida_facturas[0].total_salida_pago_facturas!=null){
+		h3_salidas_facturaso.innerHTML="$ "+formato_numero(datos.salida_facturas[0].total_salida_pago_facturas,"2",",",".")+" - ";
+		h3_salidas_facturaso.value=datos.salida_facturas[0].total_salida_pago_facturas;
+	}else{
+		h3_salidas_facturaso.innerHTML="$ 0.00";
+		h3_salidas_facturaso.value="0";
+	}
+
+	if(datos.salida_otros[0].total_salida_pago_otros!=null){
+		h3_salidas_otros.innerHTML="$ "+formato_numero(datos.salida_otros[0].total_salida_pago_otros,"2",",",".")+" - ";
+		h3_salidas_otros.value=datos.salida_otros[0].total_salida_pago_otros;
+	}else{
+		h3_salidas_otros.innerHTML="$ 0.00";
+		h3_salidas_otros.value="0";
+	}
 	console.log(h3_salidas_de_dinero.value);
-	var total=Number(h3_ventas_en_efectivo.value)+Number(h3_entrada_dinero.value)-Number(h3_salidas_de_dinero.value);
+	var total=Number(h3_ventas_en_efectivo.value)+Number(h3_entrada_dinero.value)-Number(h3_salidas_de_dinero.value)-Number(h3_prestamos_dinero.value)-Number(h3_salidas_facturaso.value)-Number(h3_salidas_otros.value);
 
 	h3_total_entradas.innerHTML="$ "+formato_numero(total,"2",",",".");
 	h3_total_entradas.value=total;

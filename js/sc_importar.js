@@ -1,7 +1,7 @@
 function iniciar_importar(valido){
 	
 	if(valido){
-			agregarEvento("btnImportar","click",function(e){
+		agregarEvento("btnImportar","click",function(e){
 				
 				//$("#mensaje_importar").fadeIn("fast");
 				//e.preventDefault();

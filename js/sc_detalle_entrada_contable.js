@@ -4,7 +4,7 @@ function iniciar_detalle_entrada_contable(valido){
 
 		
 		agregarEvento("btnMostradaEntardaContable","click",function(){
-			consultarDatos(_URL+"detalle_entrada_contable/"+horaCliente()+"&"+_IdSede,{},function(rs){
+			consultarDatos(_URL+"detalle_entrada_contable/"+document.getElementById("dtFechaBusquedaEntrada").value+" "+horaCliente().split(" ")[1]+"&"+_IdSede,{},function(rs){
 				if(rs.respuesta==true){
 					dibujar_entradas_diaria(rs.datos);
 				}else{
@@ -28,6 +28,7 @@ function iniciar_detalle_entrada_contable(valido){
 						fk_id_usuario:_usuario.id_usuario,
 						fk_id_sede:_IdSede,
 						valor_entrada:vf.Texto[0],
+						tipo_entrada:vf.Select[0]
 					};
 					registrarDato(_URL+"detalle_entrada_contable",datos,function(rs){
 						
@@ -37,8 +38,10 @@ function iniciar_detalle_entrada_contable(valido){
 							document.getElementById("pEntrada").innerHTML="Registro de Entradas de Efectivo";
 							document.getElementById("h2TlEntrad").innerHTML="ENTRADAS DE EFECTIVO";
 							document.getElementById("pMsnEntrada").innerHTML="Escriba la cantidad a ingresar en caja";
-							document.getElementById("tblRegistroEntrada").style.display='';
+							document.getElementById("tblRegistroEntrada").style.display='block';
 							document.getElementById("txt_valor").value="";
+						}else{
+							mostrarMensaje(rs);
 						}
 						$('.mascara').fadeOut('fast');		
 						
@@ -54,12 +57,21 @@ function iniciar_detalle_entrada_contable(valido){
 }
 
 function dibujar_entradas_diaria(datos){
+	document.getElementById("tblRegistroEntrada").style.display='block';
 	var tbl=document.getElementById("tblEntradasDia");
 	tbl.innerHTML="";
 	for(var i in datos){
 		var tr=document.createElement("tr");
 		var td=document.createElement("td");
 		td.innerHTML=datos[i].fecha_entrada;
+		tr.appendChild(td);
+
+		var td=document.createElement("td");
+		td.innerHTML=datos[i].nombre_entrada+" ";
+		tr.appendChild(td);
+
+		var td=document.createElement("td");
+		td.innerHTML=" ";
 		tr.appendChild(td);
 
 		var td=document.createElement("td");

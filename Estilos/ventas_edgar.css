@@ -14,3 +14,25 @@
     clear: both;
     width: 300px;
 }
+#tblEntradasDia {
+    z-index: 99999;
+    background-color: white;
+    margin: auto;
+    
+}
+#tblRegistroEntrada{
+    overflow: scroll;
+    width: 350px;
+    height: 500px;  
+}
+#tblSalidasDia {
+    z-index: 99999;
+    background-color: white;
+    margin: auto;
+    
+}
+#tblRegistroSalida{
+    overflow: scroll;
+    width: 350px;
+    height: 500px;  
+}

@@ -5,9 +5,7 @@ var mis_ticket_off = [];
 var txt_codigo = "";
 
 function iniciar_factura() {
-    //if(obtener_local_storage("btn_tk_"+_usuario.id_usuario+"_"+_IdSede)==false){
-    //agregar_local_storage("btn_tk_"+_usuario.id_usuario+"_"+_IdSede,1);   
-    //}
+
     obtener_tickets_pendientes();
     mostrar_venta_inicial();
     agregarEvento("liNuevoTicketPendiente", "click", function() {
@@ -283,18 +281,41 @@ function iniciar_factura() {
             });
         }
     });
-    agregarEvento("btnAceptarSalida", "click", function() {
+    agregarEvento("btnAceptarSalida", "click", function(e) {
+        var vf = obtener_valores_formulario("formSalidaContable");
+
+        if (vf != false) {
+            if(document.getElementById("txtObservaciones").value!="" && document.getElementById("selSalida").value!="0"){
+                    var datos = {
+                    fk_id_salida_contable: vf.Select[0],
+                    fk_id_usuario: _usuario.id_usuario,
+                    fk_id_sede: _IdSede,
+                    valor_salida: vf.Texto[0],
+                    motivo:vf.Texto[1]
+                };
+                registrarDato(_URL + "detalle_salida_contable", datos, function(rs) {
+                    mostrarMensaje(rs);
+                }, "formSalidaContable");
+            }else{
+                mostrarMensaje("Por favor ingresa un motivo");
+            }
+           
+        }
+        e.preventDefault();
+    });
+    agregarEvento("btnBuscarSalidas", "click", function() {
         var vf = obtener_valores_formulario("formSalidaContable");
         if (vf != false) {
             var datos = {
-                fk_id_salida_contable: vf.Select[0],
-                fk_id_usuario: _usuario.id_usuario,
-                fk_id_sede: _IdSede,
-                valor_salida: vf.Texto[0],
+                
             };
-            registrarDato(_URL + "detalle_salida_contable", datos, function(rs) {
-                mostrarMensaje(rs);
-            }, "formSalidaContable");
+           
+                    consultarDatos(_URL + "detalle_salida_contable/"+document.getElementById('dtFechaBusquedaSalida').value+" "+horaCliente().split(" ")[1]+"&"+_IdSede, {}, function(rs) {
+                        mostrarMensaje(rs);
+                        dibujar_tabla_salidas(rs.datos);
+                    }, "");
+
+            
         }
     });
     agregarEvento("txtBuscarProducto", "keypress", function(e) {
@@ -1379,7 +1400,12 @@ function dibujar_factura(fac, tk) {
             document.getElementById("numCantidad").value = 0;
             document.getElementById("h4NombreProductoInv").innerHTML = "Nombre producto";
             document.getElementById("txtCodigoProducto").value = "";
-            document.getElementById("h3CuantosProductos").innerHTML = mi_ticket[_numero_ticket].productos.length;
+            if(mi_ticket[_numero_ticket]!=undefined){
+                document.getElementById("h3CuantosProductos").innerHTML = mi_ticket[_numero_ticket].productos.length;
+            }else{
+                document.getElementById("h3CuantosProductos").innerHTML = 0;
+            }
+            
         }
         _producto_seleccionado = false;
      
@@ -1779,4 +1805,37 @@ function dibujar_factura_old(fac, tk) {
     document.getElementById("divFactura").appendChild(span);    */
     //agregar_local_storage("mis_tickets_" + _usuario.id_usuario + "_" + _IdSede, mi_ticket);
     console.log("FIN function dibujar_factura");
+}
+function dibujar_tabla_salidas(datos){
+    document.getElementById("tblRegistroSalida").style.display='block';
+    var tbl=document.getElementById("tblSalidasDia");
+
+    tbl.innerHTML="";
+    for(var i in datos){
+        console.log(datos[i].motivo);
+        var tr=document.createElement("tr");
+        var td=document.createElement("td");
+        td.innerHTML=datos[i].fecha_registro_salida;
+        tr.appendChild(td);
+
+        var td=document.createElement("td");
+        td.innerHTML=datos[i].nombre_salida+" ";
+        tr.appendChild(td);
+
+        var td=document.createElement("td");
+        td.innerHTML=" ";
+        tr.appendChild(td);
+
+        var td=document.createElement("td");
+        td.innerHTML="$ "+formato_numero(datos[i].valor_salida,"2",",",".");
+        tr.appendChild(td);
+
+        var td=document.createElement("td");
+        td.innerHTML=datos[i].motivo+" ";
+        tr.appendChild(td);
+
+
+        tbl.appendChild(tr);
+
+    }
 }
