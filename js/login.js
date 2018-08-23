@@ -30,10 +30,11 @@ function cargar_sedes(){
 }
 function validar_login_pass(e){
     if(e.which!=0 && e.which=="13"){
-         var vl=obtener_valores_formulario("formLogin");
+        document.getElementById("load").style.display="";
+        var vl=obtener_valores_formulario("formLogin");
         console.log(vl);
         if(vl.Texto[0]!="" && vl.Clave!= ""){
-             var dia=new Date();
+            var dia=new Date();
             var dat={usario:vl.Texto[0],password:vl.Clave,sede:vl.Select[0],dia:dia.getDay()};
             registrarDato(_URL+"login",dat,function(rs){
                 mostrarMensaje(rs);
@@ -48,6 +49,9 @@ function validar_login_pass(e){
                     inicia_app();
                     _usuario=obtener_session_storage("ssUsuario");;
                     //location.href="/";
+                    document.getElementById("load").style.display="none";
+                }else{
+                    document.getElementById("load").style.display="none";
                 }       
                 
             },"formLogin");   
@@ -61,6 +65,7 @@ function validar_login(){
 	var vl=obtener_valores_formulario("formLogin");
 	
 	if(vl.Texto[0]!="" && vl.Clave!= ""){
+        document.getElementById("load").style.display="";
         console.log(vl);
         var dia=new Date();
         var dat={usario:vl.Texto[0],password:vl.Clave,sede:vl.Select[0],dia:dia.getDay()};
@@ -75,9 +80,13 @@ function validar_login(){
                             $('#menuGeneral, #ventas').fadeIn('slow');//
                         //abrir_ventana("admin.html",rs.datos[0]);
                         inicia_app();
-                        _usuario=obtener_session_storage("ssUsuario");;
+                        _usuario=obtener_session_storage("ssUsuario");
+                        document.getElementById("load").style.display="none";
                         //location.href="/";
-                    }       
+                    }else{
+                        document.getElementById("load").style.display="none";
+                    }
+
                 
             },"formLogin");   
     }else{
