@@ -260,7 +260,6 @@ function iniciar_pedidos(valido){
 	   		var url=_URL+"subir_pedido";
 	   		registrarDatoArchivo(url,{},document.getElementById("flvSubirPedido"),"formSubirPedidosAp",function(rs){
 	   			console.log(rs);
-	   			mostrarMensaje(rs);
 	   		});
 	   	}else{
 	   		mostrarMensaje("Debes seleccionar un archivo");

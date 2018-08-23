@@ -1,7 +1,7 @@
 function iniciar_importar(valido){
 	
 	if(valido){
-		agregarEvento("btnImportar","click",function(e){
+			agregarEvento("btnImportar","click",function(e){
 				
 				//$("#mensaje_importar").fadeIn("fast");
 				//e.preventDefault();
@@ -55,7 +55,7 @@ function importar(){
 
 					if(document.getElementById("selSedesImportar").value != "--"){
 						$('#btnImportar').click(function(){return false;});
-						registrarDato(_URL+"importacion_ftp_2",{
+						registrarDato(_URL+"importacion_ftp",{
 							sede:document.getElementById("selSedesImportar").value,
 							tipo_importacion:document.getElementById("selTipoImportacion").value,
 							hora_cliente:horaCliente(),

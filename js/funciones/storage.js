@@ -34,24 +34,17 @@ function obtener_local_storage(nombreSession){
     }
 }
 function agregar_local_storage(nombre,datos){
+     if(localStorage[nombre]!=undefined){
+        
+        localStorage.removeItem(nombre);
+        
+        localStorage.setItem(nombre,JSON.stringify(datos));   
+        localStorage.setItem("fecha_creacion",JSON.stringify(horaCliente()));   
+     }else{
+        localStorage.setItem(nombre,JSON.stringify(datos));   
+        console.log(localStorage);
+     }
      
-        try {
-          
-            if(localStorage[nombre]!=undefined){
-                
-                localStorage.removeItem(nombre);
-                
-                localStorage.setItem(nombre,JSON.stringify(datos));   
-                localStorage.setItem("fecha_creacion",JSON.stringify(horaCliente()));   
-             }else{
-                localStorage.setItem(nombre,JSON.stringify(datos));   
-                console.log(localStorage);
-
-             }
-        }
-        catch(err) {
-            document.getElementById("demo").innerHTML = err.message;
-        }
 }
 
 function obtener_id_usuario(){
@@ -60,7 +53,6 @@ function obtener_id_usuario(){
 }
 function eliminar_local_storage(nombre){
     if(nombre!=undefined){
-        console.log(nombre);
         localStorage.removeItem(nombre);
         localStorage.removeItem("fecha_creacion");
 

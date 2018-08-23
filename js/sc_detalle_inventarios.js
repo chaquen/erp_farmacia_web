@@ -748,18 +748,7 @@ function iniciar_inventario(valido){
 					});	
 				}
 			});
-			agregarEvento("divScroll","scroll",function(e){
-				console.log(this.scrollTop);
-				if(this.scrollTop>1){
-					//document.getElementById("tblTitulo").style.display="";
-					//e.preventDefault();
-					//return false;
-				}else{
-					//document.getElementById("tblTitulo").style.display="none";
-					//e.preventDefault();
-					//return false;
-				}
-			});
+
 			/*agregarEvento("cod_repo_inv","click",ordenar_codigo);
 			agregarEvento("nom_repo_inv","click",ordenar_nombre);
 			
@@ -1865,7 +1854,6 @@ function exportar_inventario(){
  		datos_exportar_inv.email_usuario=_usuario.email;
  		$('.mascara, #mensaje_exportar_inv').fadeOut("fast");
  	}else{
-
  		datos_exportar_inv.email_usuario=false;
  	}
 
@@ -1879,8 +1867,6 @@ function exportar_inventario(){
 			a.href=_URL+"archivos/exportacion/excel/"+rs.direccion;
 			a.target="_blank";
 			li.appendChild(a);
-			mostrarMensaje(rs);
-		}else{
 			mostrarMensaje(rs);
 		}
 	});
@@ -1921,8 +1907,6 @@ function exportar_bajo_inv(){
 							li.appendChild(aExpoBajoInvtxt);
 							liExpoBajoInv.appendChild(li);
 
-						}else{
-							mostrarMensaje(rs);
 						}
 					});
 }

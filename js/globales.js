@@ -4,9 +4,10 @@
 //variable que almacena el usuario
 var _usuario=false;
 //variable que almacena las url
-//var _URL="http://localhost/erp_farmacia_back_end/";
-var _URL="http://apierpfarmacia.mohansoft.com/";
+
 //var _URL="https://api.asopharma.com/";
+
+var _URL="http://localhost/erp_farmacia_back_end/";
 //vARIBLE QUE DEFINE LA SEDE DONDE SE FACTURA
 var _IdSede;
 console.log(_usuario);

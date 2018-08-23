@@ -42,7 +42,7 @@ function registrarDato(url,datos,funcion_despues,formulario,callback){
 /* INSERTAR DATOS
  
  * {datos} objeto con la estructura que voy a  enviaren la peticion HTTP
- * {achivo} archivo con la estructura que voy a  enviaren la peticion HTTP elemento html
+ * {achivo} archivo con la estructura que voy a  enviaren la peticion HTTP
  * {funcion_depues} funcion que se realizara despues de recibir la respuesta del servidor
  * {id_formulario} id id_formulario que desea limpiar
  *  * */    
