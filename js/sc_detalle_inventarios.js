@@ -201,6 +201,10 @@ function iniciar_inventario(valido){
 									cantidad_existencias:vf.Numero[0],
 									tipo_entrada:"ENTRADA",
 									fk_id_usuario:_usuario.id_usuario,
+									precio_venta_unidad:vf.Numero[1],
+									precio_venta_blister:vf.Numero[2],
+									precio_venta_caja:vf.Numero[3],
+
 
 									
 									
@@ -212,13 +216,13 @@ function iniciar_inventario(valido){
 										document.getElementById("hdIdProductoInventario").value="";
 										document.getElementById("h4NombreProducto").innerHTML="Nombre producto";
 										document.getElementById("h4ExistenciasActuales").innerHTML="0";
-										document.getElementById("liTipoUni").style.display="none";
-											document.getElementById("liTipoBli").style.display="none";
-											document.getElementById("liTipoCj").style.display="none";
-											document.getElementById("h4Emabalaje").innerHTML="";
-											document.getElementById("liEmbalaje").style.display="none";
+										document.getElementById("liTipoCj").style.display="none";
+										document.getElementById("h4Emabalaje").innerHTML="";
+										document.getElementById("liEmbalaje").style.display="none";
+										document.getElementById("num_pre_venta_cj").value="";
+										document.getElementById("num_pre_venta_bl").value="";
+										document.getElementById("num_pre_venta_un").value="";
 										ocultar();
-
 										document.getElementById("selSedesAddInv").value=_IdSede;
 										document.getElementById("txtBuscarProductoInventario").value="";
 										document.getElementById("catnIve").value="";
@@ -900,24 +904,23 @@ function dibujar_producto_inventario(d){
 		tipo="Unidades.";
 		document.getElementById("liEmbalaje").style.display="none";
 		document.getElementById("h4Emabalaje").innerHTML=d.unidades_por_caja+" unidad";
-		document.getElementById("liTipoBli").style.display="none";
-		document.getElementById("liTipoCj").style.display="none";
-		document.getElementById("liTipoUni").style.display="";
+		
+		document.getElementById("liTipoCj").style.display="";
+		
 	}else if(d.tipo_venta_producto=="Caja"){
 
 		document.getElementById("h4Emabalaje").innerHTML=d.unidades_por_caja+" unidades X CAJA";
 		document.getElementById("liEmbalaje").style.display="none";
-		document.getElementById("liTipoBli").style.display="none";
+		
 		document.getElementById("liTipoCj").style.display="";
-		document.getElementById("liTipoUni").style.display="";
+		
 		tipo="Unidades";
 	}else if(d.tipo_venta_producto=="CajaBlister"){
 		document.getElementById("liEmbalaje").style.display="";
 		document.getElementById("h4Emabalaje").innerHTML=d.unidades_por_caja+" blister X CAJA";
-		document.getElementById("h4EmabalajeBlister").innerHTML=d.unidades_por_blister+" unidades X BLISTER";
-		document.getElementById("liTipoBli").style.display="";
+		document.getElementById("h4EmabalajeBlister").innerHTML=d.unidades_por_blister+" unidades X BLISTER";		
 		document.getElementById("liTipoCj").style.display="";
-		document.getElementById("liTipoUni").style.display="";
+		
 		tipo="Unidades";
 	}
 	
@@ -927,6 +930,9 @@ function dibujar_producto_inventario(d){
 	document.getElementById("h4NombreProducto").innerHTML=d.nombre_producto;
 	document.getElementById("h4ExistenciasActuales").innerHTML=d.cantidad_existencias_unidades+" "+tipo;
 	document.getElementById("hdIdProductoUnidadesEntrada").value=d.unidades_por_caja;
+	document.getElementById("num_pre_venta_cj").value=d.precio_venta_sede;
+	document.getElementById("num_pre_venta_bl").value=d.precio_venta_blister_sede;
+	document.getElementById("num_pre_venta_un").value=d.precio_mayoreo_sede;
 	
 	
 
