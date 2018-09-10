@@ -9,8 +9,8 @@ var _usuario=false;
 //TEST LOCAL
 //var _URL="http://localhost/erp_farmacia_back_end/";
 //TEST WEB
-var _URL="apierpfarmacia.mohansoft.com"
-//VARIBLE QUE DEFINE LA SEDE DONDE SE FACTURA
+var _URL="apierpfarmacia.mohansoft.com/"
+//VentasARIBLE QUE DEFINE LA SEDE DONDE SE FACTURA
 var _IdSede;
 var _id_cliente=1;
 
