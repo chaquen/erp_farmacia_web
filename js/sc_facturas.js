@@ -65,7 +65,7 @@ function iniciar_factura() {
                     ulTickets.appendChild(li);
                 }
             }, "formulario", function(jqXHR, textStatus, errorThrown) {
-                console.log("que hago si hay un error para la factura");
+                //console.log("que hago si hay un error para la factura");
                 registro_factura = true;
             });
         } else {
@@ -80,15 +80,15 @@ function iniciar_factura() {
     });
     agregarEvento("txtCodigoProducto", "keypress", function(e) {
         if (e.keyCode != 13) {
-            console.log(e.key);
+            //console.log(e.key);
         } else {
-            console.log(e.key);
+            //console.log(e.key);
             if (e.key == "Enter" && this.value!="") {
                 registrarDato(_URL + "traer_productos_para_factura/" + this.value.trim() + "/" + _IdSede, {}, function(rs) {
                     if (rs.respuesta) {
                         var listaProductos = document.getElementById("listaProductos");
                         listaProductos.innerHTML = "";
-                        console.log(rs.datos);
+                        //console.log(rs.datos);
                         if (rs.datos.length == 1) {
                             _producto_seleccionado = rs.datos[0];
                             document.getElementById("numCantidad").value = 1;
@@ -104,7 +104,7 @@ function iniciar_factura() {
                                 }
                             }
                             var sel = document.getElementById("selTipoVentaFactura");
-                            console.log(sel);
+                            //console.log(sel);
                             sel.innerHTML = "";
                             if (rs.datos[0].tipo_venta_producto == "Caja") {
                                 var opt = document.createElement("option");
@@ -154,7 +154,7 @@ function iniciar_factura() {
                 if (rs.respuesta) {
                     var listaProductos = document.getElementById("listaProductos");
                     listaProductos.innerHTML = "";
-                    console.log(rs.datos);
+                    //console.log(rs.datos);
                     if (rs.datos.length == 1) {
                         _producto_seleccionado = rs.datos[0];
                         document.getElementById("numCantidad").value = 1;
@@ -162,7 +162,7 @@ function iniciar_factura() {
                         document.getElementById("h4NombreProductoInv").innerHTML = _producto_seleccionado.nombre_producto;
                         agregar_producto_mi_ticket(_producto_seleccionado);
                         var sel = document.getElementById("selTipoVentaFactura");
-                        console.log(sel);
+                        //console.log(sel);
                         sel.innerHTML = "";
                         if (rs.datos[0].tipo_venta_producto == "Caja") {
                             var opt = document.createElement("option");
@@ -251,7 +251,7 @@ function iniciar_factura() {
             var datos = {};
             var valor_consulta = "";
             consultarDatos(_URL + "/" + valor_consulta, datos, function(rs) {
-                console.log(rs);
+                //console.log(rs);
             }, "formulario");
         } else {
             mostrarMensaje("Por favor ingresa valores");
@@ -263,7 +263,7 @@ function iniciar_factura() {
     });
     agregarEvento("liMayoreo", "click", function() {
         if (confirm("¿Desea aplicar precio de mayoreo para este producto?")) {
-            console.log(_producto_seleccionado);
+            //console.log(_producto_seleccionado);
             if (_producto_seleccionado != false) {
                 _producto_seleccionado.precio_mayoreo_sede = _producto_seleccionado.precio_mayoreo_sede;
             } else {
@@ -274,7 +274,7 @@ function iniciar_factura() {
     agregarEvento("txtMisClientes", "keypress", function() {
         if (this.value != "" && this.value != " " && this.value != "  " && this.value.length > 3) {
             consultarDatos(_URL + "clientes/" + this.value, {}, function(rs) {
-                console.log(rs);
+                //console.log(rs);
                 if (rs.respuesta) {
                     crear_data_list_clientes("list_mis_clientes", rs.datos);
                 }
@@ -319,7 +319,7 @@ function iniciar_factura() {
         }
     });
     agregarEvento("txtBuscarProducto", "keypress", function(e) {
-        console.log(this.value);
+        //console.log(this.value);
         if (e.keyCode != 13) {
             if (this.value != "") {
                 registrarDato(_URL + "traer_productos/" + this.value + "/" + _IdSede, {}, function(rs) {
@@ -411,7 +411,7 @@ function obtener_tickets_pendientes() {
                 li.appendChild(inp);
                 ulTickets.appendChild(li);
             }
-            console.log(ulTickets);
+            //console.log(ulTickets);
             dibujar_factura(mis_ticket_off[0], 0);
         }
     });
@@ -449,7 +449,7 @@ function dibujar_facturas_del_dia_consultado(datos) {
     tbl.appendChild(tr);
     div.appendChild(tbl);
     for (var d in datos) {
-        console.log(datos[d]);
+        //console.log(datos[d]);
         var k = Object.keys(datos[d].detalle_factura).length;
         for (var dd in datos[d].detalle_factura) {
             var tr = document.createElement("tr");
@@ -510,7 +510,7 @@ function quitar_de_factura(id, k) {
 }
 
 function dibujar_producto_busqueda(datos) {
-    console.log(datos);
+    //console.log(datos);
     var tbl = document.getElementById("tblBusPro");
     tbl.innerHTML = "";
     for (var d in datos) {
@@ -560,7 +560,7 @@ function mostrar_venta_inicial() {
                 dibujar_factura(mis_ticket_off[0], 0);
                 document.getElementById("span").scrollIntoView();
                 var cuantos = mis_ticket_off.length;
-                console.log(cuantos);
+                //console.log(cuantos);
                 /*var ulTickets=document.getElementById("ulTickets");
                 ulTickets.innerHTML="";
                 for(var f=0; f <= mis_ticket_off.length;f++){
@@ -587,7 +587,7 @@ function mostrar_venta_inicial() {
 function agregar_producto_mi_ticket(ps) {
     // validar que el producto no exista en el ticket seleccionado 
     // y de ser asu amrle las cantidades necesarias
-    console.log(mi_ticket[_numero_ticket]);
+    //console.log(mi_ticket[_numero_ticket]);
     if (ps.cantidad_producto != undefined) {
         ps.cantidad_producto = document.getElementById("numCantidad").value;
     } else {
@@ -622,11 +622,11 @@ function agregar_producto_mi_ticket(ps) {
         //en eta funcion el servidor debera insertar el producto en el ticket
         //Y AGREGAR LOS PRODUCTOS
         if (rs.respuesta) {
-            console.log(ps);
+            //console.log(ps);
             var agregar = true;
             var pos = 0;
             ps.id_factura = rs.id;
-            console.log(document.getElementById("selTipoVentaFactura").value);
+            //console.log(document.getElementById("selTipoVentaFactura").value);
             if (document.getElementById("selTipoVentaFactura").value != "0") {
                 if (mi_ticket.length == 0) {
                     mi_ticket.push({
@@ -643,12 +643,12 @@ function agregar_producto_mi_ticket(ps) {
                             if (ps.tipo_venta == mi_ticket[_numero_ticket].productos[f].tipo_venta) {
                                 agregar = false;
                                 pos = f;
-                                //console.log(tipo_seleccionado);
-                                //console.log(mi_ticket[_numero_ticket].productos[f].tipo_venta);
+                                ////console.log(tipo_seleccionado);
+                                ////console.log(mi_ticket[_numero_ticket].productos[f].tipo_venta);
                                 break;
                             } else {
-                                //console.log(tipo_seleccionado);
-                                //console.log(mi_ticket[_numero_ticket].productos[f].tipo_venta);
+                                ////console.log(tipo_seleccionado);
+                                ////console.log(mi_ticket[_numero_ticket].productos[f].tipo_venta);
                                 agregar = true;
                             }
                         }
@@ -687,7 +687,7 @@ function agregar_producto_mi_ticket(ps) {
 function quitar(id, pos) {
     if (confirm("¿Desea quitar este producto?")) {
         var fila = document.getElementById("fila_" + id + "_" + _numero_ticket + "_" + pos);
-        console.log(fila);
+        //console.log(fila);
         fila.parentNode.removeChild(fila);
         for (var f in mi_ticket[_numero_ticket].productos) {
             if (mi_ticket[_numero_ticket].productos[f].id_factura == id) {
@@ -714,7 +714,7 @@ function calcular_total(fac) {
             cuantos_prodcutos += Number(fac.productos[f].cantidad_producto);
         }
         mi_ticket[_numero_ticket].valor_real_factura = total;
-        console.log(total);
+        //console.log(total);
         h1Total.innerHTML = "$ " + formato_numero(total, "0", ",", ".");
         h1Total.value = total;
         h1Total2.innerHTML = "$ " + formato_numero(total, "0", ",", ".");
@@ -725,14 +725,14 @@ function calcular_total(fac) {
 }
 
 function cambio_mi_ticket(num_tk) {
-    console.log("voy a cambiar de ticket");
+    //console.log("voy a cambiar de ticket");
     var mis_botones = document.getElementsByName("tk");
     for (var m in mis_botones) {
         if (mis_botones[m].type == "button") {
-            console.log(mis_botones[m].type);
-            console.log(mis_botones[m].id);
-            console.log(num_tk);
-            console.log(m);
+            //console.log(mis_botones[m].type);
+            //console.log(mis_botones[m].id);
+            //console.log(num_tk);
+            //console.log(m);
             mis_botones[m].style.background = "";
             if (mis_botones[num_tk].id != undefined && m === (num_tk)) {
                 id_tk_activo = mis_botones[num_tk].id;
@@ -754,7 +754,7 @@ function eliminar_ticket(num) {
     eliminarDato(_URL + "facturas/" + num, {}, function(rs) {
         //aqui validar para que no me elimine el ticket si solo existe uno
         if (rs.respuesta != false) {
-            console.log(document.getElementById("ulTickets").childNodes.length);
+            //console.log(document.getElementById("ulTickets").childNodes.length);
             if (document.getElementById("ulTickets").childNodes.length > 1) {
                 mostrarMensaje(rs);
                 //mi_ticket.splice((Number(num) - 1), 1);
@@ -779,8 +779,8 @@ function eliminar_ticket(num) {
                 }
                 mi_ticket = rs.datos;
                 //VOLVER A DIBUJAR LOS CONTROLES
-                console.log(mi_ticket);
-                console.log(Number(obtener_local_storage("btn_tk_" + _usuario.id_usuario + "_" + _IdSede) - 1));
+                //console.log(mi_ticket);
+                //console.log(Number(obtener_local_storage("btn_tk_" + _usuario.id_usuario + "_" + _IdSede) - 1));
                 agregar_local_storage("btn_tk_" + _usuario.id_usuario + "_" + _IdSede, obtener_local_storage("btn_tk_" + _usuario.id_usuario + "_" + _IdSede) - 1);
                 agregar_local_storage("mis_tickets_" + _usuario.id_usuario + "_" + _IdSede, mi_ticket);
                 document.getElementById("tbCuerpoFactura").innerHTML = "";
@@ -808,7 +808,7 @@ var registro_factura = true;
 function crear_factura() {
     mi_ticket[_numero_ticket].id_usuario = _usuario.id_usuario;
     registrarDato(_URL + "registro_facturas", mi_ticket[_numero_ticket], function(rs) {
-        console.log(rs);
+        //console.log(rs);
         if (rs.respuesta) {
             $("#txtCodigoProducto").focus();
             mi_ticket.splice(_numero_ticket, 1);
@@ -821,7 +821,7 @@ function crear_factura() {
 }
 
 function cambio_tipo_venta(tipo) {
-    console.log(_producto_seleccionado);
+    //console.log(_producto_seleccionado);
     if (tipo == "caja") {
         //document.getElementById("numCantidad").value=_producto_seleccionado.unidades_por_caja;
         document.getElementById("numCantidad").value = 1;
@@ -843,17 +843,17 @@ function calcular_precio(id, pos) {
     var cant = document.getElementById("numCant_" + id + "_" + _numero_ticket + "_" + pos);
     var i = Number(pos);
     if (cant != null) {
-        console.log(cant);
-        console.log(cant.value);
-        console.log("numCant_" + id + "_" + _numero_ticket + "_" + pos);
+        //console.log(cant);
+        //console.log(cant.value);
+        //console.log("numCant_" + id + "_" + _numero_ticket + "_" + pos);
         var prec = 0;
         var valor_venta = document.getElementById("valor_venta_" + id + "_" + _numero_ticket + "_" + pos);
         var pre = document.getElementById("precio_" + id + "_" + _numero_ticket + "_" + pos);
-        console.log(Number(cant.value));
-        console.log(Number(valor_venta.value));
+        //console.log(Number(cant.value));
+        //console.log(Number(valor_venta.value));
         //calculo el precio 
         var ps = mi_ticket[_numero_ticket].productos[i];
-        console.log(ps);
+        //console.log(ps);
         if ((ps.promocion == "1" && ps.tipo_venta_promo == "unidad") && (Number(cant.value) >= Number(ps.promo_desde)) && (Number(cant.value) <= Number(ps.promo_hasta))) {
             valor_venta.value = ps.precio_promo_venta;
             valor_venta.innerHTML = "$ " + formato_numero(ps.precio_promo_venta, "0", ",", ".");
@@ -875,26 +875,26 @@ function calcular_precio(id, pos) {
         }
         //for(var i in mi_ticket[_numero_ticket].productos){
         if (mi_ticket[_numero_ticket].productos[i].id == id) {
-            console.log(mi_ticket[_numero_ticket].productos[i].cantidad_existencias <= cant.value);
-            console.log(Number(mi_ticket[_numero_ticket].productos[i].cantidad_existencias));
-            console.log(Number(cant.value));
+            //console.log(mi_ticket[_numero_ticket].productos[i].cantidad_existencias <= cant.value);
+            //console.log(Number(mi_ticket[_numero_ticket].productos[i].cantidad_existencias));
+            //console.log(Number(cant.value));
             if (cambiar_cantidad(i, cant) == true) {
                 prec = Number(cant.value) * Number(valor_venta.value);
                 pre.innerHTML = "$ " + formato_numero(prec, "0", ",", ".");
                 pre.value = prec;
-                console.log(mi_ticket[_numero_ticket].productos[i]);
-                console.log(mi_ticket[_numero_ticket].id);
-                console.log(mi_ticket[_numero_ticket].productos[i].id_producto_inventario);
+                //console.log(mi_ticket[_numero_ticket].productos[i]);
+                //console.log(mi_ticket[_numero_ticket].id);
+                //console.log(mi_ticket[_numero_ticket].productos[i].id_producto_inventario);
                 actualizar_unidades_reservadas(mi_ticket[_numero_ticket].productos[i], mi_ticket[_numero_ticket].id, mi_ticket[_numero_ticket].productos[i].id_producto_inventario);
                 calcular_total(mi_ticket[_numero_ticket]);
                 agregar_local_storage("mis_tickets_" + _usuario.id_usuario + "_" + _IdSede, mi_ticket);
             } else {
                 document.getElementById("numCant_" + id + "_" + _numero_ticket + "_" + pos).value = mi_ticket[_numero_ticket].productos[i].cantidad_producto;
-                console.log("Ha dicidico no pedir producto");
+                //console.log("Ha dicidico no pedir producto");
             }
         } else {
-            console.log(mi_ticket[_numero_ticket].productos[i].id);
-            console.log(id);
+            //console.log(mi_ticket[_numero_ticket].productos[i].id);
+            //console.log(id);
         }
         //}
     }
@@ -910,7 +910,7 @@ function cambiar_cantidad(i, cant) {
             for (var o in mi_ticket) {
                 for (var f in mi_ticket[o].productos) {
                     if (mi_ticket[o].productos[f].codigo_producto == mi_ticket[_numero_ticket].productos[i].codigo_producto) {
-                        console.log(mi_ticket[_numero_ticket].productos[f].tipo_venta);
+                        //console.log(mi_ticket[_numero_ticket].productos[f].tipo_venta);
                         if (mi_ticket[_numero_ticket].productos[f].tipo_venta == "unidad") {
                             vendidadas += Number(mi_ticket[o].productos[f].cantidad_producto);
                         }
@@ -924,22 +924,22 @@ function cambiar_cantidad(i, cant) {
                 }
             }
             if (Number(vendidadas) < Number(mi_ticket[_numero_ticket].productos[i].cantidad_existencias_unidades)) {
-                console.log(mi_ticket[_numero_ticket].productos[i].cantidad_existencias_unidades);
+                //console.log(mi_ticket[_numero_ticket].productos[i].cantidad_existencias_unidades);
                 switch (mi_ticket[_numero_ticket].productos[i].tipo_venta) {
                     case "unidad":
                         if (mi_ticket[_numero_ticket].productos[i].tipo_venta_producto == "PorUnidad") {
                             if (Number(mi_ticket[_numero_ticket].productos[i].cantidad_existencias_unidades) < Number(cant.value)) {
                                 //if(!confirm("Esta solicitando una cantidad superior a la existente \n ¿Desea continuar?")){
                                 alert("Esta solicitando una cantidad superior a la existente, no puede realizar esta operacion ");
-                                console.log("cambio unidades false");
+                                //console.log("cambio unidades false");
                                 //cant.value=mi_ticket[_numero_ticket].productos[i].cantidad_producto;
                                 return false;
                                 //}
-                                //console.log("cambio unidades true");
+                                ////console.log("cambio unidades true");
                                 //mi_ticket[_numero_ticket].productos[i].cantidad_producto=cant.value;
                                 //return true;
                             } else {
-                                console.log("cambio unidades true");
+                                //console.log("cambio unidades true");
                                 mi_ticket[_numero_ticket].productos[i].cantidad_producto = cant.value;
                                 return true;
                             }
@@ -947,14 +947,14 @@ function cambiar_cantidad(i, cant) {
                             if (Number(mi_ticket[_numero_ticket].productos[i].cantidad_existencias_unidades) < Number(cant.value)) {
                                 //if(!confirm("Esta solicitando una cantidad superior a la existente \n ¿Desea continuar?")){
                                 alert("Esta solicitando una cantidad superior a la existente, no puede realizar esta operacion ");
-                                console.log("cambio unidades false");
+                                //console.log("cambio unidades false");
                                 return false;
                                 //}
-                                //console.log("cambio unidades true");
+                                ////console.log("cambio unidades true");
                                 //mi_ticket[_numero_ticket].productos[i].cantidad_producto=cant.value;
                                 //return true;
                             } else {
-                                console.log("cambio unidades true");
+                                //console.log("cambio unidades true");
                                 mi_ticket[_numero_ticket].productos[i].cantidad_producto = cant.value;
                                 return true;
                             }
@@ -962,14 +962,14 @@ function cambiar_cantidad(i, cant) {
                             if (Number(mi_ticket[_numero_ticket].productos[i].cantidad_existencias_unidades) < Number(cant.value)) {
                                 //if(!confirm("Esta solicitando una cantidad superior a la existente \n ¿Desea continuar?")){
                                 alert("Esta solicitando una cantidad superior a la existente, no puede realizar esta operacion ");
-                                console.log("cambio unidades false");
+                                //console.log("cambio unidades false");
                                 return false;
                                 //}
-                                //console.log("cambio unidades true");
+                                ////console.log("cambio unidades true");
                                 //mi_ticket[_numero_ticket].productos[i].cantidad_producto=cant.value;
                                 //return true;
                             } else {
-                                console.log("cambio unidades true");
+                                //console.log("cambio unidades true");
                                 mi_ticket[_numero_ticket].productos[i].cantidad_producto = cant.value;
                                 return true;
                             }
@@ -979,14 +979,14 @@ function cambiar_cantidad(i, cant) {
                         if (Number(mi_ticket[_numero_ticket].productos[i].cantidad_existencias) < Number(cant.value)) {
                             //if(!confirm("Esta solicitando una cantidad superior a la existente \n ¿Desea continuar?")){
                             alert("Esta solicitando una cantidad superior a la existente, no puede realizar esta operacion ");
-                            console.log("cambio unidades false");
+                            //console.log("cambio unidades false");
                             return false;
                             //}
-                            //console.log("cambio unidades true");
+                            ////console.log("cambio unidades true");
                             //mi_ticket[_numero_ticket].productos[i].cantidad_producto=cant.value;
                             //return true;
                         } else {
-                            console.log("cambio unidades true");
+                            //console.log("cambio unidades true");
                             mi_ticket[_numero_ticket].productos[i].cantidad_producto = cant.value;
                             return true;
                         }
@@ -995,14 +995,14 @@ function cambiar_cantidad(i, cant) {
                         if (Number(mi_ticket[_numero_ticket].productos[i].cantidad_existencias_blister) < Number(cant.value)) {
                             //if(!confirm("Esta solicitando una cantidad superior a la existente \n ¿Desea continuar?")){
                             alert("Esta solicitando una cantidad superior a la existente, no puede realizar esta operacion ");
-                            console.log("cambio unidades false");
+                            //console.log("cambio unidades false");
                             return false;
                             //}
-                            //console.log("cambio unidades true");
+                            ////console.log("cambio unidades true");
                             //mi_ticket[_numero_ticket].productos[i].cantidad_producto=cant.value;
                             //return true;
                         } else {
-                            console.log("cambio unidades true");
+                            //console.log("cambio unidades true");
                             mi_ticket[_numero_ticket].productos[i].cantidad_producto = cant.value;
                             return true;
                         }
@@ -1010,17 +1010,17 @@ function cambiar_cantidad(i, cant) {
                 }
             }
         }
-        console.log(Number(vendidadas));
-        console.log(Number(mi_ticket[_numero_ticket].productos[i].cantidad_existencias));
+        //console.log(Number(vendidadas));
+        //console.log(Number(mi_ticket[_numero_ticket].productos[i].cantidad_existencias));
     }
 }
 
 function cambiar_tipo_venta(id, numero_ticket, posicion) {
-    console.log(document.getElementById("selCambioUnidad_" + id + "_" + numero_ticket + "_" + posicion).value);
-    console.log(id);
-    console.log(numero_ticket);
-    console.log(posicion);
-    console.log(mi_ticket[numero_ticket].productos[posicion]);
+    //console.log(document.getElementById("selCambioUnidad_" + id + "_" + numero_ticket + "_" + posicion).value);
+    //console.log(id);
+    //console.log(numero_ticket);
+    //console.log(posicion);
+    //console.log(mi_ticket[numero_ticket].productos[posicion]);
     _numero_ticket = numero_ticket;
     var antes = mi_ticket[numero_ticket].productos[posicion].tipo_venta;
     switch (antes) {
@@ -1080,7 +1080,7 @@ function cambiar_tipo_venta(id, numero_ticket, posicion) {
         }
         */
         
-        console.log(mi_ticket[numero_ticket].productos[posicion].id_factura);
+        //console.log(mi_ticket[numero_ticket].productos[posicion].id_factura);
         //actualizar_unidades_reservadas(mi_ticket[numero_ticket].productos[posicion], mi_ticket[numero_ticket].id, mi_ticket[numero_ticket].productos[posicion].id_factura);
         
         //consulto que existan unidades para registrar
@@ -1164,7 +1164,7 @@ function actualizar_unidades_reservadas(producto, id_factura, id_ticket) {
 }
 
 function quitar_unidades_reservadas(producto, id_producto_ticket) {
-    console.log(id_producto_ticket),
+    //console.log(id_producto_ticket),
         editarDato(_URL + "eliminar_ticket/" + id_producto_ticket, producto, function(rs) {
             //en eta funcion el servidor debera insertar el producto en el ticket
             //Y AGREGAR LOS PRODUCTOS
@@ -1173,8 +1173,8 @@ function quitar_unidades_reservadas(producto, id_producto_ticket) {
 }
 
 function dibujar_factura(fac, tk) {
-    console.log("function dibujar_factura");
-    console.log(fac);
+    //console.log("function dibujar_factura");
+    //console.log(fac);
     var vf = obtener_valores_formulario("formVentaProductos");
     var tbCuerpoFactura = document.getElementById("tbCuerpoFactura");
     tbCuerpoFactura.innerHTML = "";
@@ -1217,7 +1217,7 @@ function dibujar_factura(fac, tk) {
                 if (fac.productos[i].inventario == 1) {
                    
                     if (fac.productos[i].tipo_venta == "unidad") {
-                        console.log(fac.productos[i].aprovado);
+                        //console.log(fac.productos[i].aprovado);
                         if ( Number(fac.productos[i].cantidad_existencias_unidades) <= Number(fac.productos[i].cantidad_producto)) {
                             if(fac.productos[i].aprovado == undefined){
                                 if (!confirm("Esta solicitando una cantidad superior a la existente \n ¿Desea continuar?")) {
@@ -1268,7 +1268,7 @@ function dibujar_factura(fac, tk) {
                 fila.appendChild(td);
                 var td = document.createElement("td");
                 var defi_uni = "";
-                console.log(fac.productos[i].tipo_venta);
+                //console.log(fac.productos[i].tipo_venta);
                 if (fac.productos[i].tipo_venta == "unidad") {
                     if (fac.productos[i].tipo_venta_producto == "PorUnidad") {
                         defi_uni = "  X " + "1" + " Uni";
@@ -1363,8 +1363,8 @@ function dibujar_factura(fac, tk) {
                 var ipn = document.createElement("input");
                 ipn.setAttribute("type", "number");
                 ipn.setAttribute("id", "numCant_" + fac.productos[i].id + "_" + _numero_ticket + "_" + i);
-                console.log("cantidad_producto");
-                console.log(fac.productos[i].cantidad_producto);
+                //console.log("cantidad_producto");
+                //console.log(fac.productos[i].cantidad_producto);
                 ipn.setAttribute("value", (Number(fac.productos[i].cantidad_producto)));
                 //ipn.setAttribute("onkeypress","calcular_precio("+fac.productos[i].id+","+i+")");
                 ipn.setAttribute("onchange", "calcular_precio(" + fac.productos[i].id + "," + i + ")");
@@ -1415,13 +1415,13 @@ function dibujar_factura(fac, tk) {
     span.setAttribute("id","span");
     document.getElementById("divFactura").appendChild(span);    */
     //agregar_local_storage("mis_tickets_" + _usuario.id_usuario + "_" + _IdSede, mi_ticket);
-    console.log("FIN function dibujar_factura");
+    //console.log("FIN function dibujar_factura");
 }
 //fac=>datos de los productos
 //tk=>numero de ticket
 function dibujar_factura_old(fac, tk) {
-    console.log("function dibujar_factura");
-    console.log(fac);
+    //console.log("function dibujar_factura");
+    //console.log(fac);
     var vf = obtener_valores_formulario("formVentaProductos");
     var tbCuerpoFactura = document.getElementById("tbCuerpoFactura");
     tbCuerpoFactura.innerHTML = "";
@@ -1464,7 +1464,7 @@ function dibujar_factura_old(fac, tk) {
                 if (fac.productos[i].inventario == 1) {
                    
                     if (fac.productos[i].tipo_venta == "unidad") {
-                        console.log(fac.productos[i].aprovado);
+                        //console.log(fac.productos[i].aprovado);
                         if ( Number(fac.productos[i].cantidad_existencias_unidades) <= Number(fac.productos[i].cantidad_producto)) {
                             if(fac.productos[i].aprovado == undefined){
                                 if (!confirm("Esta solicitando una cantidad superior a la existente \n ¿Desea continuar?")) {
@@ -1515,7 +1515,7 @@ function dibujar_factura_old(fac, tk) {
                 fila.appendChild(td);
                 var td = document.createElement("td");
                 var defi_uni = "";
-                console.log(fac.productos[i].tipo_venta);
+                //console.log(fac.productos[i].tipo_venta);
                 if (fac.productos[i].tipo_venta == "unidad") {
                     if (fac.productos[i].tipo_venta_producto == "PorUnidad") {
                         defi_uni = "  X " + "1" + " Uni";
@@ -1573,8 +1573,8 @@ function dibujar_factura_old(fac, tk) {
                 var ipn = document.createElement("input");
                 ipn.setAttribute("type", "number");
                 ipn.setAttribute("id", "numCant_" + fac.productos[i].id + "_" + _numero_ticket + "_" + i);
-                console.log("cantidad_producto");
-                console.log(fac.productos[i].cantidad_producto);
+                //console.log("cantidad_producto");
+                //console.log(fac.productos[i].cantidad_producto);
                 ipn.setAttribute("value", (Number(fac.productos[i].cantidad_producto)));
                 //ipn.setAttribute("onkeypress","calcular_precio("+fac.productos[i].id+","+i+")");
                 ipn.setAttribute("onchange", "calcular_precio(" + fac.productos[i].id + "," + i + ")");
@@ -1698,7 +1698,7 @@ function dibujar_factura_old(fac, tk) {
                 fila.appendChild(td);
                 var td = document.createElement("td");
                 var defi_uni = "";
-                console.log(fac.productos[i].tipo_venta_producto);
+                //console.log(fac.productos[i].tipo_venta_producto);
                 if (fac.productos[i].tipo_venta == "unidad") {
                     if (fac.productos[i].tipo_venta_producto == "PorUnidad") {
                         defi_uni = "  X " + "1" + " Uni";
@@ -1756,8 +1756,8 @@ function dibujar_factura_old(fac, tk) {
                 var ipn = document.createElement("input");
                 ipn.setAttribute("type", "number");
                 ipn.setAttribute("id", "numCant_" + fac.productos[i].id + "_" + _numero_ticket + "_" + i);
-                console.log("cantidad_producto");
-                console.log(fac.productos[i].cantidad_producto);
+                //console.log("cantidad_producto");
+                //console.log(fac.productos[i].cantidad_producto);
                 ipn.setAttribute("value", (Number(fac.productos[i].cantidad_producto)));
                 //ipn.setAttribute("onkeypress","calcular_precio("+fac.productos[i].id+","+i+")");
                 ipn.setAttribute("onchange", "calcular_precio(" + fac.productos[i].id + "," + i + ")");
@@ -1804,7 +1804,7 @@ function dibujar_factura_old(fac, tk) {
     span.setAttribute("id","span");
     document.getElementById("divFactura").appendChild(span);    */
     //agregar_local_storage("mis_tickets_" + _usuario.id_usuario + "_" + _IdSede, mi_ticket);
-    console.log("FIN function dibujar_factura");
+    //console.log("FIN function dibujar_factura");
 }
 function dibujar_tabla_salidas(datos){
     document.getElementById("tblRegistroSalida").style.display='block';
@@ -1812,7 +1812,7 @@ function dibujar_tabla_salidas(datos){
 
     tbl.innerHTML="";
     for(var i in datos){
-        console.log(datos[i].motivo);
+        //console.log(datos[i].motivo);
         var tr=document.createElement("tr");
         var td=document.createElement("td");
         td.innerHTML=datos[i].fecha_registro_salida;

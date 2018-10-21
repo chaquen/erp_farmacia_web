@@ -2,7 +2,7 @@ var _pro_pedido=false;
 var _lista_pedidos=[];
 function iniciar_pedidos(valido){
 	agregarEvento("selTipoExpor","change",function(){
-		console.log(this.obtener_valores_formulario);
+		//console.log(this.obtener_valores_formulario);
 		if(this.value=="txt"){
 			document.getElementById("tipo_separacion").style.display="";
 		}else{
@@ -11,7 +11,7 @@ function iniciar_pedidos(valido){
 
 	});
 	agregarEvento("btnCrearPedido","click",function(){
-		console.log(_lista_pedidos);
+		//console.log(_lista_pedidos);
 		var vf =obtener_valores_formulario("formPedidos");
 		if(vf!=false){
 			var datos={
@@ -37,7 +37,7 @@ function iniciar_pedidos(valido){
 		
 	});
 	agregarEvento("txtCodPredido","keypress",function(e){
-		console.log(e.keyCode);
+		//console.log(e.keyCode);
 		if(e.keyCode!=13){
                         if(this.value.length > 0 && this.value != "" && this.value != "  "){
 					if(this.value.trim().length>0){
@@ -48,7 +48,7 @@ function iniciar_pedidos(valido){
 									+document.getElementById("selPredidoSedes").value,{},function(rs){	
 						
 								if(rs.respuesta){
-										console.log("TE ENCONTRE");
+										//console.log("TE ENCONTRE");
 										var listaProductos=document.getElementById("lista_prod_pedido");
 										listaProductos.innerHTML="";
 										for(var e in rs.datos){
@@ -66,7 +66,7 @@ function iniciar_pedidos(valido){
 								}	
                                                 },"");
 					}else{
-						console.log(this.value);
+						//console.log(this.value);
 					}	
 				}
 			}else{
@@ -84,7 +84,7 @@ function iniciar_pedidos(valido){
 								
 
 									
-								console.log(rs.datos);
+								//console.log(rs.datos);
 
 								_pro_pedido=rs.datos[0];
 								document.getElementById("txtCodPredido").value="";
@@ -106,7 +106,7 @@ function iniciar_pedidos(valido){
 									+document.getElementById("selPredidoSedes").value,{},function(rs){	
 						
 								if(rs.respuesta){
-										console.log("TE ENCONTRE");
+										//console.log("TE ENCONTRE");
 										var listaProductos=document.getElementById("lista_prod_pedido");
 										listaProductos.innerHTML="";
 										for(var e in rs.datos){
@@ -132,7 +132,7 @@ function iniciar_pedidos(valido){
                });        
 		
 	agregarEvento("txtCodPredido","change",function(e){
-		console.log(this.value);
+		//console.log(this.value);
 		
 				if(this.value.length > 1 && this.value != "" && this.value != "  "){
 					if(this.value.trim().length>0){
@@ -147,7 +147,7 @@ function iniciar_pedidos(valido){
 							if(rs.respuesta){
 							
 									
-								console.log(rs.datos);
+								//console.log(rs.datos);
 
 								_pro_pedido=rs.datos[0];
 								document.getElementById("h4Nombre").innerHTML=_pro_pedido.nombre_producto+" "+_pro_pedido.tipo_presentacion;
@@ -259,7 +259,7 @@ function iniciar_pedidos(valido){
 	   	if(document.getElementById("flvSubirPedido").value!=""){
 	   		var url=_URL+"subir_pedido";
 	   		registrarDatoArchivo(url,{},document.getElementById("flvSubirPedido"),"formSubirPedidosAp",function(rs){
-	   			console.log(rs);
+	   			//console.log(rs);
 	   		});
 	   	}else{
 	   		mostrarMensaje("Debes seleccionar un archivo");
@@ -304,7 +304,7 @@ function dibujar_pedido_admin(datos){
 		tr.appendChild(td);
 		tblListaPedido.appendChild(tr);
 	for(var c in datos){
-		console.log(datos[c]);
+		//console.log(datos[c]);
 		var tr=document.createElement("tr");
 		//tr.setAttribute("id","fila_pedido_ad_"+c);
 		
@@ -375,7 +375,7 @@ function dibujar_pedido(datos){
 		tr.appendChild(td);
 		tblListaPedido.appendChild(tr);
 	for(var c in _lista_pedidos){
-		console.log(_lista_pedidos[c]);
+		//console.log(_lista_pedidos[c]);
 		var tr=document.createElement("tr");
 		tr.setAttribute("id","fila_pedido_"+c);
 		
@@ -416,7 +416,7 @@ function dibujar_pedido(datos){
 function quitar_fila_pedido(pos){
 	if(confirm("¿Desea quitar este producto?")){
 		var fila = document.getElementById("fila_pedido_"+pos);
-		console.log(fila);
+		//console.log(fila);
 		fila.parentNode.removeChild(fila);
 		
 				_lista_pedidos.splice(pos,1);

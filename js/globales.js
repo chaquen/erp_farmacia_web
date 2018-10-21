@@ -7,10 +7,11 @@ var _usuario=false;
 //PRODUCCION
 //var _URL="https://api.asopharma.com/";
 //TEST LOCAL
-//var _URL="http://localhost/erp_farmacia_back_end/";
+var _URL="http://localhost/erp_farmacia_back_end/";
 //TEST WEB
-var _URL="apierpfarmacia.mohansoft.com/"
+//var _URL="https://apierpfarmacia.mohansoft.com/"
 //VentasARIBLE QUE DEFINE LA SEDE DONDE SE FACTURA
+//var _URL="https://v1.asopharma.com/";
 var _IdSede;
 var _id_cliente=1;
 

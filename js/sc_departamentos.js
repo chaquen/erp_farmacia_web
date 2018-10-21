@@ -106,8 +106,8 @@ function iniciar_departamento(valido){
 
 function seleccionar_categoria(id){
 	for(var d in _categorias){
-		console.log(_categorias[d].id);
-		console.log(id);
+		//console.log(_categorias[d].id);
+		//console.log(id);
 		if(_categorias[d].id==id){
 			document.getElementById("txtCategoriaSeleccionada").value=_categorias[d].nombre_departamento;
 			document.getElementById("hdIdDepartamentoEliminar").value=_categorias[d].id;

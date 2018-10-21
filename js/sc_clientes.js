@@ -4,7 +4,7 @@ function iniciar_clientes(valido){
 		agregarEvento(_btnCrearCliente,"click",function(){
 
 			var vf=obtener_valores_formulario("formCrearCliente");
-			console.log(vf);
+			//console.log(vf);
 			if(vf!=false){
 				var datos={
 					nombre_cliente:vf.Texto[0],
@@ -239,7 +239,7 @@ function iniciar_clientes(valido){
 }
 var cliente_seleccionado=false;
 function dibujar_estado_cuenta(cs){
-	console.log(cs);
+	//console.log(cs);
 	document.getElementById("h3NombreClienteEstadoCuenta").innerHTML=cs.nombre_cliente;
 	document.getElementById("h2SaldoActualCliente").innerHTML="$ "+formato_numero(cs.valor_actual_credito,"0",",",".");
 	document.getElementById("h2limiteSaldoCliente").innerHTML="$ "+formato_numero(cs.limite_de_credito,"0",",",".");
@@ -250,7 +250,7 @@ function dibujar_estado_cuenta(cs){
 	for(var c in cs.facturas){
 		var detalle=cs.facturas[c];
 		for(var dt in cs.facturas[c].detalle_factura){
-			console.log(cs.facturas[c].detalle_factura[dt]);
+			//console.log(cs.facturas[c].detalle_factura[dt]);
 			var tr=document.createElement("tr");
 			
 			var td=document.createElement("td");

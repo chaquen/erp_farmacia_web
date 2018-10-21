@@ -788,7 +788,7 @@
                             </select>
                         </li>
                          <li id="liUniCaja" style="display: none">
-                            <h4>Unidades por caja</h4>
+                            <h4 id="h4UnipCajaNuevo">Unidades por caja</h4>
                             <input id="numUniCaja"  type="number" placeholder="0"  value="1" required/>
                         </li>
                         <li id="liUniCajaBlister" style="display: none">
@@ -838,15 +838,15 @@
                             <input id="numPorcGanaUni" type="number" placeholder="0%" value="20" required/>
                         </li>
                         <li>
-                            <h4>Precio Venta</h4>
+                            <h4 id="h4PrecioVenta">Precio Venta</h4>
                             <input id="numValVen" type="number" placeholder="$0.00" required/>
                         </li>
                         <li id="liPreUniBli" style="display: none">
-                            <h4>Precio Venta Blister </h4>
+                            <h4 id="h4PrecioVentaBlister">Precio Venta Blister </h4>
                             <input id="numValVenBliUni"  type="number" placeholder="$0.00" />
                         </li>
                         <li id="liPreUniCaja" style="display: none">
-                            <h4>Precio Venta Unidad </h4>
+                            <h4 id="h4PrecioVentaUnidad">Precio Venta Unidad </h4>
                             <input id="numValVenUni"  type="number" placeholder="$0.00" />
                         </li>
                        
@@ -942,16 +942,16 @@
                             </select>
                         </li>
 
-                         <li id="liUniCajaEdi" style="display: none">
-                            <h4>Unidades por caja</h4>
+                         <li id="liUniCajaEdi" >
+                            <h4 id="h4UnipCaja">Unidades por caja</h4>
                             <input id="numNuevoUniCaja"  type="number" placeholder="0"  value="1" required/>
                         </li>
 
 
 
 
-                        <li id="liUniCajaBlisterEdi" style="display: none">
-                            <h4>Unidades por blister</h4>
+                        <li id="liUniCajaBlisterEdi" >
+                            <h4 >Unidades por blister</h4>
                             <input id="numNuevoUniCajaBlister"  type="number" placeholder="0"  value="1" required/>
                         </li>
                         <li>
@@ -959,12 +959,12 @@
                             <input id="numNuevoProdPreCosto" type="number" placeholder="$0.00" required/>
                         </li>
 
-                        <li id="liPreCosBlisterEdi" style="display: none">
+                        <li id="liPreCosBlisterEdi" >
                             <h4>Precio Costo blister</h4>
                             <input id="numNuevoPreCosBliUni" type="number" placeholder="$0.00" required/>
                         </li>
                         
-                        <li id="liPreCosUniEdi" style="display: none">
+                        <li id="liPreCosUniEdi" >
                             <h4>Precio Costo unidad</h4>
                             <input id="numNuevoPreCosUni" type="number" placeholder="$0.00" required/>
                         </li>
@@ -976,11 +976,11 @@
                             <h4>Precio costo + Impuesto</h4>
                             <input id="numNuevoPreCostoImpu" type="number">
                         </li>
-                        <li id="liPreCostoBliImp" style="display: none">
+                        <li id="liPreCostoBliImpEdi" >
                             <h4>Precio costo blister + Impuesto</h4>
                             <input id="numNuevoPreCostoBlisterImpu" type="number">
                         </li>
-                        <li id="liPreCostoUniImp" style="display: none">
+                        <li id="liPreCostoUniImpEdi" >
                             <h4>Precio costo unidad + Impuesto</h4>
                             <input id="numNuevoPreCostoUniImpu" type="number">
                         </li>
@@ -989,11 +989,11 @@
                             <h4>Porcentaje ganacia</h4>
                             <input id="numPorcGanaEdi" type="number" placeholder="0%" value="20" required/>
                         </li>
-                        <li id="liPorGanBliUniEdi" style="display: none">
+                        <li id="liPorGanBliUniEdi">
                             <h4>Porcentaje ganacia blister</h4>
                             <input id="numPorcGanaBlisterEdi" type="number" placeholder="0%" value="20" required/>
                         </li>
-                        <li id="liPorGanUniEdi" style="display: none">
+                        <li id="liPorGanUniEdi" >
                             <h4>Porcentaje ganacia unidad</h4>
                             <input id="numPorcGanaUniEdi" type="number" placeholder="0%" value="20" required/>
                         </li>
@@ -1001,12 +1001,12 @@
                             <h4>Precio Venta</h4>
                             <input id="numValVenEdi" type="number" placeholder="$0.00" required/>
                         </li>
-                        <li id="liPreUniCajBlisterEdi" style="display: none">
+                        <li id="liPreUniCajBlisterEdi" >
                             <h4>Precio Venta Blister </h4>
                             <input id="numValVenBliUniEdi"  type="number" placeholder="$0.00" />
                         </li>
 
-                        <li id="liPreUniCajaEdi" style="display: none">
+                        <li id="liPreUniCajaEdi" >
                             <h4>Precio Venta Unidad </h4>
                             <input id="numValVenUniEdi"  type="number" placeholder="$0.00" />
                         </li>
@@ -1562,7 +1562,7 @@
                             <li ><h4>Tipo importación</h4>
                                 <select id="selTipoImportacion">
                                     <!--<option value="categoria">Categorias</option>-->
-                                    <option value="productos">Productos</option>
+                                    <option value="productos">Crear productos</option>
                                     <option value="editar_producto">Editar productos</option>
                                     <option value="ajustar_inventario_sede">Ajustar inventario productos</option>
                                 </select>
@@ -1797,9 +1797,14 @@
                         <h3 id="h3CostoProdInv">$0.00</h3>
                     </li>
                     <li>
-                        <h4>Cantidad de productos en Inventario</h4>
+                        <h4># de productos</h4>
+                        <h3 id="h3NumProductosInv">0</h3>
+                    </li>
+                    <li>
+                        <h4>Cantidad de productos</h4>
                         <h3 id="h3TotalProductosInv">0</h3>
                     </li>
+                    
                 </ul>
                 <ul class="menuHorizontal">
                     <li>
@@ -1815,6 +1820,14 @@
                      <li>
                         <h4>Proveedor</h4>
                         <select id="selProvReporteInv">
+                        </select>                        
+                    </li>
+                    <li>
+                        <h4>Estado</h4>
+                        <select id="selEstadoInv">
+                              <option value="activo">activo</option>  
+                              <option value="agotado">agotado</option>  
+                              <option value="inactivo">inactivo</option>  
                         </select>
                     </li>
                     <li id="agregarInv">
@@ -1838,7 +1851,6 @@
                     </li>
                     <li>
                         <select id="selPaginas">
-                            <h4>Paginas</h4>
                             <option>no hay paginas</option>
                         </select>
                     </li>

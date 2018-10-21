@@ -21,7 +21,7 @@ function iniciar_detalle_entrada_contable(valido){
 		agregarEvento("btnRegistroEntradaCon","click",function(e){
 			e.preventDefault();	
 	 		var vf=obtener_valores_formulario("formEntrada");
-	 		console.log(vf);
+	 		//console.log(vf);
 				if(vf!=false && vf.Texto[0]!="" && isNaN(vf.Texto[0])==false){
 					var datos={
 						fk_id_entrada_contable:vf.Select[0],

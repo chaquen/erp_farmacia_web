@@ -27,7 +27,7 @@ function iniciar_creditos(valido){
 					var datos={};
 					
 					consultarDatos(_URL+"creditos",datos,function(rs){
-						console.log(rs);
+						//console.log(rs);
 						if(rs.respuesta==true){
 							dibujar_creditos(rs.datos);
 						}else{
@@ -106,10 +106,10 @@ function calcular_valor_total_credito(dt){
 	var total_pago=0;
 	var total_deuda=0;
 	for(var f in dt){
-		console.log("valor_actual_credito");
-		console.log(Number(dt[f].valor_actual_credito));
-		console.log("valor_credito");
-		console.log(Number(dt[f].valor_credito));
+		//console.log("valor_actual_credito");
+		//console.log(Number(dt[f].valor_actual_credito));
+		//console.log("valor_credito");
+		//console.log(Number(dt[f].valor_credito));
 
 		total_pago+=Number(dt[f].valor_actual_credito);
 		total_deuda+=Number(dt[f].valor_credito);

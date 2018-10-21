@@ -8,19 +8,27 @@ function iniciar_producto(valido){
 		agregarEvento(_btnCrearProducto,"click",function(){
 			var vf=obtener_valores_formulario("formCrearProducto");
 			if(vf!=false){
-				console.log(vf);
+				//console.log(vf);
 				var sede=false;
 				var correcto=true;
 				if(vf.Select.length==4){
 					correcto=true;
 						
-					if(vf.Select[0]!="0"){correcto=true;}else{correcto=false;mostrarMensaje("Por favor selecciona un tipo de venta");}
+					if(vf.Select[0]!="0"){correcto=true;}else{correcto=false;
+						mostrarMensaje("Por favor selecciona un tipo de venta");
+					}
 
-					if(vf.Select[1]!="0"){correcto=true;}else{correcto=false;mostrarMensaje("Por favor selecciona una categoria");}
+					if(vf.Select[1]!="0"){correcto=true;}else{correcto=false;
+						mostrarMensaje("Por favor selecciona una categoria");
+					}
 					
-					if(vf.Select[2]!="0"){correcto=true;}else{correcto=false;mostrarMensaje("Por favor selecciona un proveedor");}
+					if(vf.Select[2]!="0"){correcto=true;}else{correcto=false;
+						mostrarMensaje("Por favor selecciona un proveedor");
+					}
 					
-					if(vf.Select[3]!="--"){correcto=true;}else{correcto=false;mostrarMensaje("por favor selecciona una sede")}
+					if(vf.Select[3]!="--"){correcto=true;}else{correcto=false;
+						mostrarMensaje("por favor selecciona una sede");
+					}
 					
 				}else{
 					correcto=false;
@@ -72,6 +80,9 @@ function iniciar_producto(valido){
 						precio_compra:vf.Numero[2],
 						precio_compra_blister:vf.Numero[3],
 						precio_compra_unidad:vf.Numero[4],
+						precio_compra_impuesto:vf.Numero[6],
+						precio_compra_blister_impuesto:vf.Numero[7],
+						precio_compra_unidad_impuesto:vf.Numero[8],
 						precio_venta:precio_venta,
 						precio_venta_blister:precio_venta_blister,
 						precio_mayoreo:precio_venta_mayoreo,
@@ -122,9 +133,9 @@ function iniciar_producto(valido){
 	agregarEvento(_btnEditarProducto,"click",function(){
 
 		var vf=obtener_valores_formulario("formModificarProducto");
-		console.log(vf);
+		//console.log(vf);
 		if(vf!==false){
-				console.log(vf);
+				//console.log(vf);
 				var sede=false;
 				var correcto=true;
 				if(vf.Select.length===4){
@@ -177,6 +188,9 @@ function iniciar_producto(valido){
 						precio_compra:vf.Numero[2],
 						precio_compra_blister:vf.Numero[3],
 						precio_compra_unidad:vf.Numero[4],
+						precio_compra_impuesto:vf.Numero[6],
+						precio_compra_blister_impuesto:vf.Numero[7],
+						precio_compra_unidad_impuesto:vf.Numero[8],
 						precio_venta:precio_venta,
 						precio_venta_blister:precio_venta_blister,
 						precio_mayoreo:precio_venta_mayoreo,
@@ -194,13 +208,18 @@ function iniciar_producto(valido){
 						inventario:inv
 						
 					};
-					editarDato(_URL+"productos/"+vf.Hidden[0],datos,function(rs){
-						mostrarMensaje(rs);
-						//iniciar_bodega_offline(_IdSede)
-					},"formModificarProducto");
-					document.getElementById("numPorcGanaBlisterEdi").value="20";
-					document.getElementById("numPorcGanaUni").value="20";
-					editando=false;
+					if(vf.Hidden[0]!=0){
+						editarDato(_URL+"productos/"+vf.Hidden[0],datos,function(rs){
+							mostrarMensaje(rs);
+							//iniciar_bodega_offline(_IdSede)
+						},"formModificarProducto");
+						document.getElementById("numPorcGanaBlisterEdi").value="20";
+						document.getElementById("numPorcGanaUni").value="20";
+						editando=false;	
+					}else{
+						mostrarMensaje("No se ha seleccionado un producto");
+					}
+					
 
 				}else{
 					mostrarMensaje("Por favor ingresa todos los datos");
@@ -278,6 +297,18 @@ function iniciar_producto(valido){
 	agregarEvento("numValVenUniEdi","change",function(){
 		calcular_valores_editar_producto_porcentaje();
 	});
+	agregarEvento("numValVen","change",function(){
+		numPorcGana.value=redondeo(((numValVen.value/numPreCostoImpu.value)-1)*100,"0");
+
+	});
+	agregarEvento("numValVenBliUni","change",function(){
+		numPorcGanaBliUni.value=redondeo(((numValVenBliUni.value/numPreCostoBliImpu.value)-1)*100,"0");
+	});
+	agregarEvento("numValVenUni","change",function(){
+		numPorcGanaUni.value=redondeo(((numValVenUni.value/numPreCostoUniImpu.value)-1)*100,"0");
+	});
+	
+	
 	//calcular precio al cambiar precio venta
 
 	agregarEvento("selTipoVenta","change",function(){
@@ -296,7 +327,7 @@ function iniciar_producto(valido){
 			document.getElementById("numPreCostoBliImpu").value="0";
 			document.getElementById("numValVenBliUni").value="0";
 			document.getElementById("numPorcGanaBliUni").value="0";
-			
+			h4UnipCajaNuevo.innerHTML="Unidades por caja";
 			
 		}else if(this.value==="PorUnidad"){
 			document.getElementById("liUniCaja").style.display="none";
@@ -315,7 +346,7 @@ function iniciar_producto(valido){
 			document.getElementById("numPreCostoBliImpu").value="0";
 			document.getElementById("numValVenBliUni").value="0";
 			document.getElementById("numPorcGanaBliUni").value="0";
-			
+			h4UnipCajaNuevo.innerHTML="Unidades por caja";
 		}else{
 			document.getElementById("liUniCaja").style.display="";
 			document.getElementById("liUniCajaBlister").style.display="";
@@ -327,6 +358,7 @@ function iniciar_producto(valido){
 			document.getElementById("liPreCosBli").style.display="";
 			document.getElementById("liPreUniBli").style.display="";
 			document.getElementById("liPreCostoBliImp").style.display="";
+			h4UnipCajaNuevo.innerHTML="Blister por caja";
 		}
 	});
 	//cambio de porcentaje de impuesto
@@ -341,15 +373,27 @@ function iniciar_producto(valido){
 			document.getElementById("liUniCajaEdi").style.display="";
 			document.getElementById("liPreUniCajaEdi").style.display="";
 			document.getElementById("liPorGanUniEdi").style.display="";
-			document.getElementById("liPreUniCajBlisterEdi").style.display="none";;
+			document.getElementById("liPreUniCajBlisterEdi").style.display="none";			
+			document.getElementById("liPorGanBliUniEdi").style.display="none";
+			document.getElementById("liPreCosBlisterEdi").style.display="none";
+			document.getElementById("liUniCajaBlisterEdi").style.display="none";
+			document.getElementById("liPreCostoBliImpEdi").style.display="none";
+			document.getElementById("liPreCostoUniImpEdi").style.display="";
+			document.getElementById("h4UnipCaja").innerHTML="Unidades Por Caja";
+
 			
-			document.getElementById("liPorGanBliUni").style.display="none";
 		}else if (this.value==="PorUnidad"){
-			document.getElementById("liUniCajaEdi").style.display="none";
+			document.getElementById("liUniCajaEdi").style.display="";
 			document.getElementById("liPreUniCajaEdi").style.display="none";
 			document.getElementById("liPorGanUniEdi").style.display="none";
-			document.getElementById("liPorGanBliUni").style.display="none";
-			document.getElementById("liPreUniCajBlisterEdi").style.display="none";;
+			document.getElementById("liPorGanBliUniEdi").style.display="none";
+			document.getElementById("liPreUniCajBlisterEdi").style.display="none";
+			document.getElementById("liPreCosBlisterEdi").style.display="none";
+			document.getElementById("liUniCajaBlisterEdi").style.display="none";
+			document.getElementById("liPreCostoBliImpEdi").style.display="none";
+			document.getElementById("liPreCostoUniImpEdi").style.display="";
+			document.getElementById("h4UnipCaja").innerHTML="Unidades Por Caja";
+
 
 		}else{
 			document.getElementById("liUniCajaEdi").style.display="";
@@ -357,9 +401,12 @@ function iniciar_producto(valido){
 			document.getElementById("liUniCajaBlisterEdi").style.display="";
 			document.getElementById("liPreUniCajBlisterEdi").style.display="";
 			document.getElementById("liPorGanUniEdi").style.display="";
-			document.getElementById("liPorGanBliUni").style.display="";
+			document.getElementById("liPorGanBliUniEdi").style.display="";
 			document.getElementById("liPorGanUniEdi").style.display="";
-			
+			document.getElementById("liPreCosBlisterEdi").style.display="";
+			document.getElementById("liPreCostoBliImpEdi").style.display="";
+			document.getElementById("liPreCostoUniImpEdi").style.display="";			
+			document.getElementById("h4UnipCaja").innerHTML="Blister Por Caja";
 		}
 	});
 	agregarEvento("numUniCaja","change",function(){
@@ -420,7 +467,7 @@ function iniciar_producto(valido){
 
 		if(e.keyCode!==13){
 			var vf=obtener_valores_formulario("formBuscarEliminarProd");
-			console
+			//console
 			if(vf!==false){
 
 			
@@ -456,7 +503,7 @@ function iniciar_producto(valido){
 
 		if(e.keyCode!==13){
 			var vf=obtener_valores_formulario("formBuscarEliminarProd");
-			console
+			//console
 			if(vf!==false){
 
 			
@@ -495,19 +542,17 @@ function iniciar_producto(valido){
 				var valor_consulta=vf.Texto[0];
 				consultarDatos(_URL+"productos/"+valor_consulta,datos,function(rs){
 					document.getElementById("selSedes2").value="0";
-					consola(rs);
+					
 					if(rs.respuesta===true){
 						for(var f in rs.datos){
-								if(rs.datos[f].codigo_producto === document.getElementById("txtBuscarEditarProducto").value){
-										dibujar_producto_edicion(rs.datos[f]);
-										 $('#nuevoProducto, #eliminarProducto, #editarProducto, #categoriaProducto, #ventasPeriodo, #promo').fadeOut('fast');
-        								 $('#resultadoEdicionP').fadeIn('slow');
-        								 editando=true;
-								}
-						}
-						
-					}
-					
+							if(rs.datos[f].codigo_producto === document.getElementById("txtBuscarEditarProducto").value){
+								dibujar_producto_edicion(rs.datos[f]);
+							    $('#nuevoProducto, #eliminarProducto, #editarProducto, #categoriaProducto, #ventasPeriodo, #promo').fadeOut('fast');
+        						$('#resultadoEdicionP').fadeIn('slow');
+        						editando=true;
+							}
+						}						
+					}					
 				},"formulario");	
 			}
 			
@@ -517,9 +562,9 @@ function iniciar_producto(valido){
 	});
 	agregarEvento("selSedes2","change",function(){
 		//BUSCAR INFORMACION DEL PRODUCTO POR SEDE
-		if(this.value!==0){
+		if(document.getElementById("selSedes2").value!=="0" && document.getElementById("selSedes2").value!=="--"){
 			registrarDato(_URL+"traer_productos/"+document.getElementById("txtNuevoProdCod").value+"/"+this.value,{},function(rs){
-				console.log(rs);
+				//console.log(rs);
 				if(rs.respuesta===true){
 					//mostrar informacion
 					//cargar informacion en formulario edicion
@@ -543,7 +588,7 @@ function iniciar_producto(valido){
 					mostrarMensaje("Este producto actualmente no existe en esta sede");
 				}
 			});	
-		}else{
+		}else if(document.getElementById("selSedes2").value=="0" && document.getElementById("selSedes2").value!=="--"){
 			var vf=obtener_valores_formulario("formEditarProducto");
 			if(vf!==false){
 			
@@ -562,6 +607,8 @@ function iniciar_producto(valido){
 			}else{
 				mostrarMensaje("Por favor ingresa valores");
 			}
+		}else if(document.getElementById("selSedes2").value=="--"){
+			mostrarMensaje("Por favor selecciona una o todas las sedes");
 		}
 			
 	});
@@ -826,7 +873,7 @@ function iniciar_producto(valido){
 			if(document.getElementById("txtCodPromo").value!==""){
 
 			consultarDatos(_URL+"productos/"+document.getElementById("txtCodPromo").value,{},function(rs){
-				console.log(rs);
+				//console.log(rs);
 				if(rs.respuesta===true){
 					crear_data_list_producto("lista_prod_promo",rs.datos);
 				}
@@ -834,7 +881,7 @@ function iniciar_producto(valido){
 			}
 		}else{
 			registrarDato(_URL+"traer_productos/"+document.getElementById("txtCodPromo").value+"/"+document.getElementById("selPromoSede").value,{},function(rs){
-				console.log(rs);
+				//console.log(rs);
 				if(rs.respuesta===true){
 					crear_data_list_producto("lista_prod_promo",rs.datos);
 				}
@@ -848,7 +895,7 @@ function iniciar_producto(valido){
 			if(document.getElementById("txtCodPromo").value!==""){
 
 			consultarDatos(_URL+"productos/"+document.getElementById("txtCodPromo").value,{},function(rs){
-				console.log(rs);
+				//console.log(rs);
 				if(rs.respuesta===true){
 					document.getElementById("hdIdProdPromo").value=rs.datos[0].id;
 				}
@@ -856,7 +903,7 @@ function iniciar_producto(valido){
 			}
 		}else{
 			registrarDato(_URL+"traer_productos/"+document.getElementById("txtCodPromo").value+"/"+document.getElementById("selPromoSede").value,{},function(rs){
-				console.log(rs);
+				//console.log(rs);
 				if(rs.respuesta==true){
 					document.getElementById("hdIdProdPromo").value=rs.datos[0].fk_id_producto;
 				}
@@ -865,7 +912,7 @@ function iniciar_producto(valido){
 	});
 	agregarEvento("btnCrearPromo","click",function(){
 		var vf=obtener_valores_formulario("formPromocion");
-		console.log(vf);
+		//console.log(vf);
 		if(vf!=false){
 			var datos={
 				nombre_promocion:vf.Texto[0],
@@ -964,7 +1011,7 @@ function dibujar_promociones(dt){
 	var tbl=document.getElementById("tblListaPromo");
 	tbl.innerHTML="";
 	for(var f in dt){
-		console.log(dt[f]);
+		//console.log(dt[f]);
 		var tr=document.createElement("tr");
 		tr.setAttribute("id","fila_promo_"+dt[f].id)
 
@@ -1058,7 +1105,7 @@ function dibujar_reporte_venta_por_periodo(dt){
 	tbl.appendChild(tr);
 
 	for(var f in dt){
-		console.log(dt[f]);
+		//console.log(dt[f]);
 		var tr=document.createElement("tr");
 		
 
@@ -1120,15 +1167,15 @@ function dibujar_reporte_venta_por_periodo(dt){
 			 pg = dt[f].porcentaje_ganancia_blister_sede;
 			  break;
 		}	
-		console.log(dt[f].tipo_venta);
-		console.log(pg);
+		//console.log(dt[f].tipo_venta);
+		//console.log(pg);
 		var td=document.createElement("td");
 		td.innerHTML=formato_numero(pg,"2",",",".")+" %";
 		tr.appendChild(td);
 
 		var tt=Number(dt[f].valor_item)*Number(dt[f].cantidad_vendida);
 		var imp=ttcompra*Number(dt[f].impuesto)/100;
-		console.log(tt);
+		//console.log(tt);
 		var td=document.createElement("td");
 		td.innerHTML="$ "+formato_numero(tt,"2",",",".");
 		tr.appendChild(td);
@@ -1153,11 +1200,13 @@ function dibujar_reporte_venta_por_periodo(dt){
 /*
 	d=>datos enviados desde el servidor
 */
-function dibujar_producto_edicion(d){
 
-	console.log(d);
+/*function dibujar_producto_edicion(d){
+
+	//console.log(d);
 
 	if(document.getElementById("selSedes2").value==="0" || document.getElementById("selSedes2").value==="--" ){
+
 		document.getElementById("liCantExistenciasEdi").style.display='none';
 		document.getElementById("txtNuevoProdCod").value=d.codigo_producto;
 		document.getElementById("txtNuevoProdCodDistribuidor").value=d.codigo_distribuidor;
@@ -1168,7 +1217,7 @@ function dibujar_producto_edicion(d){
 		document.getElementById("numPorcGanaUniEdi").value=d.porcentaje_ganancia_unidad;
 		document.getElementById("numNuevoPreCostoImpu").value=Number(d.precio_compra);
 		document.getElementById("numNuevoPreCosUni").value=Number(d.precio_compra_unidad);
-		document.getElementById("numNuevoPreCosBliUni").value=Number(d.precio_compra_blister)
+		document.getElementById("numNuevoPreCosBliUni").value=Number(d.precio_compra_blister);
 		document.getElementById("liCantExistenciasEdi").style.display='';
 
 		if(d.inventario=="1"){
@@ -1182,6 +1231,7 @@ function dibujar_producto_edicion(d){
 		}
 		document.getElementById("hdIdProductoEditar").value=id_p;
 		document.getElementById("txtNuevoProdDes").value=d.nombre_producto;
+		document.getElementById("txtEdiLaboratorio").value=d.laboratorio;
 		var sel1=document.getElementById("selNuevoProdTipoVenta");
 		for(var o in sel1){
 			if(sel1[o] != null){
@@ -1211,7 +1261,7 @@ function dibujar_producto_edicion(d){
 		document.getElementById("numNuevoProdPreCosto").value=d.precio_compra;
 		document.getElementById("numPorcGanaEdi").value=d.porcentaje_ganancia;
 		document.getElementById("numValVenEdi").value=d.precio_venta;
-		console.log(d.precio_venta);
+		//console.log(d.precio_venta);
 		if(d.tipo_venta_producto=="PorUnidad"){
 			document.getElementById("numValVenEdi").value=d.precio_venta;
 			document.getElementById("numValVenBliUniEdi").value=d.precio_venta_blister;
@@ -1220,7 +1270,7 @@ function dibujar_producto_edicion(d){
 			document.getElementById("liPreCosBlisterEdi").style.display="none";
 			document.getElementById("liPreCosUniEdi").style.display="none";
 			document.getElementById("liPreCostoBliImp").style.display="none";
-			document.getElementById("liPreCostoUniImp").style.display="none";
+			document.getElementById("liPreCostoUniImp").style.display="";
 			document.getElementById("liPorGanBliUniEdi").style.display="none";
 			document.getElementById("liPorGanUniEdi").style.display="none";
 			document.getElementById("liPreUniCajBlisterEdi").style.display="none";
@@ -1309,6 +1359,7 @@ function dibujar_producto_edicion(d){
 		document.getElementById("numMinimo").value=d.minimo_inventario;
 
 	}else{
+
 		//si la sede es diferente de 0
 		document.getElementById("liCantExistenciasEdi").style.display='';
 		document.getElementById("txtNuevoProdCod").value=d.codigo_producto;
@@ -1335,7 +1386,8 @@ function dibujar_producto_edicion(d){
 		document.getElementById("hdIdProductoEditar").value=id_p;
 		document.getElementById("txtNuevoProdDes").value=d.nombre_producto;
 		document.getElementById("numExistencias").value=d.cantidad_existencias;
-		console.log(document.getElementById("numExistencias").value);
+		document.getElementById("txtEdiLaboratorio").value=d.laboratorio;
+		//console.log(document.getElementById("numExistencias").value);
 		var sel1=document.getElementById("selNuevoProdTipoVenta");
 		for(var o in sel1){
 			if(sel1[o] != null){
@@ -1361,7 +1413,7 @@ function dibujar_producto_edicion(d){
 			document.getElementById("numNuevoProdPreCosto").value=d.precio_compra;
 			document.getElementById("numPorcGanaEdi").value=d.porcentaje_ganancia_sede;
 			document.getElementById("numValVenEdi").value=d.precio_venta_sede;
-			console.log(d.precio_venta);
+			//console.log(d.precio_venta);
 			
 			if(d.tipo_venta_producto=="PorUnidad"){
 				document.getElementById("numValVenEdi").value=d.precio_venta_sede;
@@ -1438,7 +1490,129 @@ function dibujar_producto_edicion(d){
 	
 		document.getElementById("numMinimo").value=d.minimo_inventario;
 	}
+}*/
+function dibujar_producto_edicion(d){
+
+	console.log(d);
+	//todas las sedes
+	var id_p=0;
+	if(d.fk_id_producto!=undefined){
+		id_p=d.fk_id_producto;
+	}else{
+		id_p=d.id;
+	}
+	document.getElementById("hdIdProductoEditar").value=id_p;
+	document.getElementById("txtNuevoProdCodDistribuidor").value=d.codigo_distribuidor;
+	document.getElementById("txtNuevoProdCod").value=d.codigo_producto;
+	document.getElementById("txtNuevoProdDes").value=d.descripcion_producto;
+	document.getElementById("txtEdiLaboratorio").value=d.laboratorio;
+	document.getElementById("numNuevoUniCaja").value=d.unidades_por_caja;
+	document.getElementById("numNuevoUniCajaBlister").value=d.unidades_por_blister;
+	document.getElementById("numNuevoProdPreCosto").value=d.precio_compra;
+	document.getElementById("numNuevoPreCosBliUni").value=d.precio_compra_blister;
+	document.getElementById("numNuevoPreCosUni").value=d.precio_compra_unidad;
+	document.getElementById("numNuevoImpuesto").value=d.impuesto;
+	document.getElementById("numNuevoPreCostoImpu").value=d.precio_compra_impuesto;
+	document.getElementById("numNuevoPreCostoBlisterImpu").value=d.precio_compra_blister_impuesto;
+	document.getElementById("numNuevoPreCostoUniImpu").value=d.precio_compra_unidad_impuesto;
+	document.getElementById("numMinimo").value=d.minimo_inventario;
+	if(d.inventario=="1"){
+			document.getElementById("chInventarioEdi").checked=true;
+	}
+	var sel1=document.getElementById("selNuevoProdTipoVenta");
+	for(var o in sel1){
+		if(sel1[o] != null){
+			if(sel1[o].value==d.tipo_venta_producto){
+				sel1[o].selected=true;
+				document.getElementById("selNuevoProdTipoVenta").value=d.tipo_venta_producto;		
+				if(document.getElementById("selNuevoProdTipoVenta").value=="PorUnidad"){
+						document.getElementById("liUniCajaBlisterEdi").style.display="none";
+						document.getElementById("liPreCosBlisterEdi").style.display="none";
+						document.getElementById("liPreCostoBliImpEdi").style.display="none";
+						document.getElementById("liPorGanBliUniEdi").style.display="none";
+						document.getElementById("liPreUniCajBlisterEdi").style.display="none";											
+						document.getElementById("h4UnipCaja").innerHTML="Unidades Por Caja";
+				}else if(document.getElementById("selNuevoProdTipoVenta").value=="Caja"){
+						document.getElementById("liUniCajaBlisterEdi").style.display="none";
+						document.getElementById("liPreCosBlisterEdi").style.display="none";
+						document.getElementById("liPreCostoBliImpEdi").style.display="none";
+						document.getElementById("liPorGanBliUniEdi").style.display="none";
+						document.getElementById("liPreUniCajBlisterEdi").style.display="none";
+						document.getElementById("h4UnipCaja").innerHTML="Unidades Por Caja";
+				}else if(document.getElementById("selNuevoProdTipoVenta").value=="CajaBlister"){
+						document.getElementById("liUniCajaBlisterEdi").style.display="";
+						document.getElementById("liPreCosBlisterEdi").style.display="";
+						document.getElementById("liPreCostoBliImpEdi").style.display="";
+						document.getElementById("liPorGanBliUniEdi").style.display="";
+						document.getElementById("liPreUniCajBlisterEdi").style.display="";
+						document.getElementById("h4UnipCaja").innerHTML="Blister Por Caja";
+
+
+				}
+				console.log(document.getElementById("liPreCostoBliImpEdi"));
+				console.log(document.getElementById("liPreCostoBliImpEdi").style.display);
+				break;
+			}
+		}
+			
+	}
+	var sel1=document.getElementById("selNuevaCategoria");
+		for(var o in sel1){
+			if(sel1[o] != null){
+				if(sel1[o].value==d.fk_id_departamento){
+					sel1[o].selected=true;
+					//document.getElementById("selNuevoProdTipoVenta").value=d.tipo_venta_producto;		
+				}
+			}
+			
+		}
+		
+	var sel1=document.getElementById("selProveedorEdiProd");
+		for(var o in sel1){
+			if(sel1[o] != null){
+				if(sel1[o].value==d.fk_id_proveedor){
+					sel1[o].selected=true;
+					//document.getElementById("selNuevoProdTipoVenta").value=d.tipo_venta_producto;		
+				}
+			}
+			
+		}
+		//document.getElementById("selSedes2").value="";
+	
+	if(document.getElementById("selSedes2").value==="0" || document.getElementById("selSedes2").value==="--" ){
+		var sel1=document.getElementById("selSedes2");
+		for(var o in sel1){
+			if(sel1[o] != null){
+				if(sel1[o].value=="0"){
+					sel1[o].selected=true;
+					//document.getElementById("selNuevoProdTipoVenta").value=d.tipo_venta_producto;		
+				}
+			}
+			
+		}
+		document.getElementById("numPorcGanaEdi").value=d.porcentaje_ganancia;
+		document.getElementById("numPorcGanaBlisterEdi").value=d.porcentaje_ganancia_blister;
+		document.getElementById("numPorcGanaUniEdi").value=d.porcentaje_ganancia_unidad;
+		document.getElementById("numValVenEdi").value=d.precio_venta;
+		document.getElementById("numValVenBliUniEdi").value=d.precio_venta_blister;
+		document.getElementById("numValVenUniEdi").value=d.precio_mayoreo;	
+		document.getElementById("liCantExistenciasEdi").style.display="none";
+	}else{
+		//si la sede es diferente de 0
+		document.getElementById("liCantExistenciasEdi").style.display="";
+		document.getElementById("numPorcGanaEdi").value=d.porcentaje_ganancia_sede;
+		document.getElementById("numPorcGanaBlisterEdi").value=d.porcentaje_ganancia_blister_sede;
+		document.getElementById("numPorcGanaUniEdi").value=d.porcentaje_ganancia_sede_unidad;
+		document.getElementById("numValVenEdi").value=d.precio_venta_sede;
+		document.getElementById("numValVenBliUniEdi").value=d.precio_venta_blister_sede;
+		document.getElementById("numValVenUniEdi").value=d.precio_mayoreo_sede;	
+		document.getElementById("numExistencias").value=d.cantidad_existencias_unidades;
+		
+	}
+
+
 }
+
 function dibujar_producto_eliminar(d){
 	document.getElementById("hdIdProductoEliminar").value=d.id;
 	
@@ -1453,7 +1627,7 @@ function exportar_ventas(){
 		datos_reporte_ventas.email_usuario=false;
 	}
 	registrarDato(_URL+"exportar/"+"reporte_ventas_por_periodo",datos_reporte_ventas,function(rs){
-			console.log(rs);
+			//console.log(rs);
 			if(rs.respuesta==true){
 				$('#mensaje_exportar_ventas').fadeOut('fast');
 				document.getElementById("aDirExportacion").innerHTML="DESCARGAR";
@@ -1471,12 +1645,13 @@ function calcular_valores_nuevo_producto(){
 
 		var uni_bli=document.getElementById("numUniCajaBlister").value
 
+
 		var precio_compra=document.getElementById("numPreCos").value;
-		console.log(precio_compra);
-		var precio_compra_unidad=Number(precio_compra)/Number(uni_caja);
-		console.log(Number(precio_compra)/Number(uni_caja));
-		var precio_compra_blister=(Number(precio_compra)/Number(uni_caja))/Number(uni_bli);
-		console.log((Number(precio_compra)/Number(uni_caja))/Number(uni_bli));
+		//console.log(precio_compra);
+		var precio_compra_blister=Number(precio_compra)/Number(uni_caja);
+		//console.log(Number(precio_compra)/Number(uni_caja));
+		var precio_compra_unidad=(Number(precio_compra)/Number(uni_caja))/Number(uni_bli);
+		//console.log((Number(precio_compra)/Number(uni_caja))/Number(uni_bli));
 		var impuesto=document.getElementById("numImpuesto").value;
 
 		var precio_impuesto=(Number(precio_compra)*Number(impuesto)/100)+Number(precio_compra);
@@ -1484,6 +1659,7 @@ function calcular_valores_nuevo_producto(){
 		var precio_impuesto_blister=(Number(precio_compra_blister)*Number(impuesto)/100)+Number(precio_compra_blister);
 
 		var precio_impuesto_unidad=(Number(precio_compra_unidad)*Number(impuesto)/100)+Number(precio_compra_unidad);
+
 		document.getElementById("numPorcGana").value="25";
 		var porcentaje=document.getElementById("numPorcGana").value;
 		document.getElementById("numPorcGanaBliUni").value="25";
@@ -1499,25 +1675,35 @@ function calcular_valores_nuevo_producto(){
 
 		document.getElementById("numPreCostoImpu").value=precio_impuesto;
 
+		document.getElementById("numPreCostoBliImpu").value=precio_impuesto_blister;
+
 		document.getElementById("numPreCostoUniImpu").value=precio_impuesto_unidad;
 
-		document.getElementById("numValVen").value=precio_venta;
+
+		/*document.getElementById("numValVen").value=precio_venta;
 
 		document.getElementById("numValVenBliUni").value=precio_venta_blister;
 
-		document.getElementById("numValVenUni").value=precio_venta_unidad;
+		document.getElementById("numValVenUni").value=precio_venta_unidad;*/
+
+
+		document.getElementById("h4PrecioVenta").innerHTML="Precio venta caja sug."+redondeo(precio_venta,"0");		
+
+		document.getElementById("h4PrecioVentaBlister").innerHTML="Precio venta blister sug."+redondeo(precio_venta_blister,"0");
+
+		document.getElementById("h4PrecioVentaUnidad").innerHTML="Precio venta unidad sug."+redondeo(precio_venta_unidad,"0");
 		
 		document.getElementById("numPreCosUni").value=precio_compra_unidad;
 
 		
 
 		if(document.getElementById("selTipoVenta").value=="CajaBlister"){
-			document.getElementById("numPreCosUni").value=precio_compra_blister;
-			document.getElementById("numPreCosUniBli").value=precio_compra_unidad;
+			document.getElementById("numPreCosUni").value=redondeo(precio_compra_unidad,"2");
+			document.getElementById("numPreCosUniBli").value=redondeo(precio_compra_blister,"2");
 				
 		}else{
-			document.getElementById("numPreCosUni").value=precio_compra_unidad;
-			document.getElementById("numPreCosUniBli").value=precio_compra_blister;
+			document.getElementById("numPreCosUni").value=redondeo(precio_compra_unidad,"2");
+			document.getElementById("numPreCosUniBli").value=redondeo(precio_compra_blister,"2");
 		}
 }
 
@@ -1537,7 +1723,7 @@ function calcular_valores_editar_producto(){
 
 		var precio_impuesto=(Number(precio_compra)*Number(impuesto)/100)+Number(precio_compra);
 
-		var precio_impuesto_blister=(Number(precio_compra_unidad)*Number(impuesto)/100)+Number(precio_compra_unidad);
+		var precio_impuesto_blister=(Number(precio_compra_blister)*Number(impuesto)/100)+Number(precio_compra_blister);
 
 		var precio_impuesto_unidad=(Number(precio_compra_unidad)*Number(impuesto)/100)+Number(precio_compra_unidad);
 
@@ -1555,7 +1741,9 @@ function calcular_valores_editar_producto(){
 
 		document.getElementById("numNuevoPreCostoImpu").value=redondeo(precio_impuesto,"0");
 
-		document.getElementById("numNuevoPreCostoUniImpu").value=redondeo(precio_impuesto_unidad,"0");
+		document.getElementById("numNuevoPreCostoBlisterImpu").value=redondeo(precio_impuesto_blister,"0");
+
+		document.getElementById("numNuevoPreCostoUniImpu").value=redondeo(precio_impuesto_unidad,"0");		
 
 		document.getElementById("numValVenEdi").value=redondeo(precio_venta,"0");
 
@@ -1587,14 +1775,31 @@ function calcular_valores_editar_producto_porcentaje(){
 		var precio_impuesto_blister=(Number(precio_compra_unidad)*Number(impuesto)/100)+Number(precio_compra_unidad);
 
 		var precio_impuesto_unidad=(Number(precio_compra_unidad)*Number(impuesto)/100)+Number(precio_compra_unidad);
+		console.log("Valor de venta");
+		console.log(document.getElementById("numValVenEdi").value);
+		console.log("Valor de costo + impuesto");
+		console.log(document.getElementById("numNuevoPreCostoImpu").value);
 
-		var dif=Number(document.getElementById("numValVenEdi").value)-Number(document.getElementById("numNuevoProdPreCosto").value);
+		var dif=(Number(Number(document.getElementById("numValVenEdi").value)/Number(document.getElementById("numNuevoPreCostoImpu").value))-1)*100;
 
-		document.getElementById("numPorcGanaEdi").value=redondeo(dif*100/precio_impuesto,"0");
-		var dif2=Number(document.getElementById("numValVenBliUniEdi").value)-Number(document.getElementById("numNuevoPreCosBliUni").value);
-		document.getElementById("numPorcGanaBlisterEdi").value=redondeo(dif2*100/precio_impuesto_blister,"0");
-		var dif3=Number(document.getElementById("numValVenUniEdi").value)-Number(document.getElementById("numNuevoPreCosUni").value);
-		document.getElementById("numPorcGanaUniEdi").value=redondeo(dif3*100/precio_impuesto_unidad,"0");
+		document.getElementById("numPorcGanaEdi").value=Number(redondeo(dif,"0"));
+
+		console.log("Valor de venta blister");
+		console.log(document.getElementById("numValVenBliUniEdi").value);
+		console.log("Valor de costo blister + impuesto");
+		console.log(document.getElementById("numNuevoPreCostoBlisterImpu").value);
+		
+		var dif2=(Number(Number(document.getElementById("numValVenBliUniEdi").value)/Number(document.getElementById("numNuevoPreCostoBlisterImpu").value))-1)*100;
+		
+		document.getElementById("numPorcGanaBlisterEdi").value=Number(redondeo(dif2,"0"));
+		console.log("Valor de venta unidad");
+		console.log(document.getElementById("numValVenUniEdi").value);
+		console.log("Valor de costo unidad + impuesto");
+		console.log(document.getElementById("numNuevoPreCostoUniImpu").value);
+
+		var dif3=(Number(Number(document.getElementById("numValVenUniEdi").value)/Number(document.getElementById("numNuevoPreCostoUniImpu").value))-1)*100;
+		
+		document.getElementById("numPorcGanaUniEdi").value=Number(redondeo(dif3,"0"));
 
 		
 }

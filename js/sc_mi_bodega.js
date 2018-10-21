@@ -14,22 +14,22 @@ function iniciar_bodega_offline(sede){
 }
 
 function consultar_mi_bodega(id){
-		console.log("consultando");
-		console.log(id);
+		//console.log("consultando");
+		//console.log(id);
 		
 		var listaProductos=document.getElementById("listaProductos");
 									listaProductos.innerHTML="";
 								var datos=obtener_local_storage("mi_bodega_"+_IdSede+"_"+_usuario.id_usuario);	
-								//console.log(datos);
+								////console.log(datos);
 								if(datos.length>1){
 
 									for(var d in datos){
 										if(document.getElementById(id).value.length > 2){
-											console.log("==");
-											console.log(datos[d].codigo_distribuidor);
-											console.log(datos[d].codigo_producto);
-											console.log(document.getElementById(id).value);
-											console.log("===");
+											//console.log("==");
+											//console.log(datos[d].codigo_distribuidor);
+											//console.log(datos[d].codigo_producto);
+											//console.log(document.getElementById(id).value);
+											//console.log("===");
 											if(datos[d].codigo_distribuidor==document.getElementById(id).value || datos[d].codigo_producto==document.getElementById(id).value ){
 											//AQUI INICIO LA BUSQUEDA OFFLINE
 													var listaProductos=document.getElementById("listaProductos");
@@ -37,7 +37,7 @@ function consultar_mi_bodega(id){
 														
 													
 												
-														console.log(datos[d]);
+														//console.log(datos[d]);
 														_producto_seleccionado=datos[d];
 														document.getElementById("numCantidad").value=1;
 														document.getElementById("txtCodigoProducto").style.backgroundColor="#ffffff";
@@ -71,7 +71,7 @@ function consultar_mi_bodega(id){
 
 
 													var sel=document.getElementById("selTipoVentaFactura");	
-													console.log(sel);
+													//console.log(sel);
 													sel.innerHTML="";
 
 													if(datos[d].tipo_venta_producto=="Caja"){

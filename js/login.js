@@ -5,7 +5,7 @@ function login(){
     cargar_sedes();	
     agregarEvento("btnRecuperarPass","click",function(){
            var vl=obtener_valores_formulario("formRecuperarClave");
-           console.log(vl);
+           //console.log(vl);
            if(vl.Email[0]!="" && vl.Email[1]!= "" && vl.Email[1]==vl.Email[0]){
                 var dat={email:vl.Email[0]};
                 registrarDato(_URL+"recuperar_clave",dat,function(rs){
@@ -18,7 +18,7 @@ function login(){
 }
 function cargar_sedes(){
     consultarDatos(_URL+"sedes",{},function(rs){
-        console.log(rs);
+        //console.log(rs);
         if(rs.respuesta==true){
             crear_select_sedes_log_in("selSedes",rs.datos);
             
@@ -32,7 +32,7 @@ function validar_login_pass(e){
     if(e.which!=0 && e.which=="13"){
         document.getElementById("load").style.display="";
         var vl=obtener_valores_formulario("formLogin");
-        console.log(vl);
+        //console.log(vl);
         if(vl.Texto[0]!="" && vl.Clave!= ""){
             var dia=new Date();
             var dat={usario:vl.Texto[0],password:vl.Clave,sede:vl.Select[0],dia:dia.getDay()};
@@ -41,7 +41,7 @@ function validar_login_pass(e){
                      
                 if(rs.respuesta){
                     
-                    console.log(rs.datos[0]);
+                    //console.log(rs.datos[0]);
                     agregar_session_storage("ssUsuario",rs.datos[0]);
                      $('#divInicio,#formLogueo, #recuperarUsuario').fadeOut('fast');
                         $('#menuGeneral, #ventas').fadeIn('slow');//
@@ -66,7 +66,7 @@ function validar_login(){
 	
 	if(vl.Texto[0]!="" && vl.Clave!= ""){
         document.getElementById("load").style.display="";
-        console.log(vl);
+        //console.log(vl);
         var dia=new Date();
         var dat={usario:vl.Texto[0],password:vl.Clave,sede:vl.Select[0],dia:dia.getDay()};
             registrarDato(_URL+"login",dat,function(rs){
@@ -74,7 +74,7 @@ function validar_login(){
                 	     
                     if(rs.respuesta){
                         
-                        console.log(rs.datos[0]);
+                        //console.log(rs.datos[0]);
                         agregar_session_storage("ssUsuario",rs.datos[0]);
                          $('#divInicio, #formLogueo, #recuperarUsuario').fadeOut('fast');
                             $('#menuGeneral, #ventas').fadeIn('slow');//

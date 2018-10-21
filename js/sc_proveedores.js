@@ -109,8 +109,8 @@ agregarEvento(_btnEliminarProveedor,"click",function(){
 
 function seleccionar_proveedor(id){
 	for(var d in _proveedores){
-		console.log(_proveedores[d].id);
-		console.log(id);
+		//console.log(_proveedores[d].id);
+		//console.log(id);
 		if(_proveedores[d].id==id){
 			document.getElementById("txtProveedorSeleccionado").value=_proveedores[d].nombre_proveedor;
 			document.getElementById("hdIdProveedorEliminar").value=_proveedores[d].id;

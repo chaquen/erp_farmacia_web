@@ -11,7 +11,7 @@ function iniciar_inventario(valido){
 		ocultar();
 
 			agregarEvento("txtBuscarProductoInventario","keypress",function(e){
-					console.log(this.value);	
+					//console.log(this.value);	
 					if(e.keyCode!=13){
 						if(this.value!=""){
 							if(document.getElementById("selSedesAddInv").value!="0"){
@@ -48,7 +48,7 @@ function iniciar_inventario(valido){
 				
 			});
 			agregarEvento("txtBuscarProductoInventario","change",function(e){
-				console.log(this.value);	
+				//console.log(this.value);	
 				if(this.value!=""){
 					if(document.getElementById("selSedesAddInv").value!="0"){
 						registrarDato(_URL+"traer_productos/"+this.value+"/"+document.getElementById("selSedesAddInv").value,{},function(rs){
@@ -73,7 +73,7 @@ function iniciar_inventario(valido){
 				
 			});
 			agregarEvento("selSedesAddInv","change",function(e){
-				console.log(document.getElementById("txtBuscarProductoInventario").value);	
+				//console.log(document.getElementById("txtBuscarProductoInventario").value);	
 				if(this.value!="--" && this.value!="0"  && document.getElementById("txtBuscarProductoInventario").value != ""){
 					registrarDato(_URL+"traer_productos/"+document.getElementById("txtBuscarProductoInventario").value+"/"+document.getElementById("selSedesAddInv").value,{},function(rs){
 						if(rs.respuesta==true){
@@ -94,9 +94,9 @@ function iniciar_inventario(valido){
 			});
 
 			agregarEvento("txtBuscarReporteInventario","keypress",function(e){
-				console.log(this.value);	
+				//console.log(this.value);	
 				if(e.keyCode!=13){
-					if(this.value!="" && document.getElementById("selSedesReporteInv").value==0){
+					if(document.getElementById("txtBuscarReporteInventario").value!="" && document.getElementById("selSedesReporteInv").value==0){
 						registrarDato(_URL+"traer_productos/"+this.value+"/"+document.getElementById("selSedesReporteInv").value,{},function(rs){
 							if(rs.respuesta==true){
 								crear_data_list_producto("lista_buscar_inventario",rs.datos);
@@ -105,27 +105,29 @@ function iniciar_inventario(valido){
 					}
 				}else{
 
-					if(document.getElementById("selSedesReporteInv").value==0 && this.value != ""){
+					if(document.getElementById("selSedesReporteInv").value==0 && document.getElementById("txtBuscarReporteInventario").value != ""){
 						var datos={
 							tipo:"GENERAL",
 							fk_id_categoria:0,
-							nombre_producto:this.value,
+							nombre_producto:document.getElementById("txtBuscarReporteInventario").value,
 							fk_id_proveedor:document.getElementById("selProvReporteInv").value,
-
+							estado_inventario:document.getElementById("selEstadoInv").value
 						};
-					}else if(document.getElementById("selSedesReporteInv").value!=0 && document.getElementById("selSedesReporteInv").value!="--" && this.value != ""){
+					}else if(document.getElementById("selSedesReporteInv").value!=0 && document.getElementById("selSedesReporteInv").value!="--" && document.getElementById("txtBuscarReporteInventario").value != ""){
 						var datos={
 							tipo:"SEDE",
 							sede:document.getElementById("selSedesReporteInv").value,
 							fk_id_categoria:0,
-							nombre_producto:this.value,
+							nombre_producto:document.getElementById("txtBuscarReporteInventario").value,
 							fk_id_proveedor:document.getElementById("selProvReporteInv").value,
+							estado_inventario:document.getElementById("selEstadoInv").value
 						};
 					}	
 						if(datos!=undefined){
 							registrarDato(_URL+"reporte_inventario",datos,function(rs){
 									//mostrarMensaje(rs);	
 									if(rs.respuesta==true){
+											repo_inve=rs.datos;
 											dibujar_reporte_inventario(rs.datos);
 											calcular_totales_inventario(rs.datos);
 									}else{
@@ -148,15 +150,16 @@ function iniciar_inventario(valido){
 						fk_id_categoria:0,
 						nombre_producto:document.getElementById("txtBuscarReporteInventario").value,
 						fk_id_proveedor:document.getElementById("selProvReporteInv").value,
-
+						estado_inventario:document.getElementById("selEstadoInv").value
 					};
-				}else if(document.getElementById("selSedesReporteInv").value==0 && document.getElementById("selSedesReporteInv").value=="--" && this.value != ""){
+				}else if(document.getElementById("selSedesReporteInv").value==0 && document.getElementById("selSedesReporteInv").value=="--" && document.getElementById("txtBuscarReporteInventario").value != ""){
 					var datos={
 						tipo:"SEDE",
 						sede:document.getElementById("selSedesReporteInv").value,
 						fk_id_categoria:0,
 						nombre_producto:document.getElementById("txtBuscarReporteInventario").value,
 						fk_id_proveedor:document.getElementById("selProvReporteInv").value,
+						estado_inventario:document.getElementById("selEstadoInv").value
 					};
 				}	
 
@@ -165,6 +168,7 @@ function iniciar_inventario(valido){
 						consola(rs);	
 						//mostrarMensaje(rs);
 						if(rs.respuesta==true){
+							repo_inve=rs.datos;
 							dibujar_reporte_inventario(rs.datos);
 							calcular_totales_inventario(rs.datos);
 						}else{
@@ -193,6 +197,7 @@ function iniciar_inventario(valido){
 
 					if(tipo!=undefined){
 						if(vf.Hidden[0]!="" && vf.Numero[0]!=""){
+							document.getElementById("btnAgregarCantidad").style.display="none";
 								var datos={
 									fk_id_producto:vf.Hidden[0],
 									fk_id_sede:_IdSede,
@@ -201,9 +206,9 @@ function iniciar_inventario(valido){
 									cantidad_existencias:vf.Numero[0],
 									tipo_entrada:"ENTRADA",
 									fk_id_usuario:_usuario.id_usuario,
-									precio_venta_unidad:vf.Numero[1],
+									precio_venta_unidad:vf.Numero[3],
 									precio_venta_blister:vf.Numero[2],
-									precio_venta_caja:vf.Numero[3],
+									precio_venta_caja:vf.Numero[1],
 
 
 									
@@ -226,7 +231,9 @@ function iniciar_inventario(valido){
 										document.getElementById("selSedesAddInv").value=_IdSede;
 										document.getElementById("txtBuscarProductoInventario").value="";
 										document.getElementById("catnIve").value="";
-
+										document.getElementById("btnAgregarCantidad").style.display="";
+									}else{
+										document.getElementById("btnAgregarCantidad").style.display="";
 									}
 
 									},"");
@@ -283,6 +290,7 @@ function iniciar_inventario(valido){
 						fk_id_categoria:this.value,
 						nombre_producto:"",
 						fk_id_proveedor:document.getElementById("selProvReporteInv").value,
+						estado_inventario:document.getElementById("selEstadoInv").value
 					};
 				}else{
 					var datos={
@@ -291,17 +299,19 @@ function iniciar_inventario(valido){
 						fk_id_categoria:this.value,
 						nombre_producto:"",
 						fk_id_proveedor:document.getElementById("selProvReporteInv").value,
+						estado_inventario:document.getElementById("selEstadoInv").value
 					};
 				}	
 				registrarDato(_URL+"reporte_inventario",datos,function(rs){
 					consola(rs);
 					//mostrarMensaje(rs);	
 					if(rs.respuesta==true){
+						repo_inve=rs.datos;
 						dibujar_reporte_inventario(rs.datos);
 						calcular_totales_inventario(rs.datos);
 					}else{
-									var tbl=document.getElementById("tblRepoInve");
-									tbl.innerHTML="";
+						var tbl=document.getElementById("tblRepoInve");
+						tbl.innerHTML="";
 	
 					}
 				});
@@ -315,7 +325,7 @@ function iniciar_inventario(valido){
 						fk_id_categoria:this.value,
 						nombre_producto:"",
 						fk_id_proveedor:document.getElementById("selProvReporteInv").value,
-
+						estado_inventario:document.getElementById("selEstadoInv").value
 					};
 				}else{
 					var datos={
@@ -324,19 +334,20 @@ function iniciar_inventario(valido){
 						fk_id_categoria:document.getElementById("selCatReporteInv").value,
 						nombre_producto:"",
 						fk_id_proveedor:this.value,
+						estado_inventario:document.getElementById("selEstadoInv").value
 					};
 				}	
 				registrarDato(_URL+"reporte_inventario",datos,function(rs){
 					consola(rs);
 					//mostrarMensaje(rs);	
 					if(rs.respuesta==true){
+						repo_inve=rs.datos;
 						dibujar_reporte_inventario(rs.datos);
 						calcular_totales_inventario(rs.datos);
 					}else{
-									var tbl=document.getElementById("tblRepoInve");
-									tbl.innerHTML="";
-	
-								}
+						var tbl=document.getElementById("tblRepoInve");
+						tbl.innerHTML="";
+					}
 				});
 			});
 			agregarEvento("selSedesReporteInv","change",function(){
@@ -346,7 +357,7 @@ function iniciar_inventario(valido){
 						fk_id_categoria:document.getElementById("selCatReporteInv").value,
 						nombre_producto:document.getElementById("txtBuscarReporteInventario").value,
 						fk_id_proveedor:document.getElementById("selProvReporteInv").value,
-						
+						estado_inventario:document.getElementById("selEstadoInv").value
 					};
 				}else if(this.value!="--" && this.value!="0" && document.getElementById("txtBuscarReporteInventario").value!=""){
 					var datos={
@@ -355,6 +366,7 @@ function iniciar_inventario(valido){
 						fk_id_categoria:document.getElementById("selCatReporteInv").value,
 						nombre_producto:document.getElementById("txtBuscarReporteInventario").value,
 						fk_id_proveedor:document.getElementById("selProvReporteInv").value,
+						estado_inventario:document.getElementById("selEstadoInv").value
 					};
 				}
 				if(datos!=undefined){
@@ -363,51 +375,39 @@ function iniciar_inventario(valido){
 							mostrarMensaje(rs);
 							if(rs.respuesta==true){
 								//document.getElementById("txtBuscarReporteInventario").value="";
+
 								dibujar_reporte_inventario(rs.datos);
 								calcular_totales_inventario(rs.datos);
 
 							}else{
-											var tbl=document.getElementById("tblRepoInve");
-											tbl.innerHTML="";
+								var tbl=document.getElementById("tblRepoInve");
+								tbl.innerHTML="";
 			
-										}
+							}
 					});	
 				}
 			});
 
 			agregarEvento("agregarInv","click",function(){
-				if(fila_seleccionada==false){
-
-					if(document.getElementById("selSedesReporteInv").value==0){
-						mostrarMensaje("Debes seleccionar primero un producto y una sede");
-					}else{
-						mostrarMensaje("Debes seleccionar primero un producto ");
-					}
+				if(fila_seleccionada!=false){
+					$('#ajusteInventario, #bajoInventario, #reporteInventario, #reporteMovimientos').fadeOut('fast');
+       				$('#agregarInventario').fadeIn('slow'); 
+       				if(document.getElementById("selSedesReporteInv").value!="0" && document.getElementById("selSedesReporteInv").value!="--"){
+       					dibujar_producto_inventario(fila_seleccionada,document.getElementById("selSedesReporteInv").value,fila_seleccionada.codigo_producto);	
+       				}else{
+       					mostrarMensaje("Debes seleccionar primero una sede");
+       				}
 					
 				}else{
-					if(document.getElementById("selSedesReporteInv").value!=0){
-						$('#agregarInvSel').fadeIn('slow');
-						console.log(fila_seleccionada);
-						document.getElementById("pNomProdSeleInv").innerHTML=fila_seleccionada.nombre_producto;
-						document.getElementById("h4EmabalajeBlisterRepInv").innerHTML=fila_seleccionada.unidades_por_blister;
-						document.getElementById("h4EmabalajeRepInv").innerHTML=fila_seleccionada.unidades_por_caja;
-						document.getElementById("h4ExistenciasActualesRepInv").innerHTML=fila_seleccionada.existencias;
-						document.getElementById("hdIdSedeRepoInv").value=document.getElementById("selSedesReporteInv").value;
-						document.getElementById("hdIdProdRepoInv").value=fila_seleccionada.id;
-
-
-					}else{
-						mostrarMensaje("Debes seleccionar una sede");
-					}
-					
+					mostrarMensaje("Debes seleccionar primero un producto y una sede");
 				}
-				
+			
 			});
 
 
 			agregarEvento("btnAgregarCantidadRepoInv","click",function(){
 				var vf=obtener_valores_formulario("formAddRepoInv");
-				console.log(vf);
+				//console.log(vf);
 				if(vf.Numero[0]!=""){
 
 
@@ -512,19 +512,17 @@ function iniciar_inventario(valido){
 			agregarEvento("txtBuscarProdAjuste","change",function(e){
 				if(document.getElementById("selSedeAjuste").value!=0){
 						
-								if(this.value!=""){
-									registrarDato(_URL+"traer_productos/"+this.value+"/"+document.getElementById("selSedeAjuste").value,{},function(rs){
-										if(rs.respuesta==true){
-											for(var f in rs.datos){
-												if(rs.datos[f].codigo_producto==document.getElementById("txtBuscarProdAjuste").value){
-													dibujar_producto_ajuste(rs.datos[f]);
-
-												}
-											}		
-											
+						if(this.value!=""){
+							registrarDato(_URL+"traer_productos/"+this.value+"/"+document.getElementById("selSedeAjuste").value,{},function(rs){
+								if(rs.respuesta==true){
+									for(var f in rs.datos){
+										if(rs.datos[f].codigo_producto==document.getElementById("txtBuscarProdAjuste").value){
+											dibujar_producto_ajuste(rs.datos[f]);
 										}
-									});	
+									}		
 								}
+							});	
+						}
 							
 				}else{
 					mostrarMensaje("Debes seleccionar una sede");
@@ -534,7 +532,7 @@ function iniciar_inventario(valido){
 			agregarEvento("btnAjustarCantidad","click",function(){
 				var vf=obtener_valores_formulario("formAjuste");
 				if(vf!=false){
-					console.log(vf);
+					//console.log(vf);
 					if(vf.Select[0]!=0){
 						
 						if(vf.Numero[0]!=undefined){
@@ -567,7 +565,7 @@ function iniciar_inventario(valido){
 						};
 						
 						editarDato(_URL+"detalle_inventarios_ajuste/"+vf.Hidden[0],datos,function(rs){
-							console.log(rs);
+							//console.log(rs);
 							mostrarMensaje(rs);
 						});
 					}
@@ -583,7 +581,7 @@ function iniciar_inventario(valido){
 						fk_id_categoria:document.getElementById("selCatReporteInv").value,
 						nombre_producto:document.getElementById("txtBuscarReporteInventario").value,
 						fk_id_proveedor:document.getElementById("selProvReporteInv").value,
-
+						estado_inventario:document.getElementById("selEstadoInv").value
 					};
 				}else{
 					var datos={
@@ -592,6 +590,7 @@ function iniciar_inventario(valido){
 						fk_id_categoria:document.getElementById("selCatReporteInv").value,
 						nombre_producto:document.getElementById("txtBuscarReporteInventario").value,
 						fk_id_proveedor:document.getElementById("selProvReporteInv").value,
+						estado_inventario:document.getElementById("selEstadoInv").value
 					};
 				}	
 
@@ -601,6 +600,7 @@ function iniciar_inventario(valido){
 						fk_id_categoria:document.getElementById("selCatReporteInv").value,
 						nombre_producto:document.getElementById("txtBuscarReporteInventario").value,
 						fk_id_proveedor:document.getElementById("selProvReporteInv").value,
+						estado_inventario:document.getElementById("selEstadoInv").value
 					};
 				}else{
 					var datos={
@@ -609,6 +609,7 @@ function iniciar_inventario(valido){
 						fk_id_categoria:document.getElementById("selCatReporteInv").value,
 						nombre_producto:document.getElementById("txtBuscarReporteInventario").value,
 						fk_id_proveedor:document.getElementById("selProvReporteInv").value,
+						estado_inventario:document.getElementById("selEstadoInv").value
 					};
 				}	
 
@@ -620,8 +621,6 @@ function iniciar_inventario(valido){
 					var datos={
 						tipo:"SEDE",
 						sedes:document.getElementById("selSedesBajoInve").value
-						
-
 					};	
 					
 					datos_exportar_bajo_inv=datos;
@@ -634,7 +633,7 @@ function iniciar_inventario(valido){
 			agregarEvento("txtBuscarCampInve","keypress",function(e){
 				if(document.getElementById("selSedeAjuste").value!=""){
 						if(e.keyCode!=13){
-							console.log(this.value);
+							//console.log(this.value);
 							if(this.value!=""){
 								registrarDato(_URL+"traer_productos/"+this.value+"/"+document.getElementById("selSedesMovInv").value,{},function(rs){
 									if(rs.respuesta==true){
@@ -643,9 +642,9 @@ function iniciar_inventario(valido){
 								});	
 							}
 						}else{
-								if(this.value!=""){
-									buscar_reporte_movimientos();
-								}
+							if(this.value!=""){
+								buscar_reporte_movimientos();
+							}
 						}
 				}else{
 					//mostrarMensaje("Debes seleccionar una sede");
@@ -653,6 +652,7 @@ function iniciar_inventario(valido){
 			});	
 			agregarEvento("modificarInvReporte","click",function(){
 				if(fila_seleccionada!=false){
+					fila_seleccionada.id=fila_seleccionada.fk_id_producto;
 					dibujar_producto_edicion(fila_seleccionada);
 				}
 			});
@@ -660,7 +660,7 @@ function iniciar_inventario(valido){
 			agregarEvento("btnCrearProductoInventario","click",function(){
 				if(document.getElementById("selSedesReporteInv").value!="--"){
 					var vf=obtener_valores_formulario("formCrearProductoInventario");
-					console.log(vf);
+					//console.log(vf);
 					//falta por arreglar los campos que van 
 					var datos={
 							codigo_distribuidor:vf.Texto[0],
@@ -690,7 +690,7 @@ function iniciar_inventario(valido){
 						};
 
 					registrarDato(_URL+"productos_inventario",datos,function(rs){
-						console.log(rs);
+						//console.log(rs);
 						mostrarMensaje(rs);
 					},"formCrearProductoInventario");		
 				}else{
@@ -712,6 +712,7 @@ function iniciar_inventario(valido){
 			agregarEvento("accion_continuar_exportar_inv","click",exportar_inventario);
 			agregarEvento("accion_esperar_exportar_bajo_inv","click",exportar_bajo_inv);
 			agregarEvento("accion_continuar_exportar_bajo_inv","click",exportar_bajo_inv);
+
 			agregarEvento("btnInventario","click",function(){
 				if(document.getElementById("selSedesReporteInv").value==0 ){
 					var datos={
@@ -719,7 +720,7 @@ function iniciar_inventario(valido){
 						fk_id_categoria:document.getElementById("selCatReporteInv").value,
 						nombre_producto:document.getElementById("txtBuscarReporteInventario").value,
 						fk_id_proveedor:document.getElementById("selProvReporteInv").value,
-						
+						estado_inventario:document.getElementById("selEstadoInv").value
 					};
 				}else if(document.getElementById("selSedesReporteInv").value!="--" && document.getElementById("selSedesReporteInv").value!="0" ){
 					var datos={
@@ -728,6 +729,7 @@ function iniciar_inventario(valido){
 						fk_id_categoria:document.getElementById("selCatReporteInv").value,
 						nombre_producto:document.getElementById("txtBuscarReporteInventario").value,
 						fk_id_proveedor:document.getElementById("selProvReporteInv").value,
+						estado_inventario:document.getElementById("selEstadoInv").value
 					};
 				}
 				if(datos!=undefined){
@@ -738,8 +740,9 @@ function iniciar_inventario(valido){
 								//document.getElementById("txtBuscarReporteInventario").value="";
 								
 								arr=chunkArray(rs.datos,200);
-								console.log(arr);
+								//console.log(arr);
 								repo_inve_todo=arr;
+								repo_inve=arr[0];
 								crear_sel_paginas(arr.length);
 								dibujar_reporte_inventario(arr[0]);
 								calcular_totales_inventario(arr[0]);
@@ -753,29 +756,7 @@ function iniciar_inventario(valido){
 				}
 			});
 
-			/*agregarEvento("cod_repo_inv","click",ordenar_codigo);
-			agregarEvento("nom_repo_inv","click",ordenar_nombre);
 			
-			agregarEvento("cos_repo_inv","click",ordenar_costo);	
-			
-			agregarEvento("pre_repo_inv","click",ordenar_precio_venta);
-			
-			agregarEvento("exi_repo_inv","click",ordenar_existencias_inv);
-
-			agregarEvento("exi_uni_repo_inv","click",ordenar_existencias_inv_uni);
-
-			agregarEvento("hora_repo_mov","click",ordenar_hora_movimiento);
-			
-			agregarEvento("nom_repo_mov","click",ordenar_nombre_mov);
-
-			agregarEvento("cod_repo_bajo","click",ordenar_codigo_bajo_inv);
-			agregarEvento("nom_repo_bajo","click",ordenar_nombre_bajo_inv);
-			agregarEvento("pre_repo_bajo","click",ordenar_precio_venta_bajo_inv);
-			agregarEvento("inv_repo_bajo","click",ordenar_cj_bajo_inv);
-			agregarEvento("inv_uni_repo_bajo","click",ordenar_un_bajo_inv);			
-				
-			agregarEvento("cat_repo_bajo","click",ordenar_categoria);*/
-
 	}else{
 		mostrarMensaje("No tiene permisos para usar esta seccion");
 	}
@@ -790,11 +771,7 @@ function calcular_precio_compra(){
 
  document.getElementById("txt_pre_com_bli").value=txt_pre_com/txt_uni_cj;
  
- document.getElementById("txt_pre_com_uni").value=txt_pre_com/txt_uni_bl;
-
-
-
- 
+ document.getElementById("txt_pre_com_uni").value=txt_pre_com/txt_uni_bl; 
 }
 
 function dibujar_reporte_bajo_en_inventario(dt){
@@ -834,12 +811,9 @@ function dibujar_reporte_bajo_en_inventario(dt){
 		td.setAttribute("onclick","ordenar_un_bajo_inv()");
 		tr.appendChild(td);
 
-		
-
 		var td=document.createElement("td");
 		td.innerHTML="Minimo de existencias";
 		tr.appendChild(td);
-
 
 		var td=document.createElement("td");
 		td.innerHTML="Categoria ↑↓";
@@ -852,9 +826,8 @@ function dibujar_reporte_bajo_en_inventario(dt){
 
 
 	for(var f in dt){
-		console.log(dt[f]);
-		var tr=document.createElement("tr");
-		
+		//console.log(dt[f]);
+		var tr=document.createElement("tr");		
 
 		var td=document.createElement("td");
 		td.innerHTML=dt[f].codigo_producto;
@@ -889,7 +862,7 @@ function dibujar_reporte_bajo_en_inventario(dt){
 
 function consultar_categorias(){
 	consultarDatos(_URL+"departamentos",{},function(rs){
-		console.log(rs);
+		//console.log(rs);
 		if(rs.respuesta==true){
 			crear_select_categorias("selCatReporteInv",rs.datos);
 			crear_select_categorias("selNuevaCatgorias",rs.datos);
@@ -897,29 +870,50 @@ function consultar_categorias(){
 		
 	});
 }
-function dibujar_producto_inventario(d){
-	console.log(d);
+function dibujar_producto_inventario(d,sede,cod_prod){
+	//console.log(d);
 	var tipo="";
+	if(sede!=undefined && cod_prod != undefined){
+		for(var f in document.getElementById("selSedesAddInv").options){
+			
+			if(document.getElementById("selSedesAddInv").options[f].value==sede){
+
+				document.getElementById("selSedesAddInv").options[f].selected=true;
+			}
+		}
+
+		document.getElementById("txtBuscarProductoInventario").value=cod_prod;
+	}
+
+
 	if(d.tipo_venta_producto=="PorUnidad"){
 		tipo="Unidades.";
 		document.getElementById("liEmbalaje").style.display="none";
 		document.getElementById("h4Emabalaje").innerHTML=d.unidades_por_caja+" unidad";
-		
 		document.getElementById("liTipoCj").style.display="";
+		document.getElementById("liPrecioVC").style.display="none";
+		document.getElementById("liPrecioBL").style.display="none";
+		document.getElementById("num_pre_venta_un").value=d.precio_mayoreo_sede;
+	
 		
 	}else if(d.tipo_venta_producto=="Caja"){
 
 		document.getElementById("h4Emabalaje").innerHTML=d.unidades_por_caja+" unidades X CAJA";
 		document.getElementById("liEmbalaje").style.display="none";
-		
 		document.getElementById("liTipoCj").style.display="";
-		
+		document.getElementById("liPrecioBL").style.display="none";
+		document.getElementById("num_pre_venta_cj").value=d.precio_venta_sede;
+		document.getElementById("num_pre_venta_bl").value=d.precio_venta_blister_sede;
+		document.getElementById("num_pre_venta_un").value=d.precio_mayoreo_sede;
 		tipo="Unidades";
 	}else if(d.tipo_venta_producto=="CajaBlister"){
 		document.getElementById("liEmbalaje").style.display="";
 		document.getElementById("h4Emabalaje").innerHTML=d.unidades_por_caja+" blister X CAJA";
 		document.getElementById("h4EmabalajeBlister").innerHTML=d.unidades_por_blister+" unidades X BLISTER";		
 		document.getElementById("liTipoCj").style.display="";
+		document.getElementById("num_pre_venta_cj").value=d.precio_venta_sede;
+		document.getElementById("num_pre_venta_bl").value=d.precio_venta_blister_sede;
+		document.getElementById("liPrecioUN").style.display="none";
 		
 		tipo="Unidades";
 	}
@@ -933,8 +927,7 @@ function dibujar_producto_inventario(d){
 	document.getElementById("num_pre_venta_cj").value=d.precio_venta_sede;
 	document.getElementById("num_pre_venta_bl").value=d.precio_venta_blister_sede;
 	document.getElementById("num_pre_venta_un").value=d.precio_mayoreo_sede;
-	
-	
+		
 
 }
 
@@ -993,8 +986,6 @@ function dibujar_reporte_movimiento(dt){
 		td.innerHTML="Observaciones";
 		tr.appendChild(td);
 		
-
-
 		tbl.appendChild(tr);
 
 		for(var f in dt){
@@ -1045,18 +1036,21 @@ function dibujar_reporte_movimiento(dt){
 			tr.appendChild(td);
 
 			tbl.appendChild(tr);
-			console.log(dt[f]);
+			//console.log(dt[f]);
 		}
 }
 
-function dibujar_reporte_inventario(dt){
-
-		
+function dibujar_reporte_inventario(dt){		
 
 		var tbl=document.getElementById("tblRepoInve");
 		tbl.innerHTML="";
 		var tr=document.createElement("tr");
 		
+		var td=document.createElement("td");
+		td.innerHTML="#";
+		
+		tr.appendChild(td);
+
 		var td=document.createElement("td");
 		td.innerHTML="Código producto ↑↓";
 		td.setAttribute("id","cod_repo_inv");
@@ -1092,8 +1086,6 @@ function dibujar_reporte_inventario(dt){
 		td.setAttribute("id","pre_repo_inv");
 		//td.setAttribute("onclick","ordenar_precio_venta()");
 		tr.appendChild(td);
-
-
 
 		var td=document.createElement("td");
 		td.innerHTML="Uni X caja";
@@ -1131,14 +1123,18 @@ function dibujar_reporte_inventario(dt){
 			tr.appendChild(td);		
 		}
 
-
 		tbl.appendChild(tr);
 	for(var f in dt){
-		console.log(dt[f]);
+		//console.log(dt[f]);
 		var tr=document.createElement("tr");
 		tr.setAttribute("id","fila_inv_"+f);
 		tr.setAttribute("name","fila_inv");
 		tr.setAttribute("onclick","seleccionar_fila("+dt[f].codigo_producto+","+f+")");
+
+		var td=document.createElement("td");
+		td.innerHTML=Number(f)+1;
+		tr.appendChild(td);
+
 
 		var td=document.createElement("td");
 		
@@ -1386,18 +1382,18 @@ function seleccionar_fila(id,pos){
 	console.log("fila_inv_"+pos)
 	var ele=document.getElementById("fila_inv_"+pos);
 	
-	console.log(ele.childNodes);
-	/*registrarDato(_URL+"traer_productos/"+id+"/"+document.getElementById("selSedesReporteInv").value,{},function(rs){
-		if(rs.respuesta==true){
-			dibujar_producto_edicion(rs.datos[0]);	
+	//console.log(ele.childNodes);
+	registrarDato(_URL+"traer_productos/"+id+"/"+document.getElementById("selSedesReporteInv").value,{},function(rs){
+		//if(rs.respuesta==true){
+			///dibujar_producto_edicion(rs.datos[0]);	
 			fila_seleccionada=rs.datos[0];
-		}
+		//}
 		
-	});*/
+	});
 
 	var filas=document.getElementsByName("fila_inv");
 	for(var i in filas){
-		console.log(filas[i].nodeType);
+		//console.log(filas[i].nodeType);
 		if(filas[i].nodeType==1){
 			if(filas[i].id=="fila_inv_"+pos){
 				filas[i].style.background='blue';
@@ -1407,22 +1403,24 @@ function seleccionar_fila(id,pos){
 		}
 		
 	}
-
-
 }
 
 function calcular_totales_inventario(dt){
 	var cuantos_productos=0;
 	var total_inventario=0;
 	var sub_total=0;
+	var total_productos=Object.keys(dt).length;
 	for(var f in dt){
 		cuantos_productos+=Number(dt[f].total_existencias_unidades);
 		sub_total=Number(dt[f].precio_compra)*Number(dt[f].total_existencias);
 		total_inventario+=sub_total;
 		sub_total=0;
 	}
+	
 	document.getElementById("h3CostoProdInv").innerHTML="$ "+formato_numero(total_inventario,"2",",",".");
 	document.getElementById("h3TotalProductosInv").innerHTML=cuantos_productos;
+	document.getElementById("h3NumProductosInv").innerHTML=Number(total_productos);
+	
 }
 function dibujar_producto_ajuste(d){
 	document.getElementById("hdIdAjusteProd").value=d.id;
@@ -1437,31 +1435,31 @@ function buscar_reporte_movimientos(datos){
 		var fil=[];
 		var fil2=[];
 
-			if(document.getElementById("dtBuscarFechaMovInv").value!=""){
-				fil.push(["movimientos_inventario.created_at",
-								">=",
-							document.getElementById("dtBuscarFechaMovInv").value+" 00:00:00"]);	
-				fil.push(["movimientos_inventario.created_at",
-									"<=",
-									document.getElementById("dtBuscarFechaMovInv").value+" 23:59:59"]);	
-			}
-			if(document.getElementById("selMovInvCajeros").value!=0){
-				fil.push(["users.id","=",document.getElementById("selMovInvCajeros").value]);
-			}	
+		if(document.getElementById("dtBuscarFechaMovInv").value!=""){
+			fil.push(["movimientos_inventario.created_at",
+					">=",
+				document.getElementById("dtBuscarFechaMovInv").value+" 00:00:00"]);	
+			fil.push(["movimientos_inventario.created_at",
+					"<=",
+					document.getElementById("dtBuscarFechaMovInv").value+" 23:59:59"]);	
+		}
+		if(document.getElementById("selMovInvCajeros").value!=0){
+			fil.push(["users.id","=",document.getElementById("selMovInvCajeros").value]);
+		}	
 
-			if(document.getElementById("txtBuscarCampInve").value!=""){
-				fil.push(["productos.codigo_producto","LIKE",document.getElementById("txtBuscarCampInve").value]);
-			}
+		if(document.getElementById("txtBuscarCampInve").value!=""){
+			fil.push(["productos.codigo_producto","LIKE",document.getElementById("txtBuscarCampInve").value]);
+		}
 
-			if(document.getElementById("selMovInvCate").value!=0){
-				fil.push(["departamentos.id","=",document.getElementById("selMovInvCate").value]);
-			}
-			if(document.getElementById("selMovInv").value!="TODOS"){
-				fil.push(["tipo","=",document.getElementById("selMovInv").value]);	
-			}
-			if(document.getElementById("selSedesMovInv").value!=0){
-				fil.push(["sedes.id","=",document.getElementById("selSedesMovInv").value]);		
-			}	
+		if(document.getElementById("selMovInvCate").value!=0){
+			fil.push(["departamentos.id","=",document.getElementById("selMovInvCate").value]);
+		}
+		if(document.getElementById("selMovInv").value!="TODOS"){
+			fil.push(["tipo","=",document.getElementById("selMovInv").value]);	
+		}
+		if(document.getElementById("selSedesMovInv").value!=0){
+			fil.push(["sedes.id","=",document.getElementById("selSedesMovInv").value]);		
+		}	
 
 
 		
@@ -1469,9 +1467,6 @@ function buscar_reporte_movimientos(datos){
 			var datos={
 				tipo:"GENERAL",
 				filtro:fil
-				
-				
-
 			};	
 		}else{
 				
@@ -1481,8 +1476,8 @@ function buscar_reporte_movimientos(datos){
 				filtro:fil
 			};
 		}
-		console.log(datos);
-	registrarDato(_URL+"reporte_movimientos_inventario",datos,function(rs){
+		//console.log(datos);
+		registrarDato(_URL+"reporte_movimientos_inventario",datos,function(rs){
 			consola(rs);	
 			if(rs.respuesta==true){
 				dibujar_reporte_movimiento(rs.datos);	
@@ -1496,7 +1491,7 @@ function buscar_reporte_movimientos(datos){
 function ocultar(){
 	var ele=document.getElementsByName("tipo_entrada_rep_inv");
 	for(var e in ele){
-		console.log(ele[e]);
+		//console.log(ele[e]);
 		//ele[e].style.display='none'
 	}
 
@@ -1513,88 +1508,67 @@ function mostrar(valor){
 }
 function ordenar_codigo(){
 	if(orden=="ASC"){
-						orden="DESC";
-						repo_inve=repo_inve.sort(function (a, b){
-
-						if ( a.codigo_producto < b.codigo_producto )
-	  							return -1;
-	    				if ( a.codigo_producto > b.codigo_producto )
-	      						return 1;
-	    						return 0;
-					});
-						
-
-	
-				}else{
-					orden="ASC";
-					repo_inve=repo_inve.sort(function (a, b){
-
-						if ( a.codigo_producto > b.codigo_producto )
-	  							return -1;
-	    				if ( a.codigo_producto < b.codigo_producto )
-	      						return 1;
-	    						return 0;
-					});	
-				}	
-				
-
-				dibujar_reporte_inventario(repo_inve);
+		orden="DESC";
+		repo_inve=repo_inve.sort(function (a, b){
+			if ( a.codigo_producto < b.codigo_producto )
+				return -1;
+			if ( a.codigo_producto > b.codigo_producto )
+				return 1;
+				return 0;
+			});
+	}else{
+		orden="ASC";
+		repo_inve=repo_inve.sort(function (a, b){
+		if ( a.codigo_producto > b.codigo_producto )
+			return -1;
+		if ( a.codigo_producto < b.codigo_producto )
+			return 1;
+			return 0;
+		});	
+	}	
+	dibujar_reporte_inventario(repo_inve);
 }
 function ordenar_nombre(){
 
-				if(orden=="ASC"){
-						orden="DESC";
-						repo_inve=repo_inve.sort(function (a, b){
-
-						if ( a.nombre_producto < b.nombre_producto )
-	  							return -1;
-	    				if ( a.nombre_producto > b.nombre_producto )
-	      						return 1;
-	    						return 0;
-					});
+	if(orden=="ASC"){
+		orden="DESC";
+		repo_inve=repo_inve.sort(function (a, b){
+ 		 	if ( a.nombre_producto < b.nombre_producto )
+				return -1;
+			if ( a.nombre_producto > b.nombre_producto )
+				return 1;
+ 	 			return 0;
+	    });
 						
-
-	
-				}else{
-					orden="ASC";
-					repo_inve=repo_inve.sort(function (a, b){
-
-						if ( a.nombre_producto > b.nombre_producto )
-	  							return -1;
-	    				if ( a.nombre_producto < b.nombre_producto )
-	      						return 1;
-	    						return 0;
-					});	
-				}	
-				
-
-				dibujar_reporte_inventario(repo_inve);
-			}
+	}else{
+		orden="ASC";
+		repo_inve=repo_inve.sort(function (a, b){
+			if ( a.nombre_producto > b.nombre_producto )
+				return -1;
+			if ( a.nombre_producto < b.nombre_producto )
+				return 1;
+				return 0;
+				});	
+	}	
+	dibujar_reporte_inventario(repo_inve);
+}
 function ordenar_costo(){
 
-				if(orden=="ASC"){
-						orden="DESC";
-						repo_inve=repo_inve.sort(function (a, b){
-
-						return (  b.precio_compra - a.precio_compra )
-	  							 
-	    				
-					});
-						
-
-	
-				}else{
-					orden="ASC";
-					repo_inve=repo_inve.sort(function (a, b){
-
-						return ( a.precio_compra - b.precio_compra )
-	  					
-					});	
-				}	
+	if(orden=="ASC"){
+		orden="DESC";
+		repo_inve=repo_inve.sort(function (a, b){
+			return (  b.precio_compra - a.precio_compra )
+		});
+	}else{
+		orden="ASC";
+		repo_inve=repo_inve.sort(function (a, b){
+			return ( a.precio_compra - b.precio_compra )
+		});	
+	}	
 				
 
-				dibujar_reporte_inventario(repo_inve);
-			}			
+	dibujar_reporte_inventario(repo_inve);
+}			
 
 function ordenar_precio_venta(){
 
@@ -1620,7 +1594,7 @@ function ordenar_precio_venta(){
 				
 
 				dibujar_reporte_inventario(repo_inve);
-			}
+}
 function ordenar_existencias_inv(){
 
 				if(orden=="ASC"){
@@ -1645,7 +1619,7 @@ function ordenar_existencias_inv(){
 				
 
 				dibujar_reporte_inventario(repo_inve);
-			}			
+}			
 function ordenar_existencias_inv_uni(){
 
 				if(orden=="ASC"){
@@ -1670,7 +1644,7 @@ function ordenar_existencias_inv_uni(){
 				
 
 				dibujar_reporte_inventario(repo_inve);
-			}			
+}			
 function ordenar_hora_movimiento(){
 					if(orden=="ASC"){
 						orden="DESC";
@@ -1696,7 +1670,7 @@ function ordenar_hora_movimiento(){
 						
 					
 					dibujar_reporte_movimiento(repo_mov);
-			}			
+}			
 function ordenar_nombre_mov(){
 					if(orden=="ASC"){
 						orden="DESC";
@@ -1722,7 +1696,7 @@ function ordenar_nombre_mov(){
 						
 					
 					dibujar_reporte_movimiento(repo_mov);
-			}			
+}			
 function ordenar_codigo_bajo_inv(){
 					if(orden=="ASC"){
 						orden="DESC";
@@ -1747,7 +1721,7 @@ function ordenar_codigo_bajo_inv(){
 					}
 				
 					dibujar_reporte_bajo_en_inventario(repo_bajo);
-			}			
+}			
 function ordenar_nombre_bajo_inv(){
 					if(orden=="ASC"){
 						orden="DESC";
@@ -1772,7 +1746,7 @@ function ordenar_nombre_bajo_inv(){
 					}
 				
 					dibujar_reporte_bajo_en_inventario(repo_bajo);
-			}			
+}			
 function ordenar_precio_venta_bajo_inv(){
 					if(orden=="ASC"){
 						orden="DESC";
@@ -1790,7 +1764,7 @@ function ordenar_precio_venta_bajo_inv(){
 					}	
 				
 					dibujar_reporte_bajo_en_inventario(repo_bajo);
-			}			
+}			
 function ordenar_cj_bajo_inv(){
 					if(orden=="ASC"){
 						orden="DESC";
@@ -1808,7 +1782,7 @@ function ordenar_cj_bajo_inv(){
 					}	
 				
 					dibujar_reporte_bajo_en_inventario(repo_bajo);
-			}			
+}			
 function ordenar_un_bajo_inv(){
 					if(orden=="ASC"){
 						orden="DESC";
@@ -1826,7 +1800,7 @@ function ordenar_un_bajo_inv(){
 					}	
 					
 					dibujar_reporte_bajo_en_inventario(repo_bajo);
-			}			
+}			
 function ordenar_categoria(){
 					if(orden=="ASC"){
 						orden="DESC";
@@ -1851,7 +1825,7 @@ function ordenar_categoria(){
 					}
 				
 					dibujar_reporte_bajo_en_inventario(repo_bajo);
-			}			
+}			
 function exportar_inventario(){
 
 
@@ -1868,6 +1842,7 @@ function exportar_inventario(){
 		if(rs.respuesta==true){
 			$('#mensaje_exportar_inv').fadeOut("fast");
 			var li=document.getElementById("aDirExportacionRepoInv");
+			li.innerHTML="";
 			var a=document.createElement("a");
 			a.innerHTML=rs.direccion;
 			a.href=_URL+"archivos/exportacion/excel/"+rs.direccion;
@@ -1890,7 +1865,7 @@ function exportar_bajo_inv(){
 	registrarDato(_URL+"exportar/reporte_bajo_inventario",datos_exportar_bajo_inv,function(rs){
 						consola(rs);	
 						if(rs.respuesta==true){
-							console.log(rs);
+							//console.log(rs);
 							$('.mascara, #mensaje_exportar_bajo_inv').fadeOut("fast");
 							mostrarMensaje(rs);
 							var liExpoBajoInv=document.getElementById("aExpoBajoInv");
@@ -1919,10 +1894,10 @@ function exportar_bajo_inv(){
 function editar_informacion(campo,id_producto,id_producto_inventario){
 	
 	var sel=document.getElementById("selSedesReporteInv").value;
-	console.log(sel);
+	//console.log(sel);
 
-	console.log(document.getElementById(campo+"_"+id_producto+"_"+id_producto_inventario));
-	console.log(document.getElementById(campo+"_"+id_producto+"_"+id_producto_inventario).value);
+	//console.log(document.getElementById(campo+"_"+id_producto+"_"+id_producto_inventario));
+	//console.log(document.getElementById(campo+"_"+id_producto+"_"+id_producto_inventario).value);
 	if(document.getElementById(campo+"_"+id_producto+"_"+id_producto_inventario).value!=""){
 		registrarDato(_URL+"editar_informacion",{campo:campo,
 											  valor:document.getElementById(campo+"_"+id_producto+"_"+id_producto_inventario).value,
@@ -1931,7 +1906,7 @@ function editar_informacion(campo,id_producto,id_producto_inventario){
 											  id_producto_inventario:id_producto_inventario,
 											  usuario:_usuario.id_usuario
 											},function(rs){
-												console.log(rs);
+												//console.log(rs);
 												if(rs.respuesta==false){
 													mostrarMensaje(rs);
 												}

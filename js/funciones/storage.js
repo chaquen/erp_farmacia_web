@@ -42,7 +42,7 @@ function agregar_local_storage(nombre,datos){
         localStorage.setItem("fecha_creacion",JSON.stringify(horaCliente()));   
      }else{
         localStorage.setItem(nombre,JSON.stringify(datos));   
-        console.log(localStorage);
+        //console.log(localStorage);
      }
      
 }

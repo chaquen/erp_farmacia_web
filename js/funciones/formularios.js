@@ -22,7 +22,7 @@ function obtener_valores_formulario(idFormulario){
         
         for(var i=0; i<=tam-1 ;i++){
             
-          //console.log(elementos[i]);
+          ////console.log(elementos[i]);
           if(elementos[i] != undefined){
               
               if( elementos[i].type != "button" && elementos[i].required && elementos[i].value==""){
@@ -30,13 +30,13 @@ function obtener_valores_formulario(idFormulario){
                  if(elementos[i].type == "file"){
                      mostrarMensaje({mensaje:"Debes ingresar un archivo"});
                  }
-                 console.log(elementos[i]);
-                 console.log("umm ");
+                 //console.log(elementos[i]);
+                 //console.log("umm ");
                  return false;
                  break;
               }
-                //console.log(elementos[i].type);
-                //console.log(elementos[i].value);
+                ////console.log(elementos[i].type);
+                ////console.log(elementos[i].value);
                 
                     elementos[i].style.borderColor="";
                         switch(elementos[i].type){
@@ -44,7 +44,7 @@ function obtener_valores_formulario(idFormulario){
                                 txt.push(elementos[i].value);
                                 break;
                             case "select-one":
-                                //console.log(elementos[i].value);
+                                ////console.log(elementos[i].value);
 
                                  
                                       sel.push(elementos[i].value);
@@ -56,7 +56,7 @@ function obtener_valores_formulario(idFormulario){
                                   }*/
                                 break;
                              case "button":
-                                //console.log("SOY UN BOTTON");
+                                ////console.log("SOY UN BOTTON");
                                 break;   
                              case "checkbox":
                                 if(elementos[i].checked==true){
@@ -92,7 +92,7 @@ function obtener_valores_formulario(idFormulario){
                           case "file":
 
                               var nombreArchivo=elementos[i].value.split("\\");
-                              //console.log(elementos[i].value.split('\\'));
+                              ////console.log(elementos[i].value.split('\\'));
                               //archivo.push(nombreArchivo[2]);
                               archivo.push(elementos[i].files);
                               break;
@@ -130,12 +130,12 @@ function obtener_valores_formulario(idFormulario){
         arregloElementos.Clave=clave;
         arregloElementos.Hora=hora;
         arregloElementos.Numero=number;
-        //console.log("ELEMENTOS DEL ARREGLO");
-        console.log(arregloElementos);
+        ////console.log("ELEMENTOS DEL ARREGLO");
+        //console.log(arregloElementos);
         return arregloElementos;
     }
     else{
-        console.log(formulario);
+        //console.log(formulario);
         return false;
     }
 }
@@ -175,26 +175,26 @@ function validar_campo_formulario(e,name){
 
 function obtener_valores_filas_tabla(id){
     var valores=[];
-    console.log(document.getElementById(id));
+    //console.log(document.getElementById(id));
     var n=document.getElementById(id).childNodes;
-    console.log(n);
-    console.log(n.childNodes);
-    console.log(n.firstChild);
+    //console.log(n);
+    //console.log(n.childNodes);
+    //console.log(n.firstChild);
     
     for(var e in n){
-        console.log(n[e].nodeName);
-        console.log(n[e].firstElementChild);
+        //console.log(n[e].nodeName);
+        //console.log(n[e].firstElementChild);
         if(n[e].nodeName=="TD"){
                 var el=n[e];    
-                console.log(n[e].firstElementChild);
+                //console.log(n[e].firstElementChild);
                 if(el.firstElementChild!=null){
-                         console.log(el.firstElementChild.value);	
+                         //console.log(el.firstElementChild.value);	
                          valores.push(el.firstElementChild.value);
                 }
 
             }
     }
-    console.log(valores);
+    //console.log(valores);
     return valores;
     
     
@@ -210,16 +210,16 @@ function limpiar_elemento(id){
 /*Funcion para limpiar un formulario*/
 function limpiarFormulario(idForm){
     var form=document.getElementById(idForm);
-    console.log(form);
+    //console.log(form);
     if(form!=null){
             for(var i in form.elements){
 
             if(form.elements[i].nodeName == "TEXTAREA"){
                 form.elements[i].value="";  
             }
-            //console.log(form.elements[i].type);
-            //console.log(form.elements[i].checked);
-            //console.log(form.elements[i].value);
+            ////console.log(form.elements[i].type);
+            ////console.log(form.elements[i].checked);
+            ////console.log(form.elements[i].value);
 
 
             switch(form.elements[i].type){
@@ -251,6 +251,6 @@ function limpiarFormulario(idForm){
         }
     }
     
-    console.log(form);
-    console.log(idForm);
+    //console.log(form);
+    //console.log(idForm);
  }   

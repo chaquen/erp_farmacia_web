@@ -5,7 +5,7 @@ if(valido){
 		var vf=obtener_valores_formulario("formSedes");
 		if(vf!=false){
 			var hor=[];
-			console.log(vf);
+			//console.log(vf);
 			if(document.getElementById("dia1").checked){
 				hor.push(["LUNES",document.getElementById("horA1").value,document.getElementById("horC1").value]);
 			}
@@ -56,7 +56,7 @@ if(valido){
 
 	agregarEvento("selEditarSede","change",function(){
 		
-			console.log(document.getElementById("selEditarSede").value);
+			//console.log(document.getElementById("selEditarSede").value);
 		
 			var datos={};
 			var valor_consulta=document.getElementById("selEditarSede").value;
@@ -127,14 +127,14 @@ function dibujar_sede_edicion(rs){
 	document.getElementById("cod_sede").value=rs.datos[0].codigo_sede;
 
 	var horario=eval(rs.datos[0].horario);
-	console.log(horario);
+	//console.log(horario);
 	var pos;
 	for(var e in horario){
-		console.log(Number(e)+1);
+		//console.log(Number(e)+1);
 		pos=Number(e)+1;
-		console.log(horario[e]);
-		console.log(document.getElementById("horEDA"+pos));
-		console.log(document.getElementById("horEDC"+pos));
+		//console.log(horario[e]);
+		//console.log(document.getElementById("horEDA"+pos));
+		//console.log(document.getElementById("horEDC"+pos));
 		document.getElementById("horEDA"+pos).value=horario[e][1];
 		document.getElementById("horEDC"+pos).value=horario[e][2]
 	}

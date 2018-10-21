@@ -2,7 +2,7 @@ function iniciar_cajeros(valido){
 	if(valido){
 			agregarEvento("btnCrearCajero","click",function(){
 			var vf=obtener_valores_formulario("formCrearCajero");
-			console.log(vf);
+			//console.log(vf);
 			if(vf.Select[1]!=0){
 				var datos={
 					nombres:vf.Texto[0],
@@ -24,7 +24,7 @@ function iniciar_cajeros(valido){
 			
 		});
 		agregarEvento("cod_venta","change",function(){
-			console.log(this.value);
+			//console.log(this.value);
 			if(this.value!=""){
 				for(var c in cajeros){
 					if(cajeros[c].codigo_venta==this.value){
@@ -41,7 +41,7 @@ function iniciar_cajeros(valido){
 	agregarEvento("selCajerosEdi","change",function(){
 		if(this.value!=0){
 			consultarDatos(_URL+"mostrar_user_id/"+this.value,{},function(rs){
-				console.log(rs);
+				//console.log(rs);
 				if(rs.respuesta==true){
 					dibujar_cajero_edicion(rs.datos,rs.datos_sede);
 				}
@@ -51,9 +51,9 @@ function iniciar_cajeros(valido){
 
 	agregarEvento("btnEditarCajero","click",function(){
 		var vf=obtener_valores_formulario("formEditarCajero");
-		console.log(vf);
+		//console.log(vf);
 		if(vf!=false){
-			console.log(vf);
+			//console.log(vf);
 			var clave=false;
 			var aso_sede=false;
 			if(document.getElementById("passClave1").value != "" && document.getElementById("passClave2").value != ""  ){

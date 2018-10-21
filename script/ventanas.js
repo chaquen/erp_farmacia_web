@@ -160,7 +160,7 @@ $(document).ready(function(){
     });
     //Agregar Inventario
     $('#agregarI').click(function(){
-        $('#ajusteInventario, #bajoInventario, #reporteInventario, #reporteMovimientos').fadeOut('fast');
+       $('#ajusteInventario, #bajoInventario, #reporteInventario, #reporteMovimientos').fadeOut('fast');
        $('#agregarInventario').fadeIn('slow'); 
     });
     //Ajustar Inventario

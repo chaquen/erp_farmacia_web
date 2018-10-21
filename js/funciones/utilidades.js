@@ -177,7 +177,7 @@ function ayer(){
             break;   
          } 
     }
-    console.log(anio+"-"+(mes)+"-"+(dia));
+    //console.log(anio+"-"+(mes)+"-"+(dia));
     return anio+"-"+(mes)+"-"+(dia);
 }
 /*function esta_semana(){
@@ -434,10 +434,10 @@ function este_mes(){
 function agregarEvento(idElemento,evento,funcion){
     if(document.getElementById(idElemento)!=null){
         
-        /*console.log("Nombre evento ");
-        console.log(evento);
-        console.log("Funcion ");
-        console.log(funcion);*/
+        /*//console.log("Nombre evento ");
+        //console.log(evento);
+        //console.log("Funcion ");
+        //console.log(funcion);*/
         
         document.getElementById(idElemento).addEventListener(evento,funcion,false);
         if(evento=="click"){
@@ -447,14 +447,14 @@ function agregarEvento(idElemento,evento,funcion){
         
         
     }else{
-        /*console.log("ERROR");
-        console.log("Nombre evento ");
-        console.log(evento);
-        console.log("Funcion ");
-        console.log(funcion);
-        console.log("-Elemento");
-        console.log(idElemento);
-        console.log("el elemento no existe");*/
+        /*//console.log("ERROR");
+        //console.log("Nombre evento ");
+        //console.log(evento);
+        //console.log("Funcion ");
+        //console.log(funcion);
+        //console.log("-Elemento");
+        //console.log(idElemento);
+        //console.log("el elemento no existe");*/
     }
     
 } 
@@ -472,9 +472,9 @@ function redireccionar(url){
     location.href=url;
 }
 function imprimir(datos){
-    console.log(datos);
-    console.log(datos.respuesta);
-    console.log(datos.valores_consultados);
+    //console.log(datos);
+    //console.log(datos.respuesta);
+    //console.log(datos.valores_consultados);
     
 }
 function imprimir_en_documento(datos){
@@ -523,7 +523,7 @@ function consultar_menu_rol(u){
 function dibujar_menu(d){
     var dat=d.valores_consultados;
     for(var d in dat){
-        console.log(dat[d]);
+        //console.log(dat[d]);
         if(dat[d].Crear==0){
             if(dat[d].IdCrear!=""){
                 $("#"+dat[d].IdCrear).hide();
@@ -641,7 +641,7 @@ function cambiarAccion(){
 }
 
 function consola(info){
-    console.log(info);
+    //console.log(info);
 }
 function obtener_valor_elemento_id(id){
     return document.getElementById(id).value;
@@ -663,77 +663,77 @@ function control_de_teclas(){
                 switch(e.which){
                     case 49:
                       //CRTL+1
-                      console.log("acción para CTRL+1 y evitar que ejecute la acción propia del navegador");
+                      //console.log("acción para CTRL+1 y evitar que ejecute la acción propia del navegador");
                       return false;
                         break;
                     case 50:
                       //CRTL+2
-                      console.log("acción para CTRL+2 y evitar que ejecute la acción propia del navegador");
+                      //console.log("acción para CTRL+2 y evitar que ejecute la acción propia del navegador");
                       return false;
                         break;
                      case 51:
                       //CRTL+3
-                      console.log("acción para CTRL+3 y evitar que ejecute la acción propia del navegador");
+                      //console.log("acción para CTRL+3 y evitar que ejecute la acción propia del navegador");
                       return false;
                         break;
                      case 52:
                       //CRTL+4
-                      console.log("acción para CTRL+4 y evitar que ejecute la acción propia del navegador");
+                      //console.log("acción para CTRL+4 y evitar que ejecute la acción propia del navegador");
                       return false;
                         break;
                     case 53:
                       //CRTL+5
-                      console.log("acción para CTRL+5 y evitar que ejecute la acción propia del navegador");
+                      //console.log("acción para CTRL+5 y evitar que ejecute la acción propia del navegador");
                       return false;
                         break;
                     case 54:
                       //CRTL+6
-                      console.log("acción para CTRL+6 y evitar que ejecute la acción propia del navegador");
+                      //console.log("acción para CTRL+6 y evitar que ejecute la acción propia del navegador");
                       return false;
                         break;
                     case 55:
                       //CRTL+7
-                      console.log("acción para CTRL+7 y evitar que ejecute la acción propia del navegador");
+                      //console.log("acción para CTRL+7 y evitar que ejecute la acción propia del navegador");
                       return false;
                         break;
                     case 56:
                       //CRTL+8
-                      console.log("acción para CTRL+8 y evitar que ejecute la acción propia del navegador");
+                      //console.log("acción para CTRL+8 y evitar que ejecute la acción propia del navegador");
                       return false;
                         break;
                     case 57:
                       //CRTL+9
-                      console.log("acción para CTRL+9 y evitar que ejecute la acción propia del navegador");
+                      //console.log("acción para CTRL+9 y evitar que ejecute la acción propia del navegador");
                       return false;
                         break;           
                     case 83:
                     //S
-                    console.log("acción para CTRL+S y evitar que ejecute la acción propia del navegador");
+                    //console.log("acción para CTRL+S y evitar que ejecute la acción propia del navegador");
                     //return false;            
                     break;
                     case 82:
                     //R
                     
-                    console.log("acción para CTRL+R y evitar que ejecute la acción propia del navegador");
+                    //console.log("acción para CTRL+R y evitar que ejecute la acción propia del navegador");
                     return false;
                     break;
                     case 86:
-                      console.log("acción para CTRL+V y evitar que ejecute la acción propia del navegador");
+                      //console.log("acción para CTRL+V y evitar que ejecute la acción propia del navegador");
                       //agregar_boton_ticket(1);
                       break;
                       case 67:
-                      console.log("acción para CTRL+C y evitar que ejecute la acción propia del navegador");
+                      //console.log("acción para CTRL+C y evitar que ejecute la acción propia del navegador");
                      /* if(confirm("¿Desea registrar esta factura?")){
                         crear_factura();  
                       }*/
                       
                     break;
                     case 69:
-                      console.log("acción para CTRL+E y evitar que ejecute la acción propia del navegador");
+                      //console.log("acción para CTRL+E y evitar que ejecute la acción propia del navegador");
                      // eliminar_ticket(_numero_ticket);
                     break;  
                     default:
-                        console.log("acción para CTRL+"+e.which+" y evitar que ejecute la acción propia del navegador");
+                        //console.log("acción para CTRL+"+e.which+" y evitar que ejecute la acción propia del navegador");
 
                         //return false;
                     break;
@@ -748,7 +748,7 @@ function crear_data_list_cliente(id_data_list,datos){
   var dtl=document.getElementById(id_data_list);
   dtl.innerHTML="";
   for(var o in datos){
-      console.log(datos[o].campo_inner_html);
+      //console.log(datos[o].campo_inner_html);
       var opt=document.createElement("option");
       opt.innerHTML=datos[o].nombre_cliente;
       opt.value=datos[o].documento;
@@ -759,7 +759,7 @@ function crear_data_list_producto(id_data_list,datos){
   var dtl=document.getElementById(id_data_list);
   dtl.innerHTML="";
   for(var o in datos){
-      console.log(datos[o]);
+      //console.log(datos[o]);
       var opt=document.createElement("option");
       opt.innerHTML=datos[o].nombre_producto;
       opt.value=datos[o].codigo_producto;
@@ -770,7 +770,7 @@ function crear_data_list_categoria(id_data_list,datos){
   var dtl=document.getElementById(id_data_list);
   dtl.innerHTML="";
   for(var o in datos){
-      console.log(datos[o]);
+      //console.log(datos[o]);
       var opt=document.createElement("option");
       opt.innerHTML=datos[o].nombre_departamento;
       opt.value=datos[o].nombre_departamento;
@@ -781,7 +781,7 @@ function crear_data_list_clientes(id_data_list,datos){
   var dtl=document.getElementById(id_data_list);
   dtl.innerHTML="";
   for(var o in datos){
-      console.log(datos[o]);
+      //console.log(datos[o]);
       var opt=document.createElement("option");
       opt.innerHTML=datos[o].nombre_cliente;
       opt.value=datos[o].documento+"-"+datos[o].id;
@@ -865,7 +865,7 @@ function crear_select_roles(id_select,datos){
 
         }
   }else{
-    console.log(id_select+"No existe");
+    //console.log(id_select+"No existe");
   }
     
 }

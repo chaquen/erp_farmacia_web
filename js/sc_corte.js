@@ -142,7 +142,7 @@ function dibujar_dinero_en_caja(datos){
 	var h3_salidas_otros=document.getElementById("h3_salidas_otros");
 
 
-	console.log(datos.pagos_de_contado[0]);
+	//console.log(datos.pagos_de_contado[0]);
 	if(datos.pagos_de_contado[0].total_factura!=undefined){
 		h3_ventas_en_efectivo.innerHTML="$ "+formato_numero(datos.pagos_de_contado[0].total_factura,"2",",",".")+" + ";
 		h3_ventas_en_efectivo.value=datos.pagos_de_contado[0].total_factura;
@@ -150,11 +150,11 @@ function dibujar_dinero_en_caja(datos){
 		h3_ventas_en_efectivo.innerHTML="$ 0.00";
 		h3_ventas_en_efectivo.value=0;
 	}
-	console.log(document.getElementById("h3_total_entrada_de_dinero").innerHTML);
+	//console.log(document.getElementById("h3_total_entrada_de_dinero").innerHTML);
 	h3_entrada_dinero.innerHTML=document.getElementById("h3_total_entrada_de_dinero").innerHTML+" + ";
 	h3_entrada_dinero.value=document.getElementById("h3_total_entrada_de_dinero").value;
 
-	console.log(datos.salidas_dinero_caja[0].total_salida);
+	//console.log(datos.salidas_dinero_caja[0].total_salida);
 	if(datos.salidas_dinero_caja[0].total_salida!=null){
 		h3_salidas_de_dinero.innerHTML="$ "+formato_numero(datos.salidas_dinero_caja[0].total_salida,"2",",",".")+" - ";
 		h3_salidas_de_dinero.value=Number(datos.salidas_dinero_caja[0].total_salida);
@@ -186,7 +186,7 @@ function dibujar_dinero_en_caja(datos){
 		h3_salidas_otros.innerHTML="$ 0.00";
 		h3_salidas_otros.value="0";
 	}
-	console.log(h3_salidas_de_dinero.value);
+	//console.log(h3_salidas_de_dinero.value);
 	var total=Number(h3_ventas_en_efectivo.value)+Number(h3_entrada_dinero.value)-Number(h3_salidas_de_dinero.value)-Number(h3_prestamos_dinero.value)-Number(h3_salidas_facturaso.value)-Number(h3_salidas_otros.value);
 
 	h3_total_entradas.innerHTML="$ "+formato_numero(total,"2",",",".");
@@ -201,7 +201,7 @@ function pagos_de_contado(datos){
 	var h3AbonoCliente=document.getElementById("h3AbonoCliente");
 	var h3_efectivo=document.getElementById("h3_efectivo");
 	var h3_total_pagos_de_contado=document.getElementById("h3_total_pagos_de_contado");
-	console.log(datos.pagos_de_contado[0]);
+	//console.log(datos.pagos_de_contado[0]);
 	if(datos.pagos_de_contado[0].total_factura!=undefined){
 		h3_efectivo.innerHTML="$ "+formato_numero(datos.pagos_de_contado[0].total_factura,"2",",",".");
 		h3_efectivo.value=datos.pagos_de_contado[0].total_factura;
@@ -209,7 +209,7 @@ function pagos_de_contado(datos){
 		h3_efectivo.innerHTML="$ 0.00";
 		h3_efectivo.value=0;
 	}
-	console.log(datos.pago_de_clientes[0].total_abonos);
+	//console.log(datos.pago_de_clientes[0].total_abonos);
 	if(datos.pago_de_clientes[0].total_abonos!=null){
 		h3AbonoCliente.innerHTML="$ "+formato_numero(datos.pago_de_clientes[0].total_abonos,"2",",",".");
 		h3AbonoCliente.value=datos.pago_de_clientes[0].total_abonos;	
@@ -223,7 +223,7 @@ function pagos_de_contado(datos){
 }
 
 function vemtas_por_departamento(dat){
-	console.log(datos);
+	//console.log(datos);
 		var tbl=document.getElementById("tbl_ventas_por_categoria");
 		tbl.innerHTML="";
 		var tr=document.createElement("tr");
@@ -256,7 +256,7 @@ function calcular_total_ventas_corte(){
 	document.getElementById("h1_ventas_totales").innerHTML="$ "+formato_numero(document.getElementById("h3_efectivo").value,"2",",",".");
 }
 function ganancia_dia(dat){
-  console.log(dat.ganancias_venta_dia);
+  //console.log(dat.ganancias_venta_dia);
   var dt=dat.ganancias_venta_dia;
   var total_ganancia=0;
   var imp=0;
@@ -277,20 +277,20 @@ function ganancia_dia(dat){
 	imp=(pre_compra*(Number(dt[f].impuesto)/100));
     difercnia=dt[f].valor_item-pre_compra-imp;  	
   	total_ganancia+=(difercnia)*dt[f].cantidad_producto;
-  	console.log("===============");
-  	console.log(dt[f].codigo_producto);
-  	console.log(dt[f].tipo_venta);
-  	console.log(pre_compra);
-  	console.log(dt[f].impuesto);
-  	console.log(imp);
-  	console.log(dt[f].valor_item);
-  	console.log(difercnia);
-  	console.log(dt[f].cantidad_producto);
-  	console.log(total_ganancia);
-  	console.log("===============");
+  	//console.log("===============");
+  	//console.log(dt[f].codigo_producto);
+  	//console.log(dt[f].tipo_venta);
+  	//console.log(pre_compra);
+  	//console.log(dt[f].impuesto);
+  	//console.log(imp);
+  	//console.log(dt[f].valor_item);
+  	//console.log(difercnia);
+  	//console.log(dt[f].cantidad_producto);
+  	//console.log(total_ganancia);
+  	//console.log("===============");
 
   }
-  console.log(total_ganancia);
+  //console.log(total_ganancia);
   document.getElementById("h1_ganancia_dia").innerHTML="$ "+formato_numero(total_ganancia,"2",",",".");
 
 }

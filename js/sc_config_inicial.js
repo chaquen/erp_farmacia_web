@@ -171,7 +171,7 @@ function dibujar_tabla_permisos(datos){
 	var divTablasPermisos=document.getElementById("divTablasPermisos");
 	divTablasPermisos.innerHTML="";
 	for(var p in datos){
-		console.log(datos[p]);
+		//console.log(datos[p]);
 		var tabla=document.createElement("table");
 		tabla.className="tblPermisos";
 		
@@ -185,7 +185,7 @@ function dibujar_tabla_permisos(datos){
 		tabla.appendChild(tr);
 		
 		for(var dp in datos[p].permisos){
-			console.log(datos[p].permisos[dp]);
+			//console.log(datos[p].permisos[dp]);
 			var tr=document.createElement("tr");
 			
 			var td=document.createElement("td");
@@ -225,7 +225,7 @@ function consulta_inicial(){
 
 			if(_usuario.fk_id_rol==7){
 				for(var s  in rs.sedes){
-					console.log(rs.sedes[s]);
+					//console.log(rs.sedes[s]);
 					if(rs.sedes[s].id==_IdSede){
 
 						rs.sedes=rs.sedes[s];
@@ -297,7 +297,7 @@ function consulta_inicial(){
 
 				var selEntrada=document.getElementById("selEntrada");
 				for(var f in selEntrada.childNodes){
-					console.log(selEntrada.childNodes[f]);
+					//console.log(selEntrada.childNodes[f]);
 					if(selEntrada.childNodes[f].innerHTML=="CajaInicial"){
 						selEntrada.childNodes[f].selected=true;
 					}
@@ -311,14 +311,14 @@ function consulta_inicial(){
 	});
 }
 function validar_permiso(datos){
-	console.log(datos);
+	//console.log(datos);
 	for(var p in datos){
 		if(datos[p].estado_accion==0){
 			var elementos=datos[p].elementos.split(",");
 			if(elementos!=null){
-				console.log(elementos);
+				//console.log(elementos);
 				for(var e in elementos){
-					console.log(elementos[e]);
+					//console.log(elementos[e]);
 					document.getElementById(elementos[e]).style.display="none";
 				}
 			}
@@ -338,7 +338,7 @@ function consultar_hora(){
 function consultar_sedes(){
 
 	consultarDatos(_URL+"sedes",{},function(rs){
-		console.log(rs);
+		//console.log(rs);
 		if(rs.respuesta==true){
 			crear_select_sedes("selSedesMovInv",rs.datos);
 			crear_select_sedes("selSedesReporteInv",rs.datos);	
@@ -362,7 +362,7 @@ function consultar_sedes(){
 	});
 }
 function cargar_lista_cajeros(){
-	console.log(_URL);
+	//console.log(_URL);
 	consultarDatos(_URL+"mostrar_cajeros/"+_IdSede,{},function(rs){
 		if(rs.respuesta==true){
 			cajeros=rs.datos;
@@ -375,7 +375,7 @@ function cargar_lista_cajeros(){
 	});
 }
 function cargar_lista_administradores(){
-	console.log(_URL);
+	//console.log(_URL);
 	consultarDatos(_URL+"mostrar_administradores",{},function(rs){
 		if(rs.respuesta==true){
 			crear_select_roles("selAdminSede",rs.datos);
@@ -387,7 +387,7 @@ function cargar_lista_administradores(){
 	});
 }
 function cargar_roles(){
-	console.log(_URL);
+	//console.log(_URL);
 	consultarDatos(_URL+"roles",{},function(rs){
 		if(rs.respuesta==true){
 			crear_select_ver_roles("selRoles",rs.datos);
@@ -412,7 +412,7 @@ function consultar_categorias(){
 }
 
 function consultar_proveedores(){
-	console.log(_URL);
+	//console.log(_URL);
 	consultarDatos(_URL+"proveedores",{},function(rs){
 		if(rs.respuesta==true){
 			crear_select_proveedores("selPredidoProveedor",rs.datos);

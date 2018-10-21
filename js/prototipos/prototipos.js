@@ -13,7 +13,7 @@ function miObjetoAjax(url,datos,peticion){
     this.peticion_ajax=funPeticion;    
     this.peticion_ajax_upload=funPeticionUpload;
     this.hora_cliente=horaCliente();
-    console.log(this.url);
+    //console.log(this.url);
 }
 
 
